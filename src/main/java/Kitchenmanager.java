@@ -27,11 +27,12 @@ public class Kitchenmanager extends JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        MainPanel = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        ViewPanel = new javax.swing.JScrollPane();
         ScrollBar = new javax.swing.JScrollBar();
         Menu = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
@@ -42,24 +43,11 @@ public class Kitchenmanager extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kitchen Manager");
         setMinimumSize(new java.awt.Dimension(1280, 720));
+        setName("MainFrame"); // NOI18N
 
-        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
-        MainPanel.setLayout(MainPanelLayout);
-        MainPanelLayout.setHorizontalGroup(
-                MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE));
-        MainPanelLayout.setVerticalGroup(
-                MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE));
+        ScrollBar.setForeground(new java.awt.Color(30, 30, 30));
 
-        ScrollBar.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                ScrollBarMouseWheelMoved(evt);
-            }
-        });
-
+        Menu.setBorder(null);
         Menu.setMaximumSize(new java.awt.Dimension(70, 23));
 
         File.setText("File");
@@ -96,8 +84,7 @@ public class Kitchenmanager extends JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
@@ -105,11 +92,12 @@ public class Kitchenmanager extends JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addComponent(ScrollBar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 542,
+                                                Short.MAX_VALUE)
+                                        .addComponent(ScrollBar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,10 +109,6 @@ public class Kitchenmanager extends JFrame {
     private void ImportCsvActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ImportCsvActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_ImportCsvActionPerformed
-
-    private void ScrollBarMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {// GEN-FIRST:event_ScrollBarMouseWheelMoved
-        // TODO add your handling code here:
-    }// GEN-LAST:event_ScrollBarMouseWheelMoved
 
     /**
      * @param args the command line arguments
@@ -160,9 +144,8 @@ public class Kitchenmanager extends JFrame {
     private javax.swing.JMenu File;
     private javax.swing.JMenu Help;
     private javax.swing.JMenuItem ImportCsv;
-    private javax.swing.JPanel MainPanel;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JScrollBar ScrollBar;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane ViewPanel;
     // End of variables declaration//GEN-END:variables
 }
