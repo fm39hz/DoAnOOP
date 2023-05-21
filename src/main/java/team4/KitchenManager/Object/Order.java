@@ -1,4 +1,4 @@
-package team4.Object;
+package team4.KitchenManager.Object;
 
 import java.sql.Date;
 import java.sql.Time;

@@ -1,3 +1,5 @@
+package team4.KitchenManager;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
