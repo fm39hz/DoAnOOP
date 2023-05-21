@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Kitchenmanager extends JFrame {
+public class KitchenManager extends JFrame {
     private JMenuBar Menu = new JMenuBar();
     private JMenu File = new JMenu();
     private JMenu Help = new JMenu();
@@ -12,8 +12,10 @@ public class Kitchenmanager extends JFrame {
     private JScrollBar ScrollBar = new JScrollBar();
     private JScrollPane ViewPanel = new JScrollPane();
 
-    public Kitchenmanager() {
-        Init();
+    public KitchenManager() {
+        InitComponent();
+        SetLayout();
+        pack();
         }
 
     public static void main(String args[]) {
@@ -24,12 +26,12 @@ public class Kitchenmanager extends JFrame {
             }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Kitchenmanager().setVisible(true);
+                new KitchenManager().setVisible(true);
                 }
             });
         }
 
-    private void Init() {
+    private void InitComponent() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Kitchen Manager");
         this.setMinimumSize(new Dimension(1280, 720));
@@ -74,8 +76,6 @@ public class Kitchenmanager extends JFrame {
         Menu.add(Help);
 
         this.setJMenuBar(Menu);
-        this.SetLayout();
-        this.pack();
         }
     private void SetLayout(){
         GroupLayout layout = new GroupLayout(getContentPane());
