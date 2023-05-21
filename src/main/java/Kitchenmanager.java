@@ -22,8 +22,8 @@ public class KitchenManager extends JFrame {
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(new FlatMacDarkLaf());
-            } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception themeException) {
+            themeException.printStackTrace();
             }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -57,7 +57,7 @@ public class KitchenManager extends JFrame {
         ExportCsv.setToolTipText("Xuất file dưới dạng csv");
         ExportCsv.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent evt) {
+            public void actionPerformed(ActionEvent buttonEvent) {
                 //ExportCsvActionPerformed(evt);
                 }
             });
@@ -67,7 +67,7 @@ public class KitchenManager extends JFrame {
         ImportCsv.setToolTipText("Nhập file dưới dạng csv");
         ImportCsv.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent evt) {
+            public void actionPerformed(ActionEvent buttonEvent) {
                 //ImportCsvActionPerformed(evt);
                 }
             });
