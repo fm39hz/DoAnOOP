@@ -1,7 +1,7 @@
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class KitchenManager extends JFrame {
     private JMenuBar Menu = new JMenuBar();
@@ -13,8 +13,9 @@ public class KitchenManager extends JFrame {
     private JScrollPane ViewPanel = new JScrollPane();
 
     public KitchenManager() {
+        InitWindow();
         InitComponent();
-        SetLayout();
+        InitLayout();
         pack();
         }
 
@@ -30,13 +31,15 @@ public class KitchenManager extends JFrame {
                 }
             });
         }
-
-    private void InitComponent() {
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    
+    private void InitWindow(){
+        this.setName("MainFrame");
         this.setTitle("Kitchen Manager");
         this.setMinimumSize(new Dimension(1280, 720));
-        this.setName("MainFrame");
-        
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        }
+
+    private void InitComponent() {
         ViewPanel.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent wheelEvent) {
@@ -77,7 +80,7 @@ public class KitchenManager extends JFrame {
 
         this.setJMenuBar(Menu);
         }
-    private void SetLayout(){
+    private void InitLayout(){
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
