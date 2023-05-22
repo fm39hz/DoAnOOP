@@ -12,7 +12,9 @@ public class KitchenManager extends JFrame {
     private JMenuItem ExportCsv = new JMenuItem();
     private JMenuItem ImportCsv = new JMenuItem();
     private JScrollBar ScrollBar = new JScrollBar();
-    private JScrollPane ViewPanel = new JScrollPane();
+    private JTabbedPane MainView = new JTabbedPane();
+    private JScrollPane Tab1 = new JScrollPane();
+    private JScrollPane Tab2 = new JScrollPane();
 
     public KitchenManager() {
         InitWindow();
@@ -42,12 +44,11 @@ public class KitchenManager extends JFrame {
         }
 
     private void InitComponent() {
-        ViewPanel.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent wheelEvent) {
-                ScrollBar.setValue(ScrollBar.getValue() + (int)wheelEvent.getPreciseWheelRotation());
-                }
-            });
+        this.SetMouseWheel(Tab1);
+        this.SetMouseWheel(Tab2);
+
+        MainView.addTab("Tab 1", Tab1);
+        MainView.addTab("Tab 2", Tab2);
 
         Menu.setBorder(null);
         Menu.setMaximumSize(new Dimension(70, 23));
@@ -60,7 +61,7 @@ public class KitchenManager extends JFrame {
         ExportCsv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent buttonEvent) {
-                //ExportCsvActionPerformed(evt);
+                //System.out.println("Export CSV");
                 }
             });
         File.add(ExportCsv);
@@ -70,7 +71,7 @@ public class KitchenManager extends JFrame {
         ImportCsv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent buttonEvent) {
-                //ImportCsvActionPerformed(evt);
+                //System.out.println("Import CSV");
                 }
             });
         File.add(ImportCsv);
@@ -88,16 +89,24 @@ public class KitchenManager extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(ViewPanel, GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
+                    .addComponent(MainView, GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
                     .addComponent(ScrollBar, GroupLayout.PREFERRED_SIZE,
                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(ViewPanel, GroupLayout.DEFAULT_SIZE, 542,
+                        .addComponent(MainView, GroupLayout.DEFAULT_SIZE, 542,
                             Short.MAX_VALUE)
                         .addComponent(ScrollBar, GroupLayout.DEFAULT_SIZE,
                             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
+        }
+    private void SetMouseWheel(Component component){
+        component.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent wheelEvent) {
+                ScrollBar.setValue(ScrollBar.getValue() + wheelEvent.getWheelRotation());
+                }
+            });
         }
     }
