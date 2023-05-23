@@ -10,4 +10,11 @@ public class Dishes {
     private int Cost;
     private int Price;
     private List<Quantity> quantities;
+
+    public Dishes(int ID, String Name, int Cost, List<Quantity> quantities) {
+        this.ID = ID;
+        this.Name = Name;
+        this.Cost = Cost;
+        this.quantities = quantities;
+    }
 }
