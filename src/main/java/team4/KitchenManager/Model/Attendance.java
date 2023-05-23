@@ -1,12 +1,13 @@
-package team4.KitchenManager.Object;
+package team4.KitchenManager.Model;
 
 import java.sql.Time;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Attendance {
-    private int ID;
+@EqualsAndHashCode(callSuper=true)
+public class Attendance extends BaseModel{
     private int Employee;
     private Date Day;
     private Time CheckIn;
