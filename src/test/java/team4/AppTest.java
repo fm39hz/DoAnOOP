@@ -1,28 +1,17 @@
 package team4;
 
-// import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import team4.KitchenManager.Object.Dishes;
+import static org.junit.Assert.assertEquals;
+import team4.KitchenManager.DatabaseConnector;
+import team4.KitchenManager.DatabaseConnector.Url;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest 
 {
-    Dishes _test = new Dishes();
-    // /**
-    //  * Rigorous Test :-)
-    //  */
-    // @Test
-    // public void shouldAnswerWithTrue()
-    // {
-    //     assertTrue( true );
-    // }
+    DatabaseConnector _testdb;
     @Test
-    public void DishesTest()
+    public void ConectionTest()
     {
-        _test.setCost(250);
-        assertEquals(_test.getCost(),250);
+        _testdb = new DatabaseConnector(Url.MariaDB, "root", "");
+        assertEquals(_testdb.getConnectionState(), true);
     }
 }
