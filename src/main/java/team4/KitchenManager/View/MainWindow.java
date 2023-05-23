@@ -1,11 +1,11 @@
-package team4.KitchenManager;
+package team4.KitchenManager.View;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
-public class KitchenManager extends JFrame {
+public class MainWindow extends JFrame {
     private JMenuBar Menu = new JMenuBar();
     private JMenu File = new JMenu();
     private JMenu Help = new JMenu();
@@ -16,7 +16,7 @@ public class KitchenManager extends JFrame {
     private JScrollPane Tab1 = new JScrollPane();
     private JScrollPane Tab2 = new JScrollPane();
 
-    public KitchenManager() {
+    public MainWindow() {
         InitWindow();
         InitComponent();
         InitLayout();
@@ -31,7 +31,7 @@ public class KitchenManager extends JFrame {
             }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new KitchenManager().setVisible(true);
+                new MainWindow().setVisible(true);
                 }
             });
         }
