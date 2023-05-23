@@ -9,5 +9,5 @@ public class Dishes {
     private String Name;
     private int Cost;
     private int Price;
-    private List<Quantity> quantities;
+    private List<Quantity> Quantities;
 }
