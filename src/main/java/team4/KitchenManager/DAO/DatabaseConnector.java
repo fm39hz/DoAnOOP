@@ -1,4 +1,4 @@
-package team4.KitchenManager;
+package team4.KitchenManager.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
