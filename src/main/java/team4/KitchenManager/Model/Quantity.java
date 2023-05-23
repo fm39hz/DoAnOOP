@@ -4,11 +4,12 @@ import java.util.HashMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
-public class Quantity extends BaseModel{
+@NoArgsConstructor
+public class Quantity{
+    private int ID;
     private HashMap<Ingredient, Integer> Table;
 }

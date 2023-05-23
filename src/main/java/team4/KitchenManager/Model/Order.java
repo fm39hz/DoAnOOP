@@ -5,12 +5,13 @@ import java.sql.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
-public class Order extends BaseModel{
+@NoArgsConstructor
+public class Order{
+    private int ID;
     private Date CreatedDay;
     private Time CreatedTime;
     private int OrderCount;

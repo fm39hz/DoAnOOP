@@ -2,12 +2,17 @@ package team4.KitchenManager.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
-public class Customers extends BaseModel{
+@NoArgsConstructor
+public class Customers{
+    private int ID;
     private String Name;
     private String Phone;
+    @Override
+    public String toString(){
+        return "Customer " + this.ID + " name " + this.Name + ", Numbers: " + this.Phone;
+        }
 }

@@ -2,12 +2,13 @@ package team4.KitchenManager.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
-public class Ingredient extends BaseModel{
+@NoArgsConstructor
+public class Ingredient{
+    private int ID;
     private String Name;
     private int InStock;
     private int Cost;

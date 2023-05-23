@@ -5,12 +5,13 @@ import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
-public class Attendance extends BaseModel{
+@NoArgsConstructor
+public class Attendance{
+    private int ID;
     private int Employee;
     private Date Day;
     private Time CheckIn;
