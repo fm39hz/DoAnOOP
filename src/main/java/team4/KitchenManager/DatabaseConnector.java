@@ -10,7 +10,7 @@ import lombok.Data;
 public class DatabaseConnector {
     public class Url{
         public static final String MariaDB = "jdbc:mariadb://localhost:3306/kitchenmanager";
-        public static final String MySql = "jdbc:m://localhost:3306/kitchenmanager";
+        public static final String MySql = "jdbc:mysql://localhost:3306/kitchenmanager";
         }
     private Boolean ConnectionState = true;
     private Connection Connector;
