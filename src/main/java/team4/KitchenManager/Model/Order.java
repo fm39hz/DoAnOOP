@@ -15,4 +15,8 @@ public class Order{
     private Date CreatedDay;
     private Time CreatedTime;
     private int OrderCount;
-}
+    @Override
+    public String toString(){
+        return "orders";
+        }
+    }

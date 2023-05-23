@@ -13,6 +13,6 @@ public class Customers{
     private String Phone;
     @Override
     public String toString(){
-        return "Customer " + this.ID + " name " + this.Name + ", Numbers: " + this.Phone;
+        return "customers";
         }
-}
+    }

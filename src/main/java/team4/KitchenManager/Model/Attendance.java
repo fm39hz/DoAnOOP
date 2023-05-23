@@ -15,4 +15,8 @@ public class Attendance{
     private int Employee;
     private Date Day;
     private Time CheckIn;
-}
+    @Override
+    public String toString(){
+        return "attendances";
+        }
+    }

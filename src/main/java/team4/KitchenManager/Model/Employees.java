@@ -13,4 +13,8 @@ public class Employees{
     private String Phone;
     private String Position;
     private int Salary;
-}
+    @Override
+    public String toString(){
+        return "employees";
+        }
+    }

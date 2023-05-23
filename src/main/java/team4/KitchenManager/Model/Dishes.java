@@ -15,4 +15,8 @@ public class Dishes{
     private int Cost;
     private int Price;
     private List<Quantity> Quantities;
+    @Override
+    public String toString(){
+        return "dishes";
+        }
     }

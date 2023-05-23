@@ -12,4 +12,8 @@ import lombok.NoArgsConstructor;
 public class Quantity{
     private int ID;
     private HashMap<Ingredient, Integer> Table;
-}
+    @Override
+    public String toString(){
+        return "quantities";
+        }
+    }
