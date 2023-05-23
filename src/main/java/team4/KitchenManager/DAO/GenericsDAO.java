@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
-import team4.KitchenManager.DatabaseConnector;
 
 @Data
-public class DAO <T> {
+public class GenericsDAO <T> {
     DatabaseConnector Connector;
     List<T> ItemList = new ArrayList<>();
-    public DAO(){
+    public GenericsDAO(){
         Connector = new DatabaseConnector();
         }
     
@@ -43,7 +42,7 @@ public class DAO <T> {
             }
         return statement;
         }
-        
+
     private String PostStringBuilder(Field[] _property){
         String _sqlString = "";
             for (int i = 0 ; i < _property.length; i++){
