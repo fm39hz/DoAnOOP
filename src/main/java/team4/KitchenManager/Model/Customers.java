@@ -7,12 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customers{
+public class Customers implements HasID{
     private int ID;
     private String Name;
     private String Phone;
     @Override
     public String toString(){
         return "customers";
+        }
+    @Override
+    public int GetInstanceID() {
+        return this.getID();
         }
     }

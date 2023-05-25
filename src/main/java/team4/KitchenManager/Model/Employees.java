@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employees{
+public class Employees implements HasID{
     private int ID;
     private String Name;
     private String Phone;
@@ -16,5 +16,9 @@ public class Employees{
     @Override
     public String toString(){
         return "employees";
+        }
+    @Override
+    public int GetInstanceID() {
+        return this.getID();
         }
     }

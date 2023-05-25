@@ -1,7 +1,5 @@
 package team4.KitchenManager.Model;
 
-import java.util.HashMap;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quantity{
+public class IngredientQuantity implements HasID{
     private int ID;
-    private HashMap<Ingredient, Integer> Table;
+    private Ingredient IngredientName;
+    private int Quantity;
     @Override
     public String toString(){
         return "quantities";
+        }
+    @Override
+    public int GetInstanceID() {
+        return this.getID();
         }
     }

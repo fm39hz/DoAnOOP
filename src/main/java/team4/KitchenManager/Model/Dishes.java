@@ -9,14 +9,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Dishes{
+public class Dishes implements HasID{
     private int ID;
     private String Name;
     private int Cost;
     private int Price;
-    private List<Quantity> Quantities;
+    private List<IngredientQuantity> Quantities;
     @Override
     public String toString(){
         return "dishes";
+        }
+    @Override
+    public int GetInstanceID() {
+        return this.getID();
         }
     }

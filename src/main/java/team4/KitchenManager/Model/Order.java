@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order{
+public class Order implements HasID{
     private int ID;
     private Date CreatedDay;
     private Time CreatedTime;
@@ -18,5 +18,9 @@ public class Order{
     @Override
     public String toString(){
         return "orders";
+        }
+    @Override
+    public int GetInstanceID() {
+        return this.getID();
         }
     }
