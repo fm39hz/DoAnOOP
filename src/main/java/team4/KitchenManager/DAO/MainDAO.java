@@ -17,12 +17,14 @@ public class MainDAO{
     public DatabaseConnector getConnector(){
         return this.Connector;
         }
+    public Boolean getConnectionState(){
+        return this.Connector.getConnectionState();
+        }
     public void Add(Object object) throws SQLException {
         var _class = object.getClass();
         var _property = _class.getDeclaredFields();
         var _query  = "INSERT INTO " + object.toString() + " (" + PostStringBuilder(_property);
         var _statement = Connector.getConnector().prepareStatement(_query);
-            System.out.println(_query);
             for (int i = 0; i < _property.length; i++) {
                 try {
                     var _value = _class.getMethod(GetGetterMethod(_property[i].getName())).invoke(object);
@@ -70,18 +72,19 @@ public class MainDAO{
             while(_resultSet.next()){
                 for (int i = 0; i < _property.length; i++){
                     try{
-                        var _result = GetValue(tempObject.getClass(), _resultSet, i + 1);
-                        _class.getMethod(GetSetterMethod(_property[i].getName())).invoke(tempObject, _result);
+                        var _result = GetValue(_property[i].getType(), _resultSet, i + 1);
+                        _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType()).invoke(tempObject, _result);
                         } catch (Exception exception){
                             exception.printStackTrace();
                             return null;
                             }
                     }
+                System.out.println("Got 1 item satisfied at: " + tempObject);
                 }
         return tempObject;
         }
     //Các hàm static để sử dụng nội bộ trong class
-    private PreparedStatement SetValue(Object value, PreparedStatement statement, int index) throws SQLException {
+    private static PreparedStatement SetValue(Object value, PreparedStatement statement, int index) throws SQLException {
         var _propertyType = value.getClass();
             if (_propertyType == String.class){
                 statement.setString(index, (String)value);
@@ -95,7 +98,7 @@ public class MainDAO{
         if (propertyType == String.class){
             return (T)resultSet.getString(index);
             }
-        else if (propertyType == Integer.class){
+        else if (propertyType == int.class){
             Integer _value = resultSet.getInt(index);
             return (T)_value;
             }
@@ -124,12 +127,12 @@ public class MainDAO{
         return _sqlString;
         }
     private static String GetGetterMethod(String fieldName) {
-        return "get" + Upcase(fieldName);
+        return "get" + MatchNamingRules(fieldName);
         }
     private static String GetSetterMethod(String fieldName) {
-        return "set" + Upcase(fieldName);
+        return "set" + MatchNamingRules(fieldName);
         }
-    private static String Upcase(String fieldName){
+    private static String MatchNamingRules(String fieldName){
         return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
         }
     }
