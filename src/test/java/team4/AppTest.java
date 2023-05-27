@@ -6,11 +6,7 @@ import java.sql.SQLException;
 import team4.KitchenManager.DAO.MainDAO;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import team4.KitchenManager.DAO.DatabaseConnector.Url;
-import team4.KitchenManager.Model.Attendance;
-import team4.KitchenManager.Model.Customers;
-import team4.KitchenManager.Model.Dishes;
-import team4.KitchenManager.Model.Employees;
-import team4.KitchenManager.Model.Ingredient;
+import team4.KitchenManager.Model.*;
 
 public class AppTest {
     Employees _testEmployees;
