@@ -91,30 +91,30 @@ public class MainDAO{
                 }
         return statement;
         }
-    private static <T> T GetValue(Class<T> _propertyType, ResultSet resultSet, int index) throws SQLException {
-        if (_propertyType == String.class){
+    private static <T> T GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException {
+        if (propertyType == String.class){
             return (T)resultSet.getString(index);
             }
-        else if (_propertyType == Integer.class){
+        else if (propertyType == Integer.class){
             Integer _value = resultSet.getInt(index);
             return (T)_value;
             }
         return null;
         }
-    private static String PostStringBuilder(Field[] _property){
+    private static String PostStringBuilder(Field[] property){
         var _sqlString = "";
-            for (int i = 0 ; i < _property.length; i++){
-                _sqlString += _property[i].getName();
-                if (i < _property.length - 1){
+            for (int i = 0 ; i < property.length; i++){
+                _sqlString += property[i].getName();
+                if (i < property.length - 1){
                     _sqlString += ", ";
                     }
                 else {
                     _sqlString += ") VALUES (";
                     }
                 }
-            for (int i = 0 ; i < _property.length; i++){
+            for (int i = 0 ; i < property.length; i++){
                 _sqlString += "?";
-                if (i < _property.length - 1){
+                if (i < property.length - 1){
                     _sqlString += ", ";
                     }
                 else {
