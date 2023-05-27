@@ -11,6 +11,7 @@ public class DatabaseConnector {
     public static class Url{
         public static final String MariaDB = "jdbc:mariadb://localhost:3306/kitchenmanager";
         public static final String MySql = "jdbc:mysql://localhost:3306/kitchenmanager";
+        public static final String SQLServer = "jdbc:sqlserver://localhost:1433;databaseName=Kitchen_Manager;";
         }
     private Boolean ConnectionState;
     private Connection Connector;
