@@ -110,19 +110,20 @@ public class MainDAO{
         return null;
         }
     private static String PostStringBuilder(Field[] property){
+        var _quantity = property.length;
         var _sqlString = "";
-            for (int i = 0 ; i < property.length; i++){
+            for (int i = 0 ; i < _quantity; i++){
                 _sqlString += property[i].getName();
-                if (i < property.length - 1){
+                if (i < _quantity - 1){
                     _sqlString += ", ";
                     }
                 else {
                     _sqlString += ") VALUES (";
                     }
                 }
-            for (int i = 0 ; i < property.length; i++){
+            for (int i = 0 ; i < _quantity; i++){
                 _sqlString += "?";
-                if (i < property.length - 1){
+                if (i < _quantity - 1){
                     _sqlString += ", ";
                     }
                 else {
