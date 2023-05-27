@@ -68,7 +68,6 @@ public class MainDAO{
         var _statement = Connector.getConnector().prepareStatement(_query);
             _statement.setInt(1, id);
         var _resultSet = _statement.executeQuery();
-            System.out.println(_query);
             while(_resultSet.next()){
                 for (int i = 0; i < _property.length; i++){
                     try{
