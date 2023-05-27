@@ -23,7 +23,7 @@ public class MainDAO{
     public void Add(Object object) throws SQLException {
         var _class = object.getClass();
         var _property = _class.getDeclaredFields();
-        var _query  = "INSERT INTO " + object.toString() + " (" + PostStringBuilder(_property);
+        var _query  = "INSERT INTO " + object + " (" + PostStringBuilder(_property);
         var _statement = Connector.getConnector().prepareStatement(_query);
             for (int i = 0; i < _property.length; i++) {
                 try {
@@ -35,20 +35,24 @@ public class MainDAO{
                         }
                 }
             _statement.executeQuery();
+            System.out.println("Added 1 item to table " + object);
         }
     public void Remove(Object object) throws SQLException {
+        var _id = 0;
         try{
-            var _query  = "DELETE FROM " + object.toString() + " WHERE id =?";
+            var _query  = "DELETE FROM " + object + " WHERE id = ?";
             var _statement = Connector.getConnector().prepareStatement(_query);
                 if (object instanceof HasID){
                     var _hasIDInstance = (HasID)object;
-                        _statement.setInt(1, _hasIDInstance.GetInstanceID());
+                        _id = _hasIDInstance.GetInstanceID();
+                        _statement.setInt(1, _id);
                     }
                 _statement.executeQuery();
             }
-        catch (Exception e){
-            e.printStackTrace();
+        catch (Exception exception){
+            exception.printStackTrace();
             }
+            System.out.println("deleted item with id " + _id + " at " + object);
         }
     public void Remove(String tableName, int id) throws SQLException{
         try{
@@ -59,12 +63,14 @@ public class MainDAO{
             }
         catch (Exception exception){
             exception.printStackTrace();
+            return;
             }
+            System.out.println("deleted item with id " + id + "at" + tableName);
         }
     public <T> T Get(T tempObject, int id) throws SQLException{
         var _class = tempObject.getClass();
         var _property = _class.getDeclaredFields();
-        var _query  = "SELECT * FROM " + tempObject.toString() + " WHERE id = ?";
+        var _query  = "SELECT * FROM " + tempObject + " WHERE id = ?";
         var _statement = Connector.getConnector().prepareStatement(_query);
             _statement.setInt(1, id);
         var _resultSet = _statement.executeQuery();
