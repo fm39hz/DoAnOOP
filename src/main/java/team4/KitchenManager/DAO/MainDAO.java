@@ -97,6 +97,10 @@ public class MainDAO{
             else if (_propertyType == Integer.class){
                 statement.setInt(index, (int)value);
                 }
+            else if (value instanceof HasID){
+                var _hasIDInstance = (HasID)value;
+                    statement.setInt(index, _hasIDInstance.GetInstanceID());
+                }
         return statement;
         }
     @SuppressWarnings("unchecked")
@@ -107,6 +111,8 @@ public class MainDAO{
         else if (propertyType == int.class){
             Integer _value = resultSet.getInt(index);
             return (T)_value;
+            }
+        else if (propertyType == HasID.class){
             }
         return null;
         }
