@@ -120,24 +120,20 @@ public class MainDAO{
         var _quantity = property.length;
         var _sqlString = "";
             for (int i = 0 ; i < _quantity; i++){
-                _sqlString += property[i].getName();
-                if (i < _quantity - 1){
-                    _sqlString += ", ";
-                    }
-                else {
-                    _sqlString += ") VALUES (";
-                    }
+                _sqlString += property[i].getName() + RepeatedStringBuilder(_quantity - 1, i, ", ", ") VALUES (");
                 }
             for (int i = 0 ; i < _quantity; i++){
-                _sqlString += "?";
-                if (i < _quantity - 1){
-                    _sqlString += ", ";
-                    }
-                else {
-                    _sqlString += ");";
-                    }
+                _sqlString += "?" + RepeatedStringBuilder(_quantity - 1, i, ", ", ");");
                 }
         return _sqlString;
+        }
+    private static String RepeatedStringBuilder(int frequency, int index, String repeated, String end){
+        if (frequency > index){
+            return repeated;
+            }
+        else{
+            return end;
+            }
         }
     private static String GetGetterMethod(String fieldName) {
         return "get" + MatchNamingRules(fieldName);
