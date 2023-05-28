@@ -99,6 +99,7 @@ public class MainDAO{
                 }
         return statement;
         }
+    @SuppressWarnings("unchecked")
     private static <T> T GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException {
         if (propertyType == String.class){
             return (T)resultSet.getString(index);
