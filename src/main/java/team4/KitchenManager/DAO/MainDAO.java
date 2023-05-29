@@ -70,7 +70,7 @@ public class MainDAO{
             }
             System.out.println("deleted item with id " + id + "at" + tableName);
         }
-    public <T> T Get(T tempObject, int id) throws SQLException{
+    public Object Get(Object tempObject, int id) throws SQLException{
         var _class = tempObject.getClass();
         var _property = _class.getDeclaredFields();
         var _query  = "SELECT * FROM " + tempObject + " WHERE id = ?";
