@@ -2,6 +2,8 @@ package team4;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+
+import java.sql.Date;
 import java.sql.SQLException;
 import team4.KitchenManager.DAO.MainDAO;
 import team4.KitchenManager.DAO.DatabaseConnector;
@@ -18,9 +20,9 @@ public class AppTest {
     public AppTest(){
         _testEmployees = new Employees(07, "Pham Danh Hien", "0849070703", "Staff", 10000000);
         _testcustomer = new Customers(07, "Pham Danh Hien", "0849070703");
-        _testIngredient = new Ingredient(7, "Rice", 70, 100);
+        _testIngredient = new Ingredient(7, "Rice", Date.valueOf("07-07-2022"), 70, 100);
         _testdb = new DatabaseConnector(Url.MariaDB, "root", "");
-        _testdao = new MainDAO();
+        _testdao = new MainDAO(_testdb);
         }
     // @Test
     // public void ConectionTest(){
@@ -33,7 +35,7 @@ public class AppTest {
     @Test
     public void DAOTest() throws SQLException{
         //Kiểm tra trạng thái kết nối tới database
-        assertEquals(_testdao.getConnectionState(), _testdb.getConnectionState());
+        assertEquals(_testdao.getConnectionState(), true);
         _testdao.Add(_testEmployees);
         //Lấy ra dữ liệu từ database tương ứng với class được truyền vào
         var _temp = _testdao.Get(new Employees(), 7);

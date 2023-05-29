@@ -14,6 +14,9 @@ public class MainDAO{
     public MainDAO(String url, String userName, String password){
         this.Connector = new DatabaseConnector(url, userName, password);
         }
+    public MainDAO(DatabaseConnector connector) {
+        this.Connector = connector;
+        }
     public DatabaseConnector getConnector(){
         return this.Connector;
         }
