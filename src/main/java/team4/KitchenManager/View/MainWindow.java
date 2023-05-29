@@ -11,7 +11,6 @@ public class MainWindow extends JFrame {
     private JMenu Help = new JMenu();
     private JMenuItem ExportCsv = new JMenuItem();
     private JMenuItem ImportCsv = new JMenuItem();
-    private JScrollBar ScrollBar = new JScrollBar();
     private JTabbedPane MainView = new JTabbedPane();
     private JScrollPane Tab1 = new JScrollPane();
     private JScrollPane Tab2 = new JScrollPane();
@@ -44,9 +43,6 @@ public class MainWindow extends JFrame {
         }
 
     private void InitComponent() {
-        this.SetMouseWheel(Tab1);
-        this.SetMouseWheel(Tab2);
-
         MainView.addTab("Tab 1", Tab1);
         MainView.addTab("Tab 2", Tab2);
 
@@ -84,29 +80,13 @@ public class MainWindow extends JFrame {
         this.setJMenuBar(Menu);
         }
     private void InitLayout(){
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(MainView, GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
-                    .addComponent(ScrollBar, GroupLayout.PREFERRED_SIZE,
-                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(MainView, GroupLayout.DEFAULT_SIZE, 542,
-                            Short.MAX_VALUE)
-                        .addComponent(ScrollBar, GroupLayout.DEFAULT_SIZE,
-                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
-        }
-    private void SetMouseWheel(Component component){
-        component.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent wheelEvent) {
-                ScrollBar.setValue(ScrollBar.getValue() + wheelEvent.getWheelRotation());
-                }
-            });
+        var _layout = new GroupLayout(getContentPane());
+            this.getContentPane().setLayout(_layout);
+            _layout.setHorizontalGroup(
+                _layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(MainView, GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE));
+            _layout.setVerticalGroup(
+                _layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(MainView, GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE));
         }
     }
