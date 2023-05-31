@@ -2,8 +2,16 @@ package team4.KitchenManager.View;
 
 import java.awt.*;
 import java.awt.event.*;
+// import java.sql.SQLException;
+// import java.util.ArrayList;
+// import java.util.List;
+
 import javax.swing.*;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+
+// import team4.KitchenManager.DAO.MainDAO;
+// import team4.KitchenManager.Model.Employees;
+// import team4.KitchenManager.Service.ComponentTable;
 
 public class MainWindow extends JFrame {
     private JMenuBar Menu = new JMenuBar();
@@ -35,6 +43,17 @@ public class MainWindow extends JFrame {
             });
         }
     
+    // private ComponentTable<Object> InitTable() throws SQLException{
+    //     var _testDAO = new MainDAO();
+    //     var _testEmployee1 = _testDAO.Get(new Employees(), 01);
+    //     var _testEmployee2 = _testDAO.Get(new Employees(), 07);
+    //     List<Object> _testList = new ArrayList<>();
+    //     _testList.add(_testEmployee1);
+    //     _testList.add(_testEmployee2);
+    //     var _table = new ComponentTable<Object>(Employees.class, _testList);
+    //     return _table;
+    //     }
+
     private void InitWindow(){
         this.setName("MainFrame");
         this.setTitle("Kitchen Manager");
@@ -43,6 +62,12 @@ public class MainWindow extends JFrame {
         }
 
     private void InitComponent() {
+        // try {
+        //     Tab1 = new JScrollPane(new JTable(InitTable()));
+        // } catch (SQLException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
         MainView.addTab("Tab 1", Tab1);
         MainView.addTab("Tab 2", Tab2);
 
