@@ -65,7 +65,6 @@ public class MainWindow extends JFrame {
         // try {
         //     Tab1 = new JScrollPane(new JTable(InitTable()));
         // } catch (SQLException e) {
-        //     // TODO Auto-generated catch block
         //     e.printStackTrace();
         // }
         MainView.addTab("Tab 1", Tab1);
