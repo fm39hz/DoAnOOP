@@ -1,9 +1,10 @@
 package team4.KitchenManager.Controller;
 
 import team4.KitchenManager.Model.Dishes;
-import team4.KitchenManager.Model.Quantity;
+import team4.KitchenManager.Model.IngredientQuantity;
 import team4.KitchenManager.Model.Ingredient;
 import team4.KitchenManager.DAO.DatabaseConnector;
+import team4.KitchenManager.DAO.MainDAO;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,50 +12,36 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DishesController {
+
     DatabaseConnector conn = null;
     public DishesController() {
         conn = new DatabaseConnector();
     }
-    public List<Dishes> getAllDishes() {
 
-        List<Dishes> _list = new ArrayList<>();
-        List<Quantity> _listQuantity = new ArrayList<>();
+    public class ReturnData {
+        private int id;
+        private String name;
+        private int price;
+        private int estimated_remaining;
+        private int sold;
+        private int cost;
+        public ReturnData(int id, String name, int price, int estimated_remaining, int sold, int cost) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.estimated_remaining = estimated_remaining;
+            this.sold = sold;
+            this.cost = cost;
+        }
+    }
+    public List<ReturnData> getAll() {
+        List<ReturnData> _list = new ArrayList<>();
         Ingredient _ingredient = new Ingredient();
-        Quantity _quantity = new Quantity();
+        IngredientQuantity _quantity = new IngredientQuantity();
         Dishes _dishes = new Dishes();
-//         chua co database
-//        String sql = "SELECT * FROM dishes LEFT JOIN ON dishes.quantity = quantity.id";
-//        try {
-//            CallableStatement cs = conn.getConnector().prepareCall(sql);
-//            ResultSet rs = cs.executeQuery();
-//            while (rs.next()) {
-//                int _id = rs.getInt("id");
-//                String _name = rs.getString("name");
-//                int _cost = rs.getInt("cost");
-//                int _price = rs.getInt("price");
-//                int _quantity = rs.getInt("quantity");
-//
-//            }
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, ex);
-//        }
-        _ingredient.setName("Ten nguyen lieu");
-        _ingredient.setCost(10000);
-        _ingredient.setInStock(100);
-        _ingredient.setID(1);
-
-        HashMap<Ingredient, Integer> _hashmap = new HashMap<>();
-        _hashmap.put(_ingredient,99);
-        _quantity.setTable(_hashmap);
-        _quantity.setID(1);
-        _listQuantity.add(_quantity);
-
-        _dishes.setID(1);
-        _dishes.setName("Ten dishes");
-        _dishes.setPrice(10000);
-        _dishes.setCost(100000);
-        _dishes.setQuantities(_listQuantity);
-        _list.add(_dishes);
+        List<IngredientQuantity> _listQuantity = new ArrayList<>();
+        int _estimated_remaining = this.calculateRemaining(_dishes.getID());
+//        _list.add(new ReturnData(_dishes.getID(),_dishes.getName(),_dishes.getPrice(),))
         return _list;
     }
     public int addDishes(Dishes d) {
@@ -104,7 +91,7 @@ public class DishesController {
         }
         return _dishes_count;
     }
-    public List<Dishes> findDishes(String name) {
+    public List<Dishes> findByName(String name) {
         List<Dishes> _list = new ArrayList<>();
         Dishes _dishes = new Dishes();
         String sql = "SELECT * FROM dishes WHERE name=?";
@@ -116,7 +103,7 @@ public class DishesController {
                 String _name = rs.getString("name");
                 int _cost = rs.getInt("cost");
 //                int _quantity = rs.getInt("quantity");
-                List<Quantity> _quantity = new ArrayList<>();
+                List<IngredientQuantity> _quantity = new ArrayList<>();
                 _dishes.setID(_id);
                 _dishes.setName(_name);
                 _dishes.setCost(_cost);
@@ -127,5 +114,19 @@ public class DishesController {
             JOptionPane.showMessageDialog(null, ex);
         }
         return _list;
+    }
+
+    public List<Dishes> sortBy(String by) {
+        List<Dishes> _list = new ArrayList<>();
+        Dishes _dishes = new Dishes();
+        /* TODO */
+        return _list;
+    }
+
+    public int calculateRemaining(int id) {
+        int remaining = 0;
+        /* TODO */
+        // cai nay co ve cang vcl
+        return remaining;
     }
 }
