@@ -8,14 +8,15 @@ import team4.KitchenManager.DAO.MainDAO;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DishesController {
 
     DatabaseConnector conn = null;
+    MainDAO dao = null;
     public DishesController() {
-        conn = new DatabaseConnector();
+        conn = new DatabaseConnector(DatabaseConnector.Url.MariaDB,"root","");
+        dao = new MainDAO(conn);
     }
 
     public class ReturnData {
@@ -41,7 +42,9 @@ public class DishesController {
         Dishes _dishes = new Dishes();
         List<IngredientQuantity> _listQuantity = new ArrayList<>();
         int _estimated_remaining = this.calculateRemaining(_dishes.getID());
-//        _list.add(new ReturnData(_dishes.getID(),_dishes.getName(),_dishes.getPrice(),))
+        int _sold = 0;
+        int _cost = 0;
+        _list.add(new ReturnData(_dishes.getID(),_dishes.getName(),_dishes.getPrice(),_estimated_remaining,_sold,_cost));
         return _list;
     }
     public int addDishes(Dishes d) {
@@ -124,9 +127,17 @@ public class DishesController {
     }
 
     public int calculateRemaining(int id) {
-        int remaining = 0;
-        /* TODO */
-        // cai nay co ve cang vcl
-        return remaining;
+        Dishes _dishes = new Dishes();
+        Ingredient _ingredient = new Ingredient();
+        IngredientQuantity _quantity = new IngredientQuantity();
+        int _remaining = _dishes.getQuantities().get(1).getQuantity() / _quantity.getQuantity();
+        for (IngredientQuantity quantities:_dishes.getQuantities()) {
+            int _calculate = _ingredient.getInStock() / quantities.getQuantity();
+            if (_remaining < _calculate) {
+                _remaining = _calculate;
+            }
+        }
+        /* WIP */
+        return _remaining;
     }
 }
