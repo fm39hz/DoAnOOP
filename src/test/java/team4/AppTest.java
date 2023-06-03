@@ -69,6 +69,7 @@ public class AppTest {
     @Test
     public void ComponentTableTest(){
         var _long = new Employees(01, "Ngo Tien Long", "0912222003", "Staff", 12000000);
+            Employees.class.getTypeName();
         var _empList = new ArrayList<>();
             _empList.add(_testEmployees);
             _empList.add(_long);

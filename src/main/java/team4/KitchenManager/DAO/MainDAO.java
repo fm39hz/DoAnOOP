@@ -116,6 +116,8 @@ public class MainDAO{
             return (T)_value;
             }
         else if (propertyType == HasID.class){
+            var _value = resultSet.getInt(index);
+            propertyType.getTypeName();
             }
         return null;
         }
