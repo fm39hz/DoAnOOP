@@ -2,6 +2,7 @@ package team4.KitchenManager.Model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ public class Order implements HasID{
     private int ID;
     private Date CreatedDay;
     private Time CreatedTime;
-    private int OrderCount;
+    private List<Dishes> ListDishes;
     @Override
     public String toString(){
         return "orders";
