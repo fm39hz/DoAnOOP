@@ -106,18 +106,20 @@ public class MainDAO{
                 }
         return statement;
         }
-    @SuppressWarnings("unchecked")
-    private static <T> T GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException {
+    private static <T> Object GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException, NoSuchMethodException, SecurityException {
         if (propertyType == String.class){
-            return (T)resultSet.getString(index);
+            return (Object)resultSet.getString(index);
             }
         else if (propertyType == int.class){
             Integer _value = resultSet.getInt(index);
-            return (T)_value;
+            return (Object)_value;
             }
         else if (propertyType == HasID.class){
             var _value = resultSet.getInt(index);
-            propertyType.getTypeName();
+            var constructor = propertyType.getDeclaredConstructor();
+            var _dao = new MainDAO();
+            var _result = _dao.Get(constructor, _value);
+            return _result;
             }
         return null;
         }
