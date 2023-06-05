@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IngredientQuantity implements HasID{
     private int ID;
-    private Ingredient IngredientName;
+    private Ingredient IngredientId;
     private int Quantity;
     @Override
     public String toString(){
