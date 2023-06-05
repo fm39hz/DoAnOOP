@@ -25,7 +25,7 @@ public class AppTest {
     public AppTest(){
         _testEmployees = new Employees(07, "Pham Danh Hien", "0849070703", "Staff", 10000000);
         _testcustomer = new Customers(07, "Pham Danh Hien", "0849070703");
-        _testIngredient = new Ingredient(7, "Rice", Date.valueOf("2022-07-07"), 70, 100);
+        _testIngredient = new Ingredient(600, "Rice", Date.valueOf("2022-07-07"), 70, 100);
         _testdb = new DatabaseConnector(Url.MariaDB, "root", "");
         _testdao = new MainDAO(_testdb);
         }
@@ -39,9 +39,13 @@ public class AppTest {
     //     }
     @Test
     public void DAOTest() throws SQLException{
+        // var _quantity = new IngredientQuantity(1, _testIngredient, 20);
+        // _testdao.Add(_quantity);
         //Kiểm tra trạng thái kết nối tới database
         assertEquals(_testdao.getConnectionState(), true);
-        _testdao.Add(_testEmployees);
+        IngredientQuantity _tempValue = (IngredientQuantity) _testdao.Get(new IngredientQuantity(), 1);
+        System.out.println(_tempValue.getQuantity());
+        // _testdao.Add(_testEmployees);
         //Lấy ra dữ liệu từ database tương ứng với class được truyền vào
         var _temp = _testdao.Get(new Employees(), 7);
             //Khi không tìm thấy đối tượng thỏa mãn sẽ trả về null
