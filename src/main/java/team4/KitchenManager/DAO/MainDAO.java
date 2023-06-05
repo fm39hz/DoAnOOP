@@ -81,7 +81,13 @@ public class MainDAO{
                 for (int i = 0; i < _property.length; i++){
                     try{
                         var _result = GetValue(_property[i].getType(), _resultSet, i + 1);
-                        _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType()).invoke(tempObject, _result);
+                        if ((HasID.class.isAssignableFrom(_property[i].getType())) && _result.getClass() == Integer.class){
+                            var _tempType = _property[i].getType().getDeclaredConstructor();
+                            _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType()).invoke(tempObject, this.Get(_tempType.newInstance(), (int)_result));
+                            }
+                        else{
+                            _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType()).invoke(tempObject, _result);
+                            }
                         } catch (Exception exception){
                             exception.printStackTrace();
                             return null;
@@ -106,20 +112,20 @@ public class MainDAO{
                 }
         return statement;
         }
-    private static <T> Object GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException, NoSuchMethodException, SecurityException {
-        if (propertyType == String.class){
+    private <T> Object GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        if (HasID.class.isAssignableFrom(propertyType)){
+            var _value = resultSet.getInt(index);
+            var _tempObject = propertyType.getDeclaredConstructor();
+            var _result = this.Get(_tempObject.newInstance(), _value);
+            var _id = propertyType.getMethod("getID").invoke(_result);
+            return _id;
+            }
+        else if (propertyType == String.class){
             return (Object)resultSet.getString(index);
             }
         else if (propertyType == int.class){
             Integer _value = resultSet.getInt(index);
             return (Object)_value;
-            }
-        else if (propertyType == HasID.class){
-            var _value = resultSet.getInt(index);
-            var constructor = propertyType.getDeclaredConstructor();
-            var _dao = new MainDAO();
-            var _result = _dao.Get(constructor, _value);
-            return _result;
             }
         return null;
         }
