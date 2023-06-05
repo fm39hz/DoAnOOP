@@ -83,10 +83,12 @@ public class MainDAO{
                         var _result = GetValue(_property[i].getType(), _resultSet, i + 1);
                         if ((HasID.class.isAssignableFrom(_property[i].getType())) && _result.getClass() == Integer.class){
                             var _tempType = _property[i].getType().getDeclaredConstructor();
-                            _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType()).invoke(tempObject, this.Get(_tempType.newInstance(), (int)_result));
+                            _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType())
+                                .invoke(tempObject, this.Get(_tempType.newInstance(), (int)_result));
                             }
                         else{
-                            _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType()).invoke(tempObject, _result);
+                            _class.getMethod(GetSetterMethod(_property[i].getName()), _property[i].getType())
+                                .invoke(tempObject, _result);
                             }
                         } catch (Exception exception){
                             exception.printStackTrace();
