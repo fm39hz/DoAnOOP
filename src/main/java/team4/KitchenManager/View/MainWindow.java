@@ -45,8 +45,8 @@ public class MainWindow extends JFrame {
     
     // private ComponentTable<Object> InitTable() throws SQLException{
     //     var _testDAO = new MainDAO();
-    //     var _testEmployee1 = _testDAO.Get(new Employees(), 01);
-    //     var _testEmployee2 = _testDAO.Get(new Employees(), 07);
+    //     var _testEmployee1 = _testDAO.Get(new Employees(), 400);
+    //     var _testEmployee2 = _testDAO.Get(new Employees(), 403);
     //     List<Object> _testList = new ArrayList<>();
     //     _testList.add(_testEmployee1);
     //     _testList.add(_testEmployee2);
