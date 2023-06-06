@@ -9,24 +9,23 @@ import lombok.Data;
 @Data
 public class DatabaseConnector {
     public static class Url{
-        public static final String MariaDB = "jdbc:mariadb://localhost:3306/kitchenmanager";
-        public static final String MySql = "jdbc:mysql://localhost:3306/kitchenmanager";
-        public static final String SQLServer = "jdbc:sqlserver://localhost:1433;databaseName=Kitchen_Manager;";
+        public static final String MariaDB = "jdbc:mariadb://localhost:3306/kitchen";
+        public static final String MySql = "jdbc:mysql://localhost:3306/kitchen";
+        public static final String SQLServer = "jdbc:sqlserver://localhost:1433;databaseName=Kitchen;";
         }
     private Boolean ConnectionState;
     private Connection Connector;
 
     public DatabaseConnector(){
-        this.ConnectionState = false;
         this.Connect(Url.MariaDB, "root", "");
         }
     public DatabaseConnector(String url, String userName, String password){
-        this.ConnectionState = false;
         this.Connect(url, userName, password);
         }
         
     public void Connect(String url, String userName, String password){
         try{
+            this.ConnectionState = false;
             this.setConnector(DriverManager.getConnection(url, userName, password));
             System.out.println("Connecting to Database through: " + url);
             }
