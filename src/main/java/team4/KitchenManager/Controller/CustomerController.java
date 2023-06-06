@@ -1,188 +1,175 @@
 package team4.KitchenManager.Controller;
+import team4.KitchenManager.Controller.CustomersController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+public class CustomersController {
+    private List<Customer> customers;
 
-public class EmployeesController {
-    private List<Employee> employees;
-    
-    public EmployeesController() {
-        employees = new ArrayList<>();
+    public CustomersController() {
+        customers = new ArrayList<>();
     }
-    
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
     }
-    
-    public void updateEmployee(int employeeId, Employee updatedEmployee) {
-        for (int i = 0; i < employees.size(); i++) {
-            Employee employee = employees.get(i);
-            if (employee.getID() == employeeId) {
-                employees.set(i, updatedEmployee);
+
+    public void updateCustomer(int customerId, Customer updatedCustomer) {
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            if (customer.getID() == customerId) {
+                customers.set(i, updatedCustomer);
                 break;
             }
         }
     }
-    
-    public void deleteEmployee(int employeeId) {
-        for (int i = 0; i < employees.size(); i++) {
-            Employee employee = employees.get(i);
-            if (employee.getID() == employeeId) {
-                employees.remove(i);
+
+    public void deleteCustomer(int customerId) {
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            if (customer.getID() == customerId) {
+                customers.remove(i);
                 break;
             }
         }
     }
-    
-    public void displayEmployeeList() {
-        if (employees.isEmpty()) {
-            System.out.println("Danh sách nhân viên rỗng.");
-        } else {
-            System.out.println("Danh sách nhân viên:");
-            System.out.format("%-5s %-20s %-15s %-20s %-10s\n", "ID", "Name", "Phone", "Position", "Salary");
-            for (Employee employee : employees) {
-                System.out.format("%-5d %-20s %-15s %-20s %-10d\n", employee.getID(), employee.getName(), employee.getPhone(), employee.getPosition(), employee.getSalary());
-            }
-        }
-    }
-    
-    public void sortBySalaryDescending() {
-        Collections.sort(employees, new Comparator<Employee>() {
-            @Override
-            public int compare(Employee emp1, Employee emp2) {
-                return Integer.compare(emp2.getSalary(), emp1.getSalary());
-            }
-        });
-    }
-    
-    public List<Employee> searchEmployeesByName(String name) {
-        List<Employee> result = new ArrayList<>();
-        for (Employee employee : employees) {
-            if (employee.getName().equalsIgnoreCase(name)) {
-                result.add(employee);
+
+    public List<Customer> searchCustomersByID(int customerId) {
+        List<Customer> result = new ArrayList<>();
+        for (Customer customer : customers) {
+            if (customer.getID() == customerId) {
+                result.add(customer);
             }
         }
         return result;
     }
-    
+
+    public List<Customer> searchCustomersByName(String name) {
+        List<Customer> result = new ArrayList<>();
+        for (Customer customer : customers) {
+            if (customer.getName().equalsIgnoreCase(name)) {
+                result.add(customer);
+            }
+        }
+        return result;
+    }
+
+    public List<Customer> searchCustomersByPhone(String phone) {
+        List<Customer> result = new ArrayList<>();
+        for (Customer customer : customers) {
+            if (customer.getPhone().equalsIgnoreCase(phone)) {
+                result.add(customer);
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        EmployeesController controller = new EmployeesController();
-        
+        CustomersController controller = new CustomersController();
+
         int choice;
         do {
-            System.out.println("----- Quản lý nhân viên -----");
+            System.out.println("----- Quản lý khách hàng -----");
             System.out.print("Nhập lựa chọn của bạn: ");
             System.out.println("0. Thoát");
-            System.out.println("1. Nhập thông tin nhân viên");
-            System.out.println("2. Thêm nhân viên");
-            System.out.println("3. Sửa thông tin nhân viên");
-            System.out.println("4. Xóa nhân viên");
-            System.out.println("5. Hiển thị danh sách nhân viên");
-            System.out.println("6. Sắp xếp theo mức lương giảm dần");
-            System.out.println("7. Tìm kiếm nhân viên theo tên");
+            System.out.println("1. Thêm khách hàng");
+            System.out.println("2. Sửa thông tin khách hàng");
+            System.out.println("3. Xóa khách hàng");
+            System.out.println("4. Tìm kiếm khách hàng theo ID");
+            System.out.println("5. Tìm kiếm khách hàng theo Tên");
+            System.out.println("6. Tìm kiếm khách hàng theo Số điện thoại");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Đọc ký tự newline (\n)
-            
+            scanner.nextLine(); 
+
             switch (choice) {
                 case 1:
-                    Employee newEmployee = inputEmployeeInfo(scanner);
-                    controller.addEmployee(newEmployee);
+                    Customer newCustomer = inputCustomerInfo(scanner);
+                    controller.addCustomer(newCustomer);
+                    System.out.println("Thêm khách hàng thành công.");
                     break;
                 case 2:
-                    Employee employeeToAdd = inputEmployeeInfo(scanner);
-                    controller.addEmployee(employeeToAdd);
-                    System.out.println("Thêm nhân viên thành công.");
+                    System.out.print("Nhập ID khách hàng cần sửa: ");
+                    int customerIdToUpdate = scanner.nextInt();
+                    scanner.nextLine(); 
+                    Customer updatedCustomer = inputCustomerInfo(scanner);
+                    updatedCustomer.setID(customerIdToUpdate);
+                    controller.updateCustomer(customerIdToUpdate, updatedCustomer);
+                    System.out.println("Sửa thông tin khách hàng thành công.");
                     break;
                 case 3:
-                    System.out.print("Nhập ID nhân viên cần sửa: ");
-                    int employeeIdToUpdate = scanner.nextInt();
+                    System.out.print("Nhập ID khách hàng cần xóa: ");
+                    int customerIdToDelete = scanner.nextInt();
                     scanner.nextLine(); 
-                    Employee updatedEmployee = inputEmployeeInfo(scanner);
-                    updatedEmployee.setID(employeeIdToUpdate);
-                    controller.updateEmployee(employeeIdToUpdate, updatedEmployee);
-                    System.out.println("Sửa thông tin nhân viên thành công.");
+                    controller.deleteCustomer(customerIdToDelete);
+                    System.out.println("Xóa khách hàng thành công.");
                     break;
                 case 4:
-                    System.out.print("Nhập ID nhân viên cần xóa: ");
-                    int employeeIdToDelete = scanner.nextInt();
-                    scanner.nextLine(); 
-                    controller.deleteEmployee(employeeIdToDelete);
-                    System.out.println("Xóa nhân viên thành công.");
+                    System.out.print("Nhập ID khách hàng cần tìm: ");
+                    int searchCustomerId = scanner.nextInt();
+                    scanner.nextLine();
+                    List<Customer> searchResultById = controller.searchCustomersByID(searchCustomerId);
+                    displayCustomerList(searchResultById);
                     break;
                 case 5:
-                    controller.displayEmployeeList();
+                    System.out.print("Nhập Tên khách hàng cần tìm: ");
+                    String searchName = scanner.nextLine();
+                    List<Customer> searchResultByName = controller.searchCustomersByName(searchName);
+                    displayCustomerList(searchResultByName);
                     break;
                 case 6:
-                    controller.sortBySalaryDescending();
-                    System.out.println("Danh sách nhân viên đã được sắp xếp theo mức lương giảm dần.");
+                    System.out.print("Nhập Số điện thoại khách hàng cần tìm: ");
+                    String searchPhone = scanner.nextLine();
+                    List<Customer> searchResultByPhone = controller.searchCustomersByPhone(searchPhone);
+                    displayCustomerList(searchResultByPhone);
                     break;
-                case 7:
-                    System.out.print("Nhập tên nhân viên cần tìm: ");
-                    String searchName = scanner.nextLine();
-                    List<Employee> searchResults = controller.searchEmployeesByName(searchName);
-                    if (searchResults.isEmpty()) {
-                        System.out.println("Không tìm thấy nhân viên có tên '" + searchName + "'.");
-                    } else {
-                        System.out.println("Kết quả tìm kiếm:");
-                        System.out.format("", "ID", "Name", "Phone", "Position", "Salary");
-                        for (Employee employee : searchResults) {
-                            System.out.format("", employee.getID(), employee.getName(), employee.getPhone(), employee.getPosition(), employee.getSalary());
-                        }
-                    }
-                    break;
-                case 8:
+                case 0:
                     System.out.println("Kết thúc chương trình.");
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
                     break;
             }
-            
+
             System.out.println();
         } while (choice != 0);
     }
-    
-    private static Employee inputEmployeeInfo(Scanner scanner) {
-        System.out.print("Nhập ID nhân viên: ");
+
+    private static Customer inputCustomerInfo(Scanner scanner) {
+        System.out.print("Nhập ID khách hàng: ");
         int id = scanner.nextInt();
         scanner.nextLine(); 
 
-        System.out.print("Nhập tên nhân viên: ");
+        System.out.print("Nhập tên khách hàng: ");
         String name = scanner.nextLine();
 
         System.out.print("Nhập số điện thoại: ");
         String phone = scanner.nextLine();
 
-        System.out.print("Nhập vị trí công việc: ");
-        String position = scanner.nextLine();
+        return new Customer(id, name, phone);
+    }
 
-        System.out.print("Nhập mức lương: ");
-        int salary = scanner.nextInt();
-
-        return new Employee(id, name, phone, position, salary);
+    private static void displayCustomerList(List<Customer> customers) {
+        System.out.format("", "ID", "Name", "Phone");
+        for (Customer customer : customers) {
+            System.out.format("", customer.getID(), customer.getName(), customer.getPhone());
+        }
     }
 }
 
-public class Employee {
+class Customer {
     private int ID;
     private String Name;
     private String Phone;
-    private String Position;
-    private int Salary;
 
-    public Employee(int ID, String name, String phone, String position, int salary) {
+    public Customer(int ID, String name, String phone) {
         this.ID = ID;
         this.Name = name;
         this.Phone = phone;
-        this.Position = position;
-        this.Salary = salary;
     }
 
     public int getID() {
@@ -207,21 +194,5 @@ public class Employee {
 
     public void setPhone(String phone) {
         this.Phone = phone;
-    }
-
-    public String getPosition() {
-        return Position;
-    }
-
-    public void setPosition(String position) {
-        this.Position = position;
-    }
-
-    public int getSalary() {
-        return Salary;
-    }
-
-    public void setSalary(int salary) {
-        this.Salary = salary;
     }
 }

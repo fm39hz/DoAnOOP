@@ -1,91 +1,227 @@
-// package team4.KitchenManager.Controller;
+package team4.KitchenManager.Controller;
+import team4.KitchenManager.DAO.DatabaseConnector;
+import javax.swing.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
-// import team4.KitchenManager.Model.employee;
-// import team4.KitchenManager.DAO.DatabaseConnector;
-// import javax.swing.*;
-// import java.sql.*;
-// import java.util.ArrayList;
-// import java.util.List;
-// import team4.KitchenManager.Object.Employee;
 
-// public class EmployeeController {
-//     DatabaseConnector conn = null;
+public class EmployeesController {
+    private List<Employee> employees;
+    
+    public EmployeesController() {
+        employees = new ArrayList<>();
+    }
+    
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+    }
+    
+    public void updateEmployee(int employeeId, Employee updatedEmployee) {
+        for (int i = 0; i < employees.size(); i++) {
+            Employee employee = employees.get(i);
+            if (employee.getID() == employeeId) {
+                employees.set(i, updatedEmployee);
+                break;
+            }
+        }
+    }
+    
+    public void deleteEmployee(int employeeId) {
+        for (int i = 0; i < employees.size(); i++) {
+            Employee employee = employees.get(i);
+            if (employee.getID() == employeeId) {
+                employees.remove(i);
+                break;
+            }
+        }
+    }
+    
+    public void displayEmployeeList() {
+        if (employees.isEmpty()) {
+            System.out.println("Danh sách nhân viên rỗng.");
+        } else {
+            System.out.println("Danh sách nhân viên:");
+            System.out.format("%-5s %-20s %-15s %-20s %-10s\n", "ID", "Name", "Phone", "Position", "Salary");
+            for (Employee employee : employees) {
+                System.out.format("%-5d %-20s %-15s %-20s %-10d\n", employee.getID(), employee.getName(), employee.getPhone(), employee.getPosition(), employee.getSalary());
+            }
+        }
+    }
+    
+    public void sortBySalaryDescending() {
+        Collections.sort(employees, new Comparator<Employee>() {
+            @Override
+            public int compare(Employee emp1, Employee emp2) {
+                return Integer.compare(emp2.getSalary(), emp1.getSalary());
+            }
+        });
+    }
+    
+    public List<Employee> searchEmployeesByName(String name) {
+        List<Employee> result = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.getName().equalsIgnoreCase(name)) {
+                result.add(employee);
+            }
+        }
+        return result;
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        EmployeesController controller = new EmployeesController();
+        
+        int choice;
+        do {
+            System.out.println("----- Quản lý nhân viên -----");
+            System.out.print("Nhập lựa chọn của bạn: ");
+            System.out.println("0. Thoát");
+            System.out.println("1. Nhập thông tin nhân viên");
+            System.out.println("2. Thêm nhân viên");
+            System.out.println("3. Sửa thông tin nhân viên");
+            System.out.println("4. Xóa nhân viên");
+            System.out.println("5. Hiển thị danh sách nhân viên");
+            System.out.println("6. Sắp xếp theo mức lương giảm dần");
+            System.out.println("7. Tìm kiếm nhân viên theo tên");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự newline (\n)
+            
+            switch (choice) {
+                case 1:
+                    Employee newEmployee = inputEmployeeInfo(scanner);
+                    controller.addEmployee(newEmployee);
+                    break;
+                case 2:
+                    Employee employeeToAdd = inputEmployeeInfo(scanner);
+                    controller.addEmployee(employeeToAdd);
+                    System.out.println("Thêm nhân viên thành công.");
+                    break;
+                case 3:
+                    System.out.print("Nhập ID nhân viên cần sửa: ");
+                    int employeeIdToUpdate = scanner.nextInt();
+                    scanner.nextLine(); 
+                    Employee updatedEmployee = inputEmployeeInfo(scanner);
+                    updatedEmployee.setID(employeeIdToUpdate);
+                    controller.updateEmployee(employeeIdToUpdate, updatedEmployee);
+                    System.out.println("Sửa thông tin nhân viên thành công.");
+                    break;
+                case 4:
+                    System.out.print("Nhập ID nhân viên cần xóa: ");
+                    int employeeIdToDelete = scanner.nextInt();
+                    scanner.nextLine(); 
+                    controller.deleteEmployee(employeeIdToDelete);
+                    System.out.println("Xóa nhân viên thành công.");
+                    break;
+                case 5:
+                    controller.displayEmployeeList();
+                    break;
+                case 6:
+                    controller.sortBySalaryDescending();
+                    System.out.println("Danh sách nhân viên đã được sắp xếp theo mức lương giảm dần.");
+                    break;
+                case 7:
+                    System.out.print("Nhập tên nhân viên cần tìm: ");
+                    String searchName = scanner.nextLine();
+                    List<Employee> searchResults = controller.searchEmployeesByName(searchName);
+                    if (searchResults.isEmpty()) {
+                        System.out.println("Không tìm thấy nhân viên có tên '" + searchName + "'.");
+                    } else {
+                        System.out.println("Kết quả tìm kiếm:");
+                        System.out.format("", "ID", "Name", "Phone", "Position", "Salary");
+                        for (Employee employee : searchResults) {
+                            System.out.format("", employee.getID(), employee.getName(), employee.getPhone(), employee.getPosition(), employee.getSalary());
+                        }
+                    }
+                    break;
+                case 8:
+                    System.out.println("Kết thúc chương trình.");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+                    break;
+            }
+            
+            System.out.println();
+        } while (choice != 0);
+    }
+    
+    private static Employee inputEmployeeInfo(Scanner scanner) {
+        System.out.print("Nhập ID nhân viên: ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); 
 
-//     public EmployeeController() {
-//         conn = new DatabaseConnector();
-//     }
+        System.out.print("Nhập tên nhân viên: ");
+        String name = scanner.nextLine();
 
-//     public List<Employee> getAllEmployee() {
-//         List<Employee> _list = new ArrayList<>();
-//         Employee _Employee = new Employee();
-//         _Employee.setName();
-//         _Employee.setID();
-//         _Employee.setPhone();
-//         _Employee.setPosition();
-//         _Employee.setSalary();
-//         return _list;
-//     }
+        System.out.print("Nhập số điện thoại: ");
+        String phone = scanner.nextLine();
 
-//     public class EmployeeController {
+        System.out.print("Nhập vị trí công việc: ");
+        String position = scanner.nextLine();
 
-//         private Map<Integer, Employee> employeeMap;
+        System.out.print("Nhập mức lương: ");
+        int salary = scanner.nextInt();
 
-//         public EmployeeController() {
-//             this.employeeMap = new HashMap<Integer, Employee>();
-//         }
+        return new Employee(id, name, phone, position, salary);
+    }
+}
 
-//         // Thêm mới Employee với thông tin được cung cấp
-//         public Employee addEmployee(int id, String name, String position, String phone, double salary) {
-//             Employee employee = new Employee(id, name, position, phone, salary);
-//             this.employeeMap.put(id, employee);
-//             return employee;
-//         }
+public class Employee {
+    private int ID;
+    private String Name;
+    private String Phone;
+    private String Position;
+    private int Salary;
 
-//         // Cập nhật Employee với các thông tin được cung cấp dựa trên ID
-//         public Employee updateEmployee(int id, String name, String position, String phone, double salary) {
-//             if (this.employeeMap.containsKey(id)) {
-//                 Employee employee = this.employeeMap.get(id);
-//                 if (name != null && !name.isEmpty()) {
-//                     employee.setName(name);
-//                 }
+    public Employee(int ID, String name, String phone, String position, int salary) {
+        this.ID = ID;
+        this.Name = name;
+        this.Phone = phone;
+        this.Position = position;
+        this.Salary = salary;
+    }
 
-//                 if (position != null && !position.isEmpty()) {
-//                     employee.setPosition(position);
-//                 }
+    public int getID() {
+        return ID;
+    }
 
-//                 if (phone != null && !phone.isEmpty()) {
-//                     employee.setPhone(phone);
-//                 }
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
-//                 if (salary > 0) {
-//                     employee.setSalary(salary);
-//                 }
+    public String getName() {
+        return Name;
+    }
 
-//                 this.employeeMap.put(id, employee);
+    public void setName(String name) {
+        this.Name = name;
+    }
 
-//                 return employee;
-//             }
-//             return null;
-//         }
+    public String getPhone() {
+        return Phone;
+    }
 
-//         // Xóa Employee dựa trên ID
-//         public boolean deleteEmployee(int id) {
-//             if (this.employeeMap.containsKey(id)) {
-//                 this.employeeMap.remove(id);
-//                 return true;
-//             } else {
-//                 return false;
-//             }
-//         }
+    public void setPhone(String phone) {
+        this.Phone = phone;
+    }
 
-//         // Lấy ra tất cả Employee
-//         public List<Employee> getAllEmployees() {
-//             List<Employee> list = new ArrayList<Employee>();
-//             for (Employee employee : this.employeeMap.values()) {
-//                 list.add(employee);
-//             }
-//             return list;
-//         }
+    public String getPosition() {
+        return Position;
+    }
 
-//     }
-// }
+    public void setPosition(String position) {
+        this.Position = position;
+    }
+
+    public int getSalary() {
+        return Salary;
+    }
+
+    public void setSalary(int salary) {
+        this.Salary = salary;
+    }
+}
