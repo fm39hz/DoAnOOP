@@ -1,22 +1,21 @@
 package team4.KitchenManager.Model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Customers implements HasID{
-    private int ID;
-    private String Name;
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
+public class Customer extends InformationSchema{
     private String Phone;
+    private List<Invoice> OrderHistory;
     @Override
     public String toString(){
         return "customers";
-        }
-    @Override
-    public int GetInstanceID() {
-        return this.getID();
         }
     }
