@@ -114,7 +114,7 @@ public class MainDAO{
                 }
         return statement;
         }
-    private <T> Object GetValue(Class<T> propertyType, ResultSet resultSet, int index) throws SQLException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    private Object GetValue(Class<?> propertyType, ResultSet resultSet, int index) throws SQLException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (HasID.class.isAssignableFrom(propertyType)){
             var _value = resultSet.getInt(index);
             var _tempObject = propertyType.getDeclaredConstructor();
