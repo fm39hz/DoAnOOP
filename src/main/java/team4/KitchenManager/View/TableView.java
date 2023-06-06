@@ -11,42 +11,73 @@ import team4.KitchenManager.Service.ComponentTable;
 public class TableView extends JTable{
     private MainDAO DAO;
     private List<Object> ModelList;
+    private ComponentTable<Object> Table;
     public class ModelOf{
-        public final char Employee = 'e';
-        public final char Customer = 'c';
-        public final char Dish = 'd';
-        public final char Ingredient = 'i';
-        public final char Quantity = 'q';
-        public final char Order = 'o';
+        public static final char Employee = 'e';
+        public static final char Customer = 'c';
+        public static final char Dish = 'd';
+        public static final char Ingredient = 'i';
+        public static final char Quantity = 'q';
+        public static final char Order = 'o';
         }
     public TableView(){
         this.DAO = new MainDAO();
         this.ModelList = new ArrayList<>();
         }
-    public ComponentTable<?> Add(int id, char typeConfig) throws SQLException{
+    public TableView(ComponentTable<Object> modelTable){
+        super(modelTable);
+        }
+    public void FetchData(int id, char typeConfig){
         var _tempObject = new Object();
-        Class<?> _classType = null;
         switch (typeConfig){
             case 'e':
                 _tempObject = new Employees();
-                _classType = Employees.class;
+                break;
             case 'c':
                 _tempObject = new Customers();
-                _classType = Customers.class;
+                break;
             case 'd':
                 _tempObject = new Dishes();
-                _classType = Dishes.class;
+                break;
             case 'i':
                 _tempObject = new Ingredient();
-                _classType = Ingredient.class;
+                break;
             case 'q':
                 _tempObject = new IngredientQuantity();
-                _classType = IngredientQuantity.class;
+                break;
             case 'o':
                 _tempObject = new Order();
-                _classType = Order.class;
+                break;
             }
-            this.ModelList.add(DAO.Get(_tempObject, id));
-        return new ComponentTable<Object>(_classType, ModelList);
+            try {
+                this.ModelList.add(DAO.Get(_tempObject, id));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    public ComponentTable<Object> GetTable(char typeConfig){
+        Class<?> _classType = null;
+        switch (typeConfig){
+            case 'e':
+                _classType = Employees.class;
+                break;
+            case 'c':
+                _classType = Customers.class;
+                break;
+            case 'd':
+                _classType = Dishes.class;
+                break;
+            case 'i':
+                _classType = Ingredient.class;
+                break;
+            case 'q':
+                _classType = IngredientQuantity.class;
+                break;
+            case 'o':
+                _classType = Order.class;
+                break;
+            }
+            this.Table = new ComponentTable<>(_classType, ModelList);
+        return this.Table;
         }
     }

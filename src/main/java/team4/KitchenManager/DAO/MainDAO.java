@@ -95,7 +95,7 @@ public class MainDAO{
                             return null;
                             }
                     }
-                System.out.println("Got 1 item satisfied at: " + tempObject);
+                System.out.println("Got 1 item satisfied with id " + id + " at table " + tempObject);
                 }
         return tempObject;
         }

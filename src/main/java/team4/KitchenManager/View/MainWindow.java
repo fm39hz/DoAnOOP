@@ -2,8 +2,12 @@ package team4.KitchenManager.View;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+
 import javax.swing.*;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+
+import team4.KitchenManager.View.TableView.ModelOf;
 
 public class MainWindow extends JFrame {
     private JMenuBar Menu = new JMenuBar();
@@ -42,12 +46,18 @@ public class MainWindow extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
 
+    private TableView InitTable(){
+        var _table = new TableView();
+            for (int i = 400; i < 412; i++){
+                _table.FetchData(i, ModelOf.Employee);
+                }
+            _table = new TableView(_table.GetTable(ModelOf.Employee));
+        return _table;
+        }
+
     private void InitComponent() {
-        // try {
-        //     Tab1 = new JScrollPane(new JTable(InitTable()));
-        // } catch (SQLException e) {
-        //     e.printStackTrace();
-        // }
+        Tab1 = new JScrollPane(InitTable());
+
         MainView.addTab("Tab 1", Tab1);
         MainView.addTab("Tab 2", Tab2);
 
