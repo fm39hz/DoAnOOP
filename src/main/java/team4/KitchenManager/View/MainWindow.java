@@ -2,11 +2,8 @@ package team4.KitchenManager.View;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
-
 import javax.swing.*;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-
 import team4.KitchenManager.View.TableView.ModelOf;
 
 public class MainWindow extends JFrame {

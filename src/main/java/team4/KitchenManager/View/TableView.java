@@ -1,6 +1,5 @@
 package team4.KitchenManager.View;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -29,6 +28,7 @@ public class TableView extends JTable{
         }
     public void FetchData(int id, char typeConfig){
         var _tempObject = new Object();
+        var _value = new Object();
         switch (typeConfig){
             case 'e':
                 _tempObject = new Employees();
@@ -50,8 +50,11 @@ public class TableView extends JTable{
                 break;
             }
             try {
-                this.ModelList.add(DAO.Get(_tempObject, id));
-                } catch (SQLException e) {
+                _value = DAO.Get(_tempObject, id);
+                    if (_value != null){
+                        this.ModelList.add(_value);
+                        }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
         }
