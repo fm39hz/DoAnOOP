@@ -1,24 +1,23 @@
 package team4.KitchenManager.Model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employees implements HasID{
-    private int ID;
-    private String Name;
-    private String Phone;
+@EqualsAndHashCode(callSuper=false)
+public class Employee extends InformationSchema{
+    private String ImagePath;
     private String Position;
     private int Salary;
+    private List<Attendance> AttendanceHistory;
     @Override
     public String toString(){
         return "employees";
-        }
-    @Override
-    public int GetInstanceID() {
-        return this.getID();
         }
     }

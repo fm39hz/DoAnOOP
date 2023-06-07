@@ -11,17 +11,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order implements HasID{
-    private int ID;
+public class Invoice{
+    private String ID;
     private Date CreatedDay;
     private Time CreatedTime;
-    private List<Dishes> ListDishes;
+    private Customer Customer;
+    private List<Dish> ListDishes;
+    private String CustomerFeedback;
     @Override
     public String toString(){
         return "orders";
-        }
-    @Override
-    public int GetInstanceID() {
-        return this.getID();
         }
     }

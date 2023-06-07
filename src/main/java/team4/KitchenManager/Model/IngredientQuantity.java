@@ -7,16 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class IngredientQuantity implements HasID{
-    private int ID;
-    private Ingredient IngredientId;
+public class IngredientQuantity{
+    private String ID;
+    private Ingredient Ingredient;
     private int Quantity;
     @Override
     public String toString(){
         return "quantities";
-        }
-    @Override
-    public int GetInstanceID() {
-        return this.getID();
         }
     }
