@@ -2,4 +2,5 @@
 /.idea/
 /src/main/java/team4/KitchenManager/View/*.form
 /target/classes
+target/test-classes/.netbeans_automatic_build
 KitchenManager.iml
