@@ -1,4 +1,4 @@
-# DoAnOOP
+# Kitchen Manager
   Đồ án môn lập trình hướng đối tượng của nhóm 4
 
 ## Thành viên
