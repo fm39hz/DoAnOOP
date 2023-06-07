@@ -3,12 +3,12 @@ package team4.KitchenManager.View;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
-import team4.KitchenManager.DAO.MainDAO;
+// import team4.KitchenManager.DAO.MainDAO;
 import team4.KitchenManager.Model.*;
 import team4.KitchenManager.Service.ComponentTable;
 
 public class TableView extends JTable{
-    private MainDAO DAO;
+    // private MainDAO DAO;
     private List<Object> ModelList;
     private ComponentTable<Object> Table;
     public class ModelOf{
@@ -20,7 +20,7 @@ public class TableView extends JTable{
         public static final char Order = 'o';
         }
     public TableView(){
-        this.DAO = new MainDAO();
+        // this.DAO = new MainDAO();
         this.ModelList = new ArrayList<>();
         }
     public TableView(ComponentTable<Object> modelTable){
@@ -50,7 +50,7 @@ public class TableView extends JTable{
                 break;
             }
             try {
-                _value = DAO.Get(_tempObject, id);
+                // _value = DAO.Get(_tempObject, id);
                     if (_value != null){
                         this.ModelList.add(_value);
                         }
