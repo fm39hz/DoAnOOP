@@ -11,4 +11,4 @@
   - Viết chương trình quản lý nhà bếp
 ## Thực thi
   - Sau khi clone từ git về, mở terminal lên và chạy:
-    `mvn clean install`
+  ```mvn clean install```
