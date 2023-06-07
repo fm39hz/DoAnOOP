@@ -4,7 +4,6 @@
  */
 package team4.KitchenManager.View;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 /**

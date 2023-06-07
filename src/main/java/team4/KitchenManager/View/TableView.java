@@ -26,38 +26,38 @@ public class TableView extends JTable{
     public TableView(ComponentTable<Object> modelTable){
         super(modelTable);
         }
-    public void FetchData(int id, char typeConfig){
-        var _tempObject = new Object();
-        var _value = new Object();
-        switch (typeConfig){
-            case 'e':
-                _tempObject = new Employee();
-                break;
-            case 'c':
-                _tempObject = new Customer();
-                break;
-            case 'd':
-                _tempObject = new Dish();
-                break;
-            case 'i':
-                _tempObject = new Ingredient();
-                break;
-            case 'q':
-                _tempObject = new IngredientQuantity();
-                break;
-            case 'o':
-                _tempObject = new Invoice();
-                break;
-            }
-            try {
-                // _value = DAO.Get(_tempObject, id);
-                    if (_value != null){
-                        this.ModelList.add(_value);
-                        }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-        }
+    // public void FetchData(int id, char typeConfig){
+    //     var _tempObject = new Object();
+    //     var _value = new Object();
+    //     switch (typeConfig){
+    //         case 'e':
+    //             _tempObject = new Employee();
+    //             break;
+    //         case 'c':
+    //             _tempObject = new Customer();
+    //             break;
+    //         case 'd':
+    //             _tempObject = new Dish();
+    //             break;
+    //         case 'i':
+    //             _tempObject = new Ingredient();
+    //             break;
+    //         case 'q':
+    //             _tempObject = new IngredientQuantity();
+    //             break;
+    //         case 'o':
+    //             _tempObject = new Invoice();
+    //             break;
+    //         }
+    //         try {
+    //             // _value = DAO.Get(_tempObject, id);
+    //                 if (_value != null){
+    //                     this.ModelList.add(_value);
+    //                     }
+    //             } catch (Exception e) {
+    //                 e.printStackTrace();
+    //             }
+    //     }
     public ComponentTable<Object> GetTable(char typeConfig){
         Class<?> _classType = null;
         switch (typeConfig){
