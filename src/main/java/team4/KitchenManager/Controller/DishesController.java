@@ -1,4 +1,5 @@
-package team4.KitchenManager.Controller;
+// package team4.KitchenManager.Controller;
+
 
 import team4.KitchenManager.Model.Dish;
 import team4.KitchenManager.Model.IngredientQuantity;
@@ -8,8 +9,6 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-public class DishesController {
 
     DatabaseConnector conn = null;
     public DishesController() {
@@ -232,3 +231,4 @@ public class DishesController {
         return _remaining;
     }
 }
+
