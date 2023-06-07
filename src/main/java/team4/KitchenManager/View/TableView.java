@@ -31,13 +31,13 @@ public class TableView extends JTable{
         var _value = new Object();
         switch (typeConfig){
             case 'e':
-                _tempObject = new Employees();
+                _tempObject = new Employee();
                 break;
             case 'c':
-                _tempObject = new Customers();
+                _tempObject = new Customer();
                 break;
             case 'd':
-                _tempObject = new Dishes();
+                _tempObject = new Dish();
                 break;
             case 'i':
                 _tempObject = new Ingredient();
@@ -46,7 +46,7 @@ public class TableView extends JTable{
                 _tempObject = new IngredientQuantity();
                 break;
             case 'o':
-                _tempObject = new Order();
+                _tempObject = new Invoice();
                 break;
             }
             try {
@@ -62,13 +62,13 @@ public class TableView extends JTable{
         Class<?> _classType = null;
         switch (typeConfig){
             case 'e':
-                _classType = Employees.class;
+                _classType = Employee.class;
                 break;
             case 'c':
-                _classType = Customers.class;
+                _classType = Customer.class;
                 break;
             case 'd':
-                _classType = Dishes.class;
+                _classType = Dish.class;
                 break;
             case 'i':
                 _classType = Ingredient.class;
@@ -77,7 +77,7 @@ public class TableView extends JTable{
                 _classType = IngredientQuantity.class;
                 break;
             case 'o':
-                _classType = Order.class;
+                _classType = Invoice.class;
                 break;
             }
             this.Table = new ComponentTable<>(_classType, ModelList);
