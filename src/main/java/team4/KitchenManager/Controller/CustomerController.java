@@ -1,5 +1,5 @@
 package team4.KitchenManager.Controller;
-import team4.KitchenManager.Controller.CustomersController;
+import team4.KitchenManager.Controller.CustomerController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import javax.swing.*;
 import java.sql.*;
@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CustomersController {
+public class CustomerController {
     private List<Customer> customers;
 
-    public CustomersController() {
+    public CustomerController() {
         customers = new ArrayList<>();
     }
 
@@ -70,7 +70,7 @@ public class CustomersController {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        CustomersController controller = new CustomersController();
+        CustomerController controller = new CustomerController();
 
         int choice;
         do {
