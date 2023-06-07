@@ -12,7 +12,7 @@ public class MainDAO{
         this.Connector = new DatabaseConnector();
         }
     public MainDAO(String url, String userName, String password){
-        this.Connector = new DatabaseConnector(url, userName, password);
+//        this.Connector = new DatabaseConnector(url, userName, password);
         }
     public MainDAO(DatabaseConnector connector) {
         this.Connector = connector;
@@ -74,6 +74,7 @@ public class MainDAO{
         var _class = tempObject.getClass();
         var _property = _class.getDeclaredFields();
         var _query  = "SELECT * FROM " + tempObject + " WHERE id = ?";
+        System.out.println(tempObject);
         var _statement = Connector.getConnector().prepareStatement(_query);
             _statement.setInt(1, id);
         var _resultSet = _statement.executeQuery();
