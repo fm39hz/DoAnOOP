@@ -14,7 +14,7 @@
   - Đảm bảo hệ thống đã cài đủ các dependencies:
     - [Maven](https://maven.apache.org/download.cgi)
     - [JDK20](https://www.oracle.com/java/technologies/java-se-glance.html)
-  -Thêm Maven vào PATH
+  - Thêm Maven vào PATH
 
 ### Linux
   - Chạy trong terminal
