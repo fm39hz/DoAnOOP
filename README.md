@@ -18,8 +18,8 @@
 
 ### Linux
   - Chạy trong terminal
-    ``` yay -S java-openjdk```
-    ``` yay -S maven```
+    - ```yay -S java-openjdk```
+    - ```yay -S maven```
 ## Thiết lập project
   - Sau khi clone từ git về, mở terminal lên và chạy: 
-  ``` mvn clean install```
+    - ```mvn clean install```
