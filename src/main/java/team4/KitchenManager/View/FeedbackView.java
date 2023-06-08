@@ -2,6 +2,7 @@ package team4.KitchenManager.View;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
 import java.awt.*;
 
 public class FeedbackView extends JPanel {
@@ -11,15 +12,18 @@ public class FeedbackView extends JPanel {
 
     public FeedbackView() {
         initComponents();
+        ReloadData();
         }
     
     public void ReloadData(){
-        var a = 3;
+        var a = 100;
         for (int i = 0; i < a; i++){
             //TODO: lấy dữ liệu từ InvoiceController
-            jPanel1.add(new Feedback("customerName", "feedback"));
+            var feedback = new Feedback("Khách hàng thân quen " , "Bữa đi ăn thứ " + (i + 1) + "\nLần này tốt hơn lần trước");
+            feedback.setPreferredSize(new Dimension(1278, 60));
+            jPanel1.add(feedback);
             }
-        this.revalidate();
+        // this.revalidate();
         }
 
     private void initComponents() {
@@ -33,7 +37,7 @@ public class FeedbackView extends JPanel {
         setPreferredSize(new Dimension(1280, 150));
         setLayout(new GridBagLayout());
 
-        // Title.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+        Title.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         Title.setText("Phản hồi khách hàng");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -47,18 +51,8 @@ public class FeedbackView extends JPanel {
         jScrollPane1.setViewportBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         jScrollPane1.setPreferredSize(new Dimension(200, 120));
 
-        jPanel1.setPreferredSize(new Dimension(1179, 270));
-
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 1260, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
-        );
+        jPanel1.setPreferredSize(new Dimension(1179, jPanel1.getMaximumSize().height));
+        jPanel1.setLayout(new FlowLayout(BoxLayout.PAGE_AXIS, 0, 0));
 
         jScrollPane1.setViewportView(jPanel1);
 
