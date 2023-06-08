@@ -90,7 +90,7 @@ INSERT INTO `ingredients` (`Id`, `name`, `date_in`, `in_stock`, `cost`) VALUES
 	(609, 'thịt gà', '2023-06-22', 60000, 120000),
 	(610, 'sữa', '2023-06-23', 70000, 20000);
 
--- Dumping data for table kitchen.orders: ~0 rows (approximately)
+-- Dumping data for table kitchen.orders: ~1 rows (approximately)
 INSERT INTO `orders` (`Id`, `createdDay`, `createdTime`, `cus_Id`) VALUES
 	(701, '2023-06-08', '11:49:06', 301);
 
@@ -102,8 +102,8 @@ INSERT INTO `order_detail` (`id`, `order_id`, `dishes_id`, `quantity`) VALUES
 
 -- Dumping data for table kitchen.quantities: ~2 rows (approximately)
 INSERT INTO `quantities` (`dish_id`, `ingredient_id`, `quantity`) VALUES
-	(202, 603, 3),
-	(202, 608, 1);
+	(200, 600, 1),
+	(200, 603, 3);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
