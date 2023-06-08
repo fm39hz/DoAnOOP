@@ -22,6 +22,3 @@ nbdist/
 .nb-gradle/
 /.idea/
 /src/main/java/team4/KitchenManager/View/*.form
-
-KitchenManager.iml
-
