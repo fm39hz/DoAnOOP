@@ -4,6 +4,7 @@
  */
 package team4.KitchenManager.View;
 
+import javax.swing.ImageIcon;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 /**
@@ -41,9 +42,10 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         EditMenu = new javax.swing.JMenu();
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ứng dụng quản lý nhà hàng");
+        setIconImage((new ImageIcon(System.getProperty("user.dir") + "/resource/icon.png")).getImage());
         setMinimumSize(new java.awt.Dimension(1280, 720));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
