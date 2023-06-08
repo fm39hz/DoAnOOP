@@ -29,8 +29,8 @@ public class DishesController {
             "ingredients.cost AS ingre_cost,\n" +
             "ingredients.name AS ingre_name\n" +
             "FROM dishes\n" +
-            "INNER JOIN quantities ON dishes.id = quantities.dishes_id\n" +
-            "INNER JOIN ingredients ON ingredients.id = quantities.ingredient_id\n";
+            "INNER JOIN quantities ON dish.id = quantities.dishes_id\n" +
+            "INNER JOIN ingredients ON ingredient.id = quantities.ingredient_id\n";
 
     private void SqlProcessor(List<Dish> _list, List<IngredientQuantity> _list_quantity, int _ingredient_quantity_id, ResultSet rs) throws SQLException {
         int _previous_id = 0;
