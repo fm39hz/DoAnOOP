@@ -27,9 +27,17 @@ public class DishesView extends JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        Image = new javax.swing.JLabel();
+
+        setLayout(new java.awt.GridBagLayout());
+
+        Image.setText("jLabel1");
+        add(Image, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Image;
     // End of variables declaration//GEN-END:variables
 }
