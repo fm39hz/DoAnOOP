@@ -9,14 +9,21 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ingredient{
+public class Ingredient {
     private String ID;
     private String Name;
     private Date InDate;
     private int InStock;
     private int Cost;
-    @Override
-    public String toString(){
-        return "ingredients";
-        }
+
+    public static <T> int getUsedQuantity(T t) {
+        return 0;
     }
+
+    public void setUsedQuantity(int usedQuantity) {
+    }
+
+    public boolean getUsedQuantity() {
+        return false;
+    }
+}
