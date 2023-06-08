@@ -39,6 +39,7 @@ public class Feedback extends JPanel {
             gridBagConstraints.insets = new Insets(6, 6, 6, 0);
             add(this.CustomerName, gridBagConstraints);
 
+        this.FeedbackData.setEditable(false);
         this.FeedbackData.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
             gridBagConstraints = new GridBagConstraints();
             gridBagConstraints.gridx = 1;
