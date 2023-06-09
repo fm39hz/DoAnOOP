@@ -1,193 +1,214 @@
+package team4.KitchenManager.Controller;
+import java.sql.Connection;
+import team4.KitchenManager.DAO.DatabaseConnector;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class CustomerController {
-    private List<Customer> customers;
+    private Connection connection;
+    DatabaseConnector conn = null;
 
     public CustomerController() {
-        customers = new ArrayList<>();
+        // không cần truyền tham số, mặc định sẽ dùng mariadb
+        conn = new DatabaseConnector();
+        
     }
 
-    public void addCustomer(Customer customer) {
-        customers.add(customer);
-    }
+    public void displayCustomers() {
+        System.out.println("ID | Name | Phone |");
 
-    public void updateCustomer(int customerId, Customer updatedCustomer) {
-        for (int i = 0; i < customers.size(); i++) {
-            Customer customer = customers.get(i);
-            if (customer.getID() == customerId) {
-                customers.set(i, updatedCustomer);
-                break;
-            }
+        List<Customer> customer = getCustomers();
+
+        for (Customer Customer : customer) {
+            System.out.print(Customer.getID() + " | ");
+            System.out.print(Customer.getName() + " | ");
+            System.out.print(Customer.getPhone() + " | ");
+            System.out.println(getDishesUsingCustomer(Customer.getID()));
         }
     }
 
-    public void deleteCustomer(int customerId) {
-        for (int i = 0; i < customers.size(); i++) {
-            Customer customer = customers.get(i);
-            if (customer.getID() == customerId) {
-                customers.remove(i);
-                break;
+    public List<Customer> getCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");
+            while (resultSet.next()) {
+                Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
+                customer.setUsedQuantity(resultSet.getInt("used_quantity"));
+                customers.add(customer);
             }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+
+    public List<String> getDishesUsingCustomer(int customerId) {
+        List<String> dishes = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT dish_name FROM Customer_dish WHERE customer_id = ?");
+            statement.setInt(1, customerId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                dishes.add(resultSet.getString("dish_name"));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dishes;
+    }
+
+    public void addCustomer(Customer newCustomer) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO customer (id, name, phone) VALUES (?, ?, ?)");
+            statement.setInt(1, newCustomer.getID());
+            statement.setString(2, newCustomer.getName());
+            statement.setString(3, newCustomer.getPhone());
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public List<Customer> searchCustomersByID(int customerId) {
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : customers) {
-            if (customer.getID() == customerId) {
-                result.add(customer);
-            }
-        }
-        return result;
-    }
-
-    public List<Customer> searchCustomersByName(String name) {
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : customers) {
-            if (customer.getName().equalsIgnoreCase(name)) {
-                result.add(customer);
-            }
-        }
-        return result;
-    }
-
-    public List<Customer> searchCustomersByPhone(String phone) {
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : customers) {
-            if (customer.getPhone().equalsIgnoreCase(phone)) {
-                result.add(customer);
-            }
-        }
-        return result;
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        CustomerController controller = new CustomerController();
-
-        int choice;
-        do {
-            System.out.println("----- Quản lý khách hàng -----");
-            System.out.println("0. Thoát");
-            System.out.println("1. Thêm khách hàng");
-            System.out.println("2. Sửa thông tin khách hàng");
-            System.out.println("3. Xóa khách hàng");
-            System.out.println("4. Tìm kiếm khách hàng theo ID");
-            System.out.println("5. Tìm kiếm khách hàng theo Tên");
-            System.out.println("6. Tìm kiếm khách hàng theo Số điện thoại");
-            System.out.println("Nhập lựa chọn của bạn: ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); 
-
-            switch (choice) {
-                case 1:
-                    Customer newCustomer = inputCustomerInfo(scanner);
-                    controller.addCustomer(newCustomer);
-                    System.out.println("Thêm khách hàng thành công.");
-                    break;
-                case 2:
-                    System.out.print("Nhập ID khách hàng cần sửa: ");
-                    int customerIdToUpdate = scanner.nextInt();
-                    scanner.nextLine(); 
-                    Customer updatedCustomer = inputCustomerInfo(scanner);
-                    updatedCustomer.setID(customerIdToUpdate);
-                    controller.updateCustomer(customerIdToUpdate, updatedCustomer);
-                    System.out.println("Sửa thông tin khách hàng thành công.");
-                    break;
-                case 3:
-                    System.out.print("Nhập ID khách hàng cần xóa: ");
-                    int customerIdToDelete = scanner.nextInt();
-                    scanner.nextLine(); 
-                    controller.deleteCustomer(customerIdToDelete);
-                    System.out.println("Xóa khách hàng thành công.");
-                    break;
-                case 4:
-                    System.out.print("Nhập ID khách hàng cần tìm: ");
-                    int searchCustomerId = scanner.nextInt();
-                    scanner.nextLine();
-                    List<Customer> searchResultById = controller.searchCustomersByID(searchCustomerId);
-                    displayCustomerList(searchResultById);
-                    break;
-                case 5:
-                    System.out.print("Nhập Tên khách hàng cần tìm: ");
-                    String searchName = scanner.nextLine();
-                    List<Customer> searchResultByName = controller.searchCustomersByName(searchName);
-                    displayCustomerList(searchResultByName);
-                    break;
-                case 6:
-                    System.out.print("Nhập Số điện thoại khách hàng cần tìm: ");
-                    String searchPhone = scanner.nextLine();
-                    List<Customer> searchResultByPhone = controller.searchCustomersByPhone(searchPhone);
-                    displayCustomerList(searchResultByPhone);
-                    break;
-                case 0:
-                    System.out.println("Kết thúc chương trình.");
-                    break;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ.");
-                    break;
-            }
-
-            System.out.println();
-        } while (choice != 0);
-    }
-
-    private static Customer inputCustomerInfo(Scanner scanner) {
-        System.out.print("Nhập ID khách hàng: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); 
-
-        System.out.print("Nhập tên khách hàng: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Nhập số điện thoại: ");
-        String phone = scanner.nextLine();
-
-        return new Customer(id, name, phone);
-    }
-
-    private static void displayCustomerList(List<Customer> customers) {
-        System.out.format("", "ID", "Name", "Phone");
-        for (Customer customer : customers) {
-            System.out.format("", customer.getID(), customer.getName(), customer.getPhone());
+    public void editCustomerByID(int customerId, int quantity) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE customer SET used_quantity = ? WHERE id = ?");
+            statement.setInt(1, quantity);
+            statement.setInt(2, customerId);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-}
 
-class Customer {
-    private int ID;
-    private String Name;
-    private String Phone;
-
-    public Customer(int ID, String name, String phone) {
-        this.ID = ID;
-        this.Name = name;
-        this.Phone = phone;
+    public void editCustomerByName(String customerName, int quantity) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE customer SET used_quantity = ? WHERE name = ?");
+            statement.setInt(1, quantity);
+            statement.setString(2, customerName);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public int getID() {
-        return ID;
+    public void editCustomerByPhone(String customerPhone, int quantity) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE customer SET used_quantity = ? WHERE phone = ?");
+            statement.setInt(1, quantity);
+            statement.setString(2, customerPhone);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void deleteCustomerByID(int customerId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE id = ?");
+            statement.setInt(1, customerId);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public String getName() {
-        return Name;
+    public void deleteCustomerByName(String customerName) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE name = ?");
+            statement.setString(1, customerName);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setName(String name) {
-        this.Name = name;
+    public void deleteCustomerByPhone(String customerPhone) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE phone = ?");
+            statement.setString(1, customerPhone);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public String getPhone() {
-        return Phone;
+    public List<Customer> searchCustomerByName(String name) {
+        List<Customer> searchResults = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM customer WHERE name LIKE ?");
+            statement.setString(1, "%" + name + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
+                customer.setUsedQuantity(resultSet.getInt("used_quantity"));
+                searchResults.add(customer);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return searchResults;
     }
 
-    public void setPhone(String phone) {
-        this.Phone = phone;
+    class Customer {
+        private int ID;
+        private String name;
+        private String phone;
+        private int usedQuantity;
+
+        public Customer(int ID, String name, String phone) {
+            this.ID = ID;
+            this.name = name;
+            this.phone = phone;
+        }
+
+        public int getID() {
+            return ID;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public int getUsedQuantity() {
+            return usedQuantity;
+        }
+
+        public void setUsedQuantity(int usedQuantity) {
+            this.usedQuantity = usedQuantity;
+        }
     }
 }
