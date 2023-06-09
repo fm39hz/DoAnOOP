@@ -10,12 +10,12 @@ import javax.swing.JPanel;
  *
  * @author Admin
  */
-public class DishesView extends JPanel {
+public class Dishes extends JPanel {
 
     /**
      * Creates new form DishesView
      */
-    public DishesView() {
+    public Dishes() {
         initComponents();
     }
 
