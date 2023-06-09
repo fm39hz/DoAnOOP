@@ -4,7 +4,6 @@
  */
 package team4.KitchenManager.View;
 
-import javax.swing.ImageIcon;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 /**
@@ -52,9 +51,9 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         setTitle("Ứng dụng quản lý nhà hàng");
         setMinimumSize(new java.awt.Dimension(1280, 720));
 
-        ComponentView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ComponentView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        Overview.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Overview.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,7 +74,7 @@ public class KitchenManagerMain extends javax.swing.JFrame {
 
         ComponentView.addTab("Overview", Overview);
 
-        Dishes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Dishes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
         jPanel2.add(dishesView3);
