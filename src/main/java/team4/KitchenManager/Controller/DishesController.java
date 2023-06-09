@@ -22,6 +22,8 @@ public class DishesController {
     private String sql_join_query = "SELECT dishes.id,\n" +
             "dishes.name,\n" +
             "dishes.price,\n" +
+            "dishes.image_path,\n" +
+            "dishes.description,\n" +
             "quantities.ingredient_id,\n" +
             "quantities.quantity AS ingre_quantity,\n" +
             "ingredients.date_in AS ingre_date_in,\n" +
@@ -40,6 +42,8 @@ public class DishesController {
             String _id = rs.getString("id");
             String _name = rs.getString("name");
             int _price = rs.getInt("price");
+            String _imgage_path = rs.getString("image_path");
+            String _description = rs.getString("description");
             String _ingredient_id = rs.getString("ingredient_id");
             String _ingre_name = rs.getString("ingre_name");
             Date _ingre_in_date = rs.getDate("ingre_date_in");
@@ -62,7 +66,7 @@ public class DishesController {
                 _ingredient_quantity_id = 1;
                 _list_quantity.add(new IngredientQuantity(String.valueOf(_ingredient_quantity_id),_ingredient,_ingre_quantity));
             }
-            _list.add(new Dish(_id,_name,_price,"","", _list_quantity));
+            _list.add(new Dish(_id,_name,_price,_imgage_path,_description,_list_quantity));
             _previous_id = Integer.parseInt(_id);
         }
     }
@@ -99,11 +103,13 @@ public class DishesController {
     }
     public boolean addDishes(Dish d) {
         boolean _ok = false;
-        String sql = "INSERT INTO dishes (name, price) VALUES (?, ?);";
+        String sql = "INSERT INTO dishes (name, price, image_path, description) VALUES (?, ?, ?, ?);";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ps.setString(1,d.getName());
             ps.setInt(2,d.getPrice());
+            ps.setString(3,d.getImagePath());
+            ps.setString(4, d.getDescription());
             int result = ps.executeUpdate();
             if (result > 0) {
                 _ok = true;
@@ -132,12 +138,14 @@ public class DishesController {
 
     public int updateDishes(Dish d) {
         int _dishes_count = 0;
-        String sql = "UPDATE dishes SET `name`=?,`price`=? WHERE `id`=?;";
+        String sql = "UPDATE dishes SET `name`=?,`price`=?, `image_path`=?, `desciption`=? WHERE `id`=?;";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ps.setString(1, d.getName());
             ps.setInt(2,d.getPrice());
-            ps.setString(3,d.getID());
+            ps.setString(3,d.getImagePath());
+            ps.setString(4, d.getDescription());
+            ps.setString(5,d.getID());
             _dishes_count = ps.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
