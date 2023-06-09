@@ -13,6 +13,7 @@ public class Dish{
     private String ID;
     private String Name;
     private int Price;
+    private String ImagePath;
     private String Description;
     private List<IngredientQuantity> Recipe;
     @Override

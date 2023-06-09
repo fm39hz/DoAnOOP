@@ -62,7 +62,7 @@ public class DishesController {
                 _ingredient_quantity_id = 1;
                 _list_quantity.add(new IngredientQuantity(String.valueOf(_ingredient_quantity_id),_ingredient,_ingre_quantity));
             }
-            _list.add(new Dish(_id,_name,_price,"description",_list_quantity));
+            _list.add(new Dish(_id,_name,_price,"","", _list_quantity));
             _previous_id = Integer.parseInt(_id);
         }
     }

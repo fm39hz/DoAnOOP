@@ -4,7 +4,11 @@
  */
 package team4.KitchenManager.View;
 
+import javax.swing.ImageIcon;
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+
+import team4.KitchenManager.Controller.DishesController;
 
 /**
  *
@@ -17,8 +21,18 @@ public class KitchenManagerMain extends javax.swing.JFrame {
      */
     public KitchenManagerMain() {
         initComponents();
+        Test();
     }
 
+    public void Test(){
+        setIconImage(new ImageIcon(System.getProperty("user.dir") + "/resource/icon.png").getImage());
+        var _dishesController = new DishesController();
+        var _dishes = _dishesController.getAll();
+            for (var _dish : _dishes){
+                var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
+                    jPanel2.add(_dishesView);
+                }
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,11 +48,6 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         feedbackView2 = new team4.KitchenManager.View.FeedbackView();
         Dishes = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        dishesView3 = new team4.KitchenManager.View.Dishes();
-        dishesView4 = new team4.KitchenManager.View.Dishes();
-        dishesView5 = new team4.KitchenManager.View.Dishes();
-        dishesView1 = new team4.KitchenManager.View.Dishes();
-        dishesView2 = new team4.KitchenManager.View.Dishes();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         MenuBar = new javax.swing.JMenuBar();
@@ -77,12 +86,6 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         Dishes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
-        jPanel2.add(dishesView3);
-        jPanel2.add(dishesView4);
-        jPanel2.add(dishesView5);
-        jPanel2.add(dishesView1);
-        jPanel2.add(dishesView2);
-
         Dishes.setViewportView(jPanel2);
 
         ComponentView.addTab("Dishes", Dishes);
@@ -158,11 +161,6 @@ public class KitchenManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JScrollPane Overview;
-    private team4.KitchenManager.View.Dishes dishesView1;
-    private team4.KitchenManager.View.Dishes dishesView2;
-    private team4.KitchenManager.View.Dishes dishesView3;
-    private team4.KitchenManager.View.Dishes dishesView4;
-    private team4.KitchenManager.View.Dishes dishesView5;
     private team4.KitchenManager.View.FeedbackView feedbackView2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
