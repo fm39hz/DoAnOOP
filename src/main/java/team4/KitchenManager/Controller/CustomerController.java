@@ -3,9 +3,6 @@ import java.sql.Connection;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import team4.KitchenManager.Controller.CustomerController;
-import team4.KitchenManager.DAO.DatabaseConnector;
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +126,6 @@ public class CustomerController {
         }
     }
 
-<<<<<<< HEAD
     public void deleteCustomerByName(String customerName) {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE name = ?");
@@ -140,21 +136,6 @@ public class CustomerController {
             e.printStackTrace();
         }
     }
-=======
-        int choice;
-        do {
-            System.out.println("----- Quản lý khách hàng -----");
-            System.out.print("Nhập lựa chọn của bạn: ");
-            System.out.println("0. Thoát");
-            System.out.println("1. Thêm khách hàng");
-            System.out.println("2. Sửa thông tin khách hàng");
-            System.out.println("3. Xóa khách hàng");
-            System.out.println("4. Tìm kiếm khách hàng theo ID");
-            System.out.println("5. Tìm kiếm khách hàng theo Tên");
-            System.out.println("6. Tìm kiếm khách hàng theo Số điện thoại");
-            choice = scanner.nextInt();
-            scanner.nextLine(); 
->>>>>>> parent of f5661c4 (nocommit)
 
     public void deleteCustomerByPhone(String customerPhone) {
         try {
