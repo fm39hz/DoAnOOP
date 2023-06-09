@@ -28,7 +28,6 @@ public class KitchenManagerMain extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         ComponentView = new javax.swing.JTabbedPane();
         Overview = new javax.swing.JScrollPane();
@@ -36,17 +35,26 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         feedbackView2 = new team4.KitchenManager.View.FeedbackView();
         Dishes = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        list1 = new java.awt.List();
+        dishesView3 = new team4.KitchenManager.View.DishesView();
+        dishesView4 = new team4.KitchenManager.View.DishesView();
+        dishesView5 = new team4.KitchenManager.View.DishesView();
+        dishesView1 = new team4.KitchenManager.View.DishesView();
+        dishesView2 = new team4.KitchenManager.View.DishesView();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         EditMenu = new javax.swing.JMenu();
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ứng dụng quản lý nhà hàng");
-        setIconImage((new ImageIcon(System.getProperty("user.dir") + "/resource/icon.png")).getImage());
         setMinimumSize(new java.awt.Dimension(1280, 720));
+
+        ComponentView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        Overview.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -67,22 +75,20 @@ public class KitchenManagerMain extends javax.swing.JFrame {
 
         ComponentView.addTab("Overview", Overview);
 
-        list1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Dishes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 1286, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-        );
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+        jPanel2.add(dishesView3);
+        jPanel2.add(dishesView4);
+        jPanel2.add(dishesView5);
+        jPanel2.add(dishesView1);
+        jPanel2.add(dishesView2);
 
         Dishes.setViewportView(jPanel2);
 
         ComponentView.addTab("Dishes", Dishes);
+        ComponentView.addTab("tab3", jScrollPane1);
+        ComponentView.addTab("tab4", jScrollPane2);
 
         FileMenu.setText("File");
         FileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -153,11 +159,17 @@ public class KitchenManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JScrollPane Overview;
+    private team4.KitchenManager.View.DishesView dishesView1;
+    private team4.KitchenManager.View.DishesView dishesView2;
+    private team4.KitchenManager.View.DishesView dishesView3;
+    private team4.KitchenManager.View.DishesView dishesView4;
+    private team4.KitchenManager.View.DishesView dishesView5;
     private team4.KitchenManager.View.FeedbackView feedbackView2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private java.awt.List list1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
