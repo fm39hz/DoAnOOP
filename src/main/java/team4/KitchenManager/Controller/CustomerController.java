@@ -1,8 +1,3 @@
-package team4.KitchenManager.Controller;
-import team4.KitchenManager.Controller.CustomerController;
-import team4.KitchenManager.DAO.DatabaseConnector;
-import javax.swing.*;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,7 +70,6 @@ public class CustomerController {
         int choice;
         do {
             System.out.println("----- Quản lý khách hàng -----");
-            System.out.print("Nhập lựa chọn của bạn: ");
             System.out.println("0. Thoát");
             System.out.println("1. Thêm khách hàng");
             System.out.println("2. Sửa thông tin khách hàng");
@@ -83,6 +77,7 @@ public class CustomerController {
             System.out.println("4. Tìm kiếm khách hàng theo ID");
             System.out.println("5. Tìm kiếm khách hàng theo Tên");
             System.out.println("6. Tìm kiếm khách hàng theo Số điện thoại");
+            System.out.println("Nhập lựa chọn của bạn: ");
             choice = scanner.nextInt();
             scanner.nextLine(); 
 

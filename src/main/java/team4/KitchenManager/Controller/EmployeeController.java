@@ -1,10 +1,6 @@
-package team4.KitchenManager.Controller;
-import team4.KitchenManager.DAO.DatabaseConnector;
-import javax.swing.*;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -170,7 +166,7 @@ public class EmployeeController {
     }
 }
 
-public class Employee {
+class Employee {
     private int ID;
     private String Name;
     private String Phone;
