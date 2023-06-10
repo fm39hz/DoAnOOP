@@ -15,15 +15,4 @@ public class Ingredient {
     private Date InDate;
     private int InStock;
     private int Cost;
-
-    public static <T> int getUsedQuantity(T t) {
-        return 0;
-    }
-
-    public void setUsedQuantity(int usedQuantity) {
-    }
-
-    public boolean getUsedQuantity() {
-        return false;
-    }
 }
