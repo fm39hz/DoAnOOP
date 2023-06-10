@@ -4,7 +4,11 @@
  */
 package team4.KitchenManager.View;
 
+import javax.swing.ImageIcon;
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+
+import team4.KitchenManager.Controller.DishesController;
 
 /**
  *
@@ -17,8 +21,18 @@ public class KitchenManagerMain extends javax.swing.JFrame {
      */
     public KitchenManagerMain() {
         initComponents();
+        Test();
     }
 
+    public void Test(){
+        setIconImage(new ImageIcon(System.getProperty("user.dir") + "/resource/icon.png").getImage());
+        var _dishesController = new DishesController();
+        var _dishes = _dishesController.getAll();
+            for (var _dish : _dishes){
+                var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
+                    jPanel2.add(_dishesView);
+                }
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,7 +41,6 @@ public class KitchenManagerMain extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         ComponentView = new javax.swing.JTabbedPane();
         Overview = new javax.swing.JScrollPane();
@@ -35,7 +48,8 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         feedbackView2 = new team4.KitchenManager.View.FeedbackView();
         Dishes = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        list1 = new java.awt.List();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -45,6 +59,10 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ứng dụng quản lý nhà hàng");
         setMinimumSize(new java.awt.Dimension(1280, 720));
+
+        ComponentView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        Overview.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,30 +75,22 @@ public class KitchenManagerMain extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(feedbackView2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 345, Short.MAX_VALUE))
+                .addComponent(feedbackView2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 257, Short.MAX_VALUE))
         );
 
         Overview.setViewportView(jPanel1);
 
         ComponentView.addTab("Overview", Overview);
 
-        list1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Dishes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 1286, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-        );
-
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
         Dishes.setViewportView(jPanel2);
 
         ComponentView.addTab("Dishes", Dishes);
+        ComponentView.addTab("tab3", jScrollPane1);
+        ComponentView.addTab("tab4", jScrollPane2);
 
         FileMenu.setText("File");
         FileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -156,6 +166,7 @@ public class KitchenManagerMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private java.awt.List list1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

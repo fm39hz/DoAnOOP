@@ -6,13 +6,6 @@ target/
 bin/
 !.mvn/wrapper/maven-wrapper.jar
 *.class
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
 
 ### IntelliJ IDEA ###
 .idea
@@ -27,10 +20,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-target/
 /.idea/
 /src/main/java/team4/KitchenManager/View/*.form
-/target/classes
-target/test-classes/.netbeans_automatic_build
-KitchenManager.iml
-
