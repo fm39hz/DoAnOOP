@@ -14,20 +14,6 @@ public class EmployeeController {
         
     }
 
-public void displayEmployees() {
-    System.out.println("ID | Name | Phone | Position | Salary");
-
-    List<Employee> employees = getEmployees();
-
-    for (Employee employee : employees) {
-        System.out.print(employee.getID() + " | ");
-        System.out.print(employee.getName() + " | ");
-        System.out.print(employee.getPhone() + " | ");
-        System.out.print(employee.getPosition() + " | ");
-        System.out.println(employee.getSalary()+ " | ");
-    }
-}
-
 public List<Employee> getEmployees() {
     List<Employee> employees = new ArrayList<>();
     try {
@@ -198,8 +184,4 @@ class Employee {
         return salary;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-}
 }
