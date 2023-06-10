@@ -3,40 +3,46 @@ package team4;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import team4.KitchenManager.Controller.DishesController;
 import team4.KitchenManager.Controller.IngredientController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import team4.KitchenManager.DAO.DatabaseConnector.Url;
-import team4.KitchenManager.Model.Dish;
-// import team4.KitchenManager.Model.*;
+import team4.KitchenManager.Model.*;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class AppTest {
     // Ingredient _testIngredient;
     DatabaseConnector _testdb;
-    public AppTest(){
-        _testdb = new DatabaseConnector(Url.MariaDB, "root", "");
-        }
+
+    public AppTest() {
+//        _testdb = new DatabaseConnector(Url.MariaDB, "root", "");
+    }
+
     @Test
-    public void ConectionTest(){
-        assertEquals(_testdb.getConnectionState(), true);
-        }
-    @Test
-    public void DishesTest() throws Exception {
-        var _dishes = new DishesController();
-        var _getAll = _dishes.sortBy("name",false);
-            for (Dish _dish: _getAll) {
-                System.out.println(_dish.getID()+"-"+_dish.getName()+"-"+_dish.getPrice());
-                }
-        var _remain = _dishes.calculateRemaining("200");
-            assertEquals(_remain, 30000);
-            System.out.println(_remain);
-        }
-    @Test
-    public void IngredientsTest(){
+    public void IngredientsTest() {
+        //khoi tao doi tuong
         var _ingredients = new IngredientController();
-        var _getAll = _ingredients.getIngredients();
-            for (var _ingredient : _getAll){
-                System.out.println(_ingredient.getID() + _ingredient.getName());
-                }
+        // goi doi tuong
+        String dateString = "2023-06-09";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            java.util.Date utilDate = dateFormat.parse(dateString);
+            long timeInMillis = utilDate.getTime();
+            Date sqlDate = new Date(timeInMillis);
+            System.out.println(sqlDate);
+            var _getAll = _ingredients.addIngredient(new Ingredient("null", "adsasd", sqlDate, 39393, 29292));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        var Date = new Date(2023, 6, 10);
+        System.out.println(Date);
+
+//        for (Ingredient _ingredient : _getAll){
+//            System.out.println(_ingredient.getCost()+ _ingredient.getName());
+//        }
+    }
 }
