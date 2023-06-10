@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class IngredientController {
-    private Connection connection;
     DatabaseConnector conn = null;
     public IngredientController() {
         // không cần truyền tham số, mặc định sẽ dùng mariadb
@@ -19,13 +18,13 @@ public class IngredientController {
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredients = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM ingrediens");
+            Statement statement = conn.getConnector().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ingredients");
             while (resultSet.next()) {
                 Ingredient ingredient = new Ingredient();
                 ingredient.setID(resultSet.getString("id"));
                 ingredient.setName(resultSet.getString("name"));
-                ingredient.setInDate(resultSet.getDate("in_date"));
+                ingredient.setInDate(resultSet.getDate("date_in"));
                 ingredient.setInStock(resultSet.getInt("in_stock"));
                 ingredient.setCost(resultSet.getInt("cost"));
                 ingredients.add(ingredient);
@@ -41,7 +40,7 @@ public class IngredientController {
     public List<String> getDishesUsingIngredient(String ingredientId) {
         List<String> dishes = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT dish_name FROM dishes_ingredients WHERE ingredient_id = ?");
+            PreparedStatement statement = conn.getConnector().prepareStatement("SELECT dish_name FROM dishes_ingredients WHERE ingredient_id = ?");
             statement.setString(1, ingredientId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -57,7 +56,7 @@ public class IngredientController {
 
     public void editIngredient(String ingredientId, String newName, int newCost) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE ingredients SET name = ?, cost = ? WHERE id = ?");
+            PreparedStatement statement = conn.getConnector().prepareStatement("UPDATE ingredients SET name = ?, cost = ? WHERE id = ?");
             statement.setString(1, newName);
             statement.setInt(2, newCost);
             statement.setString(3, ingredientId);
@@ -70,7 +69,7 @@ public class IngredientController {
 
     public void addIngredient(Ingredient newIngredient) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO ingredients (name, in_date, in_stock, cost) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = conn.getConnector().prepareStatement("INSERT INTO ingredients (name, in_date, in_stock, cost) VALUES (?, ?, ?, ?)");
             statement.setString(1, newIngredient.getName());
             statement.setDate(2, newIngredient.getInDate());
             statement.setInt(3, newIngredient.getInStock());
@@ -84,7 +83,7 @@ public class IngredientController {
 
     public void refillIngredient(String ingredientId, int quantity) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE ingredients SET in_stock = in_stock + ? WHERE id = ?");
+            PreparedStatement statement = conn.getConnector().prepareStatement("UPDATE ingredients SET in_stock = in_stock + ? WHERE id = ?");
             statement.setInt(1, quantity);
             statement.setString(2, ingredientId);
             statement.executeUpdate();
@@ -96,7 +95,7 @@ public class IngredientController {
 
     public void deleteIngredient(String ingredientId) {
         try {
-            try (PreparedStatement statement = connection.prepareStatement("DELETE FROM ingredients WHERE id = ?")) {
+            try (PreparedStatement statement = conn.getConnector().prepareStatement("DELETE FROM ingredients WHERE id = ?")) {
                 statement.setString(1, ingredientId);
                 statement.executeUpdate();
             }
@@ -126,7 +125,7 @@ public class IngredientController {
     public List<Ingredient> searchIngredientsByName(String name) {
         List<Ingredient> searchResults = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ingredients WHERE name LIKE ?");
+            PreparedStatement statement = conn.getConnector().prepareStatement("SELECT * FROM ingredients WHERE name LIKE ?");
             statement.setString(1, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
