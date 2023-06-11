@@ -33,7 +33,6 @@ public class AppTest {
             for (var _ingredient : _getAll){
                 System.out.println(_ingredient.getID() + "|" + _ingredient.getName() + "|" + _ingredient.getInDate());
                 }
-        // assertEquals(_getAll.get(0).getID(), "600");
         assertEquals(_getAll.size(), 11);
         }
     }
