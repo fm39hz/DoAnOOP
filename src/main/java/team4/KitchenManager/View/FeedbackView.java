@@ -2,7 +2,6 @@ package team4.KitchenManager.View;
 
 import javax.swing.*;
 import javax.swing.border.*;
-
 import java.awt.*;
 
 public class FeedbackView extends JPanel {
@@ -39,6 +38,7 @@ public class FeedbackView extends JPanel {
 
         Title.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         Title.setText("Phản hồi khách hàng");
+        Title.setEditable(false);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
