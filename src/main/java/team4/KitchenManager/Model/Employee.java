@@ -2,13 +2,11 @@ package team4.KitchenManager.Model;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class Employee extends InformationSchema{
@@ -19,5 +17,12 @@ public class Employee extends InformationSchema{
     @Override
     public String toString(){
         return "employees";
+        }
+    public Employee(String id, String firstName, String lastName, String phone, String imagePath, String position, int salary, List<Attendance> attendances){
+        super(id, firstName, lastName, phone);
+        this.AttendanceHistory = attendances;
+        this.ImagePath = imagePath;
+        this.Position = position;
+        this.Salary = salary;
         }
     }
