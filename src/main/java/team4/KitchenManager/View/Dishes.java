@@ -22,6 +22,9 @@ public class Dishes extends JPanel {
     }
     public Dishes(Dish dish){
         initComponents();
+        this.setDish(dish);
+        }
+    private void setDish(Dish dish){
         this.DishDescription.setText(dish.getDescription());
         this.DishName.setText(dish.getName());
         this.Image.setIcon(new ImageIcon(System.getProperty("user.dir") + dish.getImagePath()));
