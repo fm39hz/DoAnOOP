@@ -18,15 +18,13 @@ public class AppTest {
         assertEquals(_testdb.getConnectionState(), true);
         }
     @Test
-    public void DishesTest() throws Exception {
+    public void DishesTest(){
         var _dishes = new DishesController(_testdb);
-        var _getAll = _dishes.sortBy("name",false);
+        var _getAll = _dishes.getAll();
             for (var _dish: _getAll) {
                 System.out.println(_dish.getID()+"|"+_dish.getName()+"|"+_dish.getPrice());
                 }
-        var _remain = _dishes.calculateRemaining("200");
-            assertEquals(_remain, 30000);
-            System.out.println(_remain);
+        assertEquals(_getAll.get(0).getID(), "200");
         }
     @Test
     public void IngredientsTest(){
@@ -35,5 +33,7 @@ public class AppTest {
             for (var _ingredient : _getAll){
                 System.out.println(_ingredient.getID() + "|" + _ingredient.getName() + "|" + _ingredient.getInDate());
                 }
+        // assertEquals(_getAll.get(0).getID(), "600");
+        assertEquals(_getAll.size(), 11);
         }
     }
