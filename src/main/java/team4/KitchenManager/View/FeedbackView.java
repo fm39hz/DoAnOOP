@@ -22,7 +22,6 @@ public class FeedbackView extends JPanel {
             feedback.setPreferredSize(new Dimension(1278, 60));
             jPanel1.add(feedback);
             }
-        // this.revalidate();
         }
 
     private void initComponents() {
