@@ -14,7 +14,7 @@ public class AppTest {
     // Ingredient _testIngredient;
     DatabaseConnector _testdb;
     public AppTest(){
-        _testdb = new DatabaseConnector(Url.MariaDB, "root", "");
+        _testdb = new DatabaseConnector(Url.MariaDB, "fm39hz", "D@ylahien2k3");
         }
     @Test
     public void ConectionTest(){
@@ -22,10 +22,10 @@ public class AppTest {
         }
     @Test
     public void DishesTest() throws Exception {
-        var _dishes = new DishesController();
+        var _dishes = new DishesController(_testdb);
         var _getAll = _dishes.sortBy("name",false);
             for (Dish _dish: _getAll) {
-                System.out.println(_dish.getID()+"-"+_dish.getName()+"-"+_dish.getPrice());
+                System.out.println(_dish.getID()+"|"+_dish.getName()+"|"+_dish.getPrice());
                 }
         var _remain = _dishes.calculateRemaining("200");
             assertEquals(_remain, 30000);
@@ -33,10 +33,10 @@ public class AppTest {
         }
     @Test
     public void IngredientsTest(){
-        var _ingredients = new IngredientController();
+        var _ingredients = new IngredientController(_testdb);
         var _getAll = _ingredients.getIngredients();
             for (var _ingredient : _getAll){
-                System.out.println(_ingredient.getID() + _ingredient.getName());
+                System.out.println(_ingredient.getID() + "|" + _ingredient.getName() + "|" + _ingredient.getInDate());
                 }
         }
-}
+    }

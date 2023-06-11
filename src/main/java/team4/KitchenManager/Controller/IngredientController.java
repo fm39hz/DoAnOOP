@@ -14,6 +14,9 @@ public class IngredientController {
         // không cần truyền tham số, mặc định sẽ dùng mariadb
         conn = new DatabaseConnector();
     }
+    public IngredientController(DatabaseConnector con){
+        this.conn = con;
+        }
 
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredients = new ArrayList<>();

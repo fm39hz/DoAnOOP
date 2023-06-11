@@ -18,6 +18,9 @@ public class DishesController {
         // không cần truyền tham số, mặc định sẽ dùng mariadb
         conn = new DatabaseConnector();
     }
+    public DishesController(DatabaseConnector con){
+        this.conn = con;
+        }
 
     private String sql_join_query = "SELECT dishes.id,\n" +
             "dishes.name,\n" +
