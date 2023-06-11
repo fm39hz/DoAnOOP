@@ -5,7 +5,6 @@
 package team4.KitchenManager.View;
 
 import javax.swing.ImageIcon;
-
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import team4.KitchenManager.Controller.DishesController;
