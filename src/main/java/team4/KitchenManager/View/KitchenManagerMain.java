@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import team4.KitchenManager.Controller.DishesController;
+import team4.KitchenManager.DAO.DatabaseConnector;
+import team4.KitchenManager.DAO.DatabaseConnector.Url;
 
 /**
  *
@@ -26,7 +28,8 @@ public class KitchenManagerMain extends javax.swing.JFrame {
 
     public void Test(){
         setIconImage(new ImageIcon(System.getProperty("user.dir") + "/resource/icon.png").getImage());
-        var _dishesController = new DishesController();
+        var _connector = new DatabaseConnector(Url.MariaDB, "fm39hz", "D@ylahien2k3");
+        var _dishesController = new DishesController(_connector);
         var _dishes = _dishesController.getAll();
             for (var _dish : _dishes){
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
