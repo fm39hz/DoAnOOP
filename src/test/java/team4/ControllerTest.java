@@ -4,13 +4,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import team4.KitchenManager.DAO.DatabaseConnector;
 import team4.KitchenManager.DAO.DatabaseConnector.Url;
-import team4.KitchenManager.Model.Employee;
 import team4.KitchenManager.Controller.*;
 
 public class ControllerTest{
@@ -19,7 +16,7 @@ public class ControllerTest{
         _testdb = new DatabaseConnector(Url.MariaDB, "fm39hz", "D@ylahien2k3");
         }
     @Test
-    public void ConectionTest(){
+    public void ConnectionTest(){
         assertEquals(_testdb.getConnectionState(), true);
         }
     @Test
@@ -41,9 +38,18 @@ public class ControllerTest{
         assertEquals(_getAll.size(), 11);
         }
     @Test
-    public void InvoiceTest(){
+    public void InvoicesTest(){
         var _attendances = new AttendanceController(_testdb);
         var _testDay = Date.valueOf(LocalDate.of(2023, 06, 01));
         assertEquals(_attendances.GetEmployeeOnDay(_testDay).size(), 2);
+        }
+    @Test
+    public void EmployeesTest(){
+        var _employees = new EmployeeController(_testdb);
+        var _getAll = _employees.getAll();
+            for (var _employee : _getAll){
+                System.out.println(_employee.getId() + "|" + _employee.getFirstName() + " " + _employee.getLastName());
+                }
+        assertEquals(_getAll.size(), 12);
         }
     }
