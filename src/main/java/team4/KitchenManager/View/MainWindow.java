@@ -4,6 +4,13 @@
  */
 package team4.KitchenManager.View;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
@@ -11,6 +18,7 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import team4.KitchenManager.Controller.DishesController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import team4.KitchenManager.DAO.DatabaseConnector.Url;
+import team4.KitchenManager.Model.Attendance;
 import team4.KitchenManager.Model.Employee;
 
 /**
@@ -36,8 +44,16 @@ public class MainWindow extends javax.swing.JFrame {
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
                     jPanel3.add(_dishesView);
                 }
-                var _employeesView = new team4.KitchenManager.View.Employees(new Employee("01","Phạm","Danh Hiển","0849070703","", "Staff", 10000, null));
-                    jPanel4.add(_employeesView);
+        var _attendances = new ArrayList<Attendance>();
+                Date _date = Date.valueOf(LocalDate.of(2023, 6, 1));
+                _attendances.add(new Attendance("01", _date, Time.valueOf("10:34:34")));
+                _attendances.add(new Attendance("02", _date, Time.valueOf("14:34:34")));
+                _attendances.add(new Attendance("03", _date, Time.valueOf("17:34:34")));
+                _attendances.add(new Attendance("04", _date, Time.valueOf("19:34:34")));
+                _attendances.add(new Attendance("05", _date, Time.valueOf("21:34:34")));
+                _attendances.add(new Attendance("06", _date, Time.valueOf("23:34:34")));
+        var _employeesView = new team4.KitchenManager.View.Employees(new Employee("01","Phạm","Danh Hiển","0849070703","", "Staff", 10000, _attendances));
+            jPanel4.add(_employeesView);
         }
 
     /**
