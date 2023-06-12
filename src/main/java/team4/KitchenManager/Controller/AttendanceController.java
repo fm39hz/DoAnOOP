@@ -1,11 +1,10 @@
-// package team4.KitchenManager.Controller;
+package team4.KitchenManager.Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +22,13 @@ public class AttendanceController {
         attendanceMap = new HashMap<>();
     }
 
+    public AttendanceController(DatabaseConnector connector) {
+        this.conn = connector;
+        attendanceMap = new HashMap<>();
+        }
+
     public void addAttendance(Employee employee, Date Day, Time CheckIn) {
-        Attendance attendance = new Attendance(employee.getID(), Day, CheckIn);
+        Attendance attendance = new Attendance(employee.getId(), Day, CheckIn);
         List<Employee> employeeList = attendanceMap.getOrDefault(Day, new ArrayList<>());
         employeeList.add(employee);
         attendanceMap.put(Day, employeeList);
@@ -35,7 +39,7 @@ public class AttendanceController {
 
     private void saveAttendanceToDatabase(Attendance attendance) {
         try {
-            String sql = "INSERT INTO attendance (ID, Day, CheckIn) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO attendances (ID, Day, CheckIn) VALUES (?, ?, ?)";
             var statement = conn.getConnector().prepareStatement(sql);
             statement.setString(1, attendance.getID());
             statement.setDate(2, new java.sql.Date(attendance.getDay().getTime()));
@@ -59,7 +63,7 @@ public class AttendanceController {
     private List<Employee> getEmployeesFromDatabase(Date Day) {
         List<Employee> employees = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM employee WHERE ID IN (SELECT ID FROM attendance WHERE Day = ?)";
+            String sql = "SELECT * FROM employees WHERE ID IN (SELECT ID FROM attendances WHERE Day = ?)";
             var statement = conn.getConnector().prepareStatement(sql);
             statement.setDate(1, new java.sql.Date(Day.getTime()));
             ResultSet resultSet = statement.executeQuery();
@@ -71,7 +75,7 @@ public class AttendanceController {
                 int salary = resultSet.getInt("Salary");
 
                 Employee employee = new Employee();
-                employee.setID(employeeID);
+                employee.setId(employeeID);
                 employee.setImagePath(imagePath);
                 employee.setPosition(position);
                 employee.setSalary(salary);
@@ -96,17 +100,17 @@ public class AttendanceController {
         return TotalSalary;
     }
 
-    public void displayAttendanceCalendar() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        for (Date day : attendanceMap.keySet()) {
-            System.out.println("Date: " + dateFormat.format(day));
-            List<Employee> employees = getEmployeesByDay(day);
-            for (Employee employee : employees) {
-                System.out.println("Employee ID: " + employee.getID());
-                System.out.println("Employee Name: " + employee.getName());
-                System.out.println("Position: " + employee.getPosition());
-                System.out.println("---------------------");
-            }
-        }
-    }
+//     public void displayAttendanceCalendar() {
+//         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//         for (Date day : attendanceMap.keySet()) {
+//             System.out.println("Date: " + dateFormat.format(day));
+//             List<Employee> employees = getEmployeesByDay(day);
+//             for (Employee employee : employees) {
+//                 System.out.println("Employee ID: " + employee.getId());
+//                 System.out.println("Employee Name: " + employee.getName());
+//                 System.out.println("Position: " + employee.getPosition());
+//                 System.out.println("---------------------");
+//             }
+//         }
+//     }
 }
