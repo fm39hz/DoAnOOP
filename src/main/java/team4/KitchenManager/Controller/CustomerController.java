@@ -1,72 +1,198 @@
-// package team4.KitchenManager.Controller;
 
-// import team4.KitchenManager.Model.Customer;
-// import team4.KitchenManager.DAO.DatabaseConnector;
-// import javax.swing.*;
-// import java.sql.*;
-// import java.util.ArrayList;
-// import java.util.List;
-// import team4.KitchenManager.Object.Customer;
+package team4.KitchenManager.Controller;
+import team4.KitchenManager.DAO.DatabaseConnector;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-// public class CustomerController {
-//     DatabaseConnector conn = null;
-// }
+public class CustomerController {
+    private Connection connection;
+    DatabaseConnector conn = null;
 
-//     public CustomerController() {
-//         conn = new DatabaseConnector();
+    public CustomerController() {
+        // không cần truyền tham số, mặc định sẽ dùng mariadb
+        conn = new DatabaseConnector();
+        
+    }
 
-//     }
+public List<Customer> getCustomers() {
+    List<Customer> customers = new ArrayList<>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");
+        while (resultSet.next()) {
+            Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
+            customer.setUsedQuantity(resultSet.getInt("used_quantity"));
+            customers.add(customer);
+        }
+        resultSet.close();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return customers;
+}
 
-//     public List<Customer> getAllCustomer() {
-//         List<Customer> _list = new ArrayList<>();
-//         Customer _Customer = new Customer();
-//         _Customer.setName();
-//         _Customer.setID();
-//         _Customer.setPhone();
-//         return _list;
-//     }
+public List<String> getDishesUsingCustomer(int customerId) {
+    List<String> dishes = new ArrayList<>();
+    try {
+        PreparedStatement statement = connection.prepareStatement("SELECT dish_name FROM Customer_dish WHERE customer_id = ?");
+        statement.setInt(1, customerId);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            dishes.add(resultSet.getString("dish_name"));
+        }
+        resultSet.close();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return dishes;
+}
 
-//     // thêm thông tin khách hàng
+public void addCustomer(Customer newCustomer) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO customer (id, name, phone) VALUES (?, ?, ?)");
+        statement.setInt(1, newCustomer.getID());
+        statement.setString(2, newCustomer.getName());
+        statement.setString(3, newCustomer.getPhone());
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
-//     public void addCustomer(Customer customer) {
-//         customers.add(customer);
-//     }
+public void editCustomerByID(int customerId, int quantity) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("UPDATE customer SET used_quantity = ? WHERE id = ?");
+        statement.setInt(1, quantity);
+        statement.setInt(2, customerId);
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
-//     // Xóa khách hàng theo ID
-//     public void deleteCustomerById(int id) {
-//         for (Customer c : customers) {
-//             if (c.getId() == id) {
-//                 customers.remove(c);
-//                 break;
-//             }
-//         }
-//     }
+public void editCustomerByName(String customerName, int quantity) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("UPDATE customer SET used_quantity = ? WHERE name = ?");
+        statement.setInt(1, quantity);
+        statement.setString(2, customerName);
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
-//     // Sửa thông tin khách hàng
-//     public void updateCustomer(Customer customer) {
-//         for (Customer c : customers) {
-//             if (c.getId() == customer.getId()) {
-//                 c.setName(customer.getName());
-//                 c.setPhone(customer.getPhone());
-//                 break;
-//             }
-//         }
-//     }
-//     // tra cứu thông tin bằng ID
+public void editCustomerByPhone(String customerPhone, int quantity) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("UPDATE customer SET used_quantity = ? WHERE phone = ?");
+        statement.setInt(1, quantity);
+        statement.setString(2, customerPhone);
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
-//     public Customer getCustomerById(Customer customerId) {
-//         return customerService.getCustomerById(customerId);
+public void deleteCustomerByID(int customerId) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE id = ?");
+        statement.setInt(1, customerId);
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
-//     public void searchCustomer(String customerName) {
-//         for (Customer customer : customerList) {
-//             if (customer.getName().equals(customerName)) {
-//                 System.out.println("Customer found!");
-//                 System.out.println("Name: " + customer.getName());
-//                 System.out.println("Address: " + customer.getAddress());
-//                 System.out.println("Phone Number: " + customer.getPhoneNumber());
-//                 return;
-//             }
-//         }
-//         System.out.println("Customer not found.");
-//     }
-// }
+public void deleteCustomerByName(String customerName) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE name = ?");
+        statement.setString(1, customerName);
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+public void deleteCustomerByPhone(String customerPhone) {
+    try {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE phone = ?");
+        statement.setString(1, customerPhone);
+        statement.executeUpdate();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+public List<Customer> searchCustomerByName(String name) {
+    List<Customer> searchResults = new ArrayList<>();
+    try {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM customer WHERE name LIKE ?");
+        statement.setString(1, "%" + name + "%");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
+            customer.setUsedQuantity(resultSet.getInt("used_quantity"));
+            searchResults.add(customer);
+        }
+        resultSet.close();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return searchResults;
+}
+
+class Customer {
+    private int ID;
+    private String name;
+    private String phone;
+    private int usedQuantity;
+
+    public Customer(int ID, String name, String phone) {
+        this.ID = ID;
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getUsedQuantity() {
+        return usedQuantity;
+    }
+
+    public void setUsedQuantity(int usedQuantity) {
+        this.usedQuantity = usedQuantity;
+    }
+}
+}
