@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Attendance{
     private String ID;
+    private Employee Employee;
     private Date Day;
     private Time CheckIn;
     @Override

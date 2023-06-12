@@ -4,13 +4,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 import team4.KitchenManager.DAO.DatabaseConnector;
 import team4.KitchenManager.DAO.DatabaseConnector.Url;
+import team4.KitchenManager.Model.Employee;
 import team4.KitchenManager.Controller.*;
 
 public class ControllerTest{
-    // Ingredient _testIngredient;
     private DatabaseConnector _testdb;
     public ControllerTest(){
         _testdb = new DatabaseConnector(Url.MariaDB, "fm39hz", "D@ylahien2k3");
@@ -40,9 +43,6 @@ public class ControllerTest{
     @Test
     public void InvoiceTest(){
         var _attendances = new AttendanceController(_testdb);
-        var _employees = _attendances.getEmployeesByDay(Date.valueOf(LocalDate.of(2023, 06, 01)));
-            for (var _employee : _employees){
-                System.out.println(_employee.getId() + "|" + _employee.getFirstName() + "|" + _employee.getLastName());
-                }
+        assertEquals(_attendances.CountAttendances(), 13);
         }
     }
