@@ -22,16 +22,16 @@ public class IngredientController {
     public List<Ingredient> getAll(){
         List<Ingredient> _list = new ArrayList<>();
         String sql = "SELECT * FROM ingredients;";
-
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String _id = rs.getString("id");
+                String _id = rs.getString("Id");
+                String _name = rs.getString("name");
                 Date _indate = rs.getDate("date_in");
                 int _instock = rs.getInt("in_stock");
                 int _cost=rs.getInt("cost");
-                _list.add(new Ingredient(_id,"",_indate,123,123));
+                _list.add(new Ingredient(_id,_name,_indate,_instock,_cost));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
