@@ -16,20 +16,20 @@ public class IngredientController {
         // không cần truyền tham số, mặc định sẽ dùng mariadb
         conn = new DatabaseConnector();
     }
+    public IngredientController(DatabaseConnector con){
+        this.conn = con;
+        }
     public List<Ingredient> getAll(){
         List<Ingredient> _list = new ArrayList<>();
-        String sql = "ORDER BY `id` ASC";
-//     public IngredientController(DatabaseConnector con){
-//         this.conn = con;
-//         }
+        String sql = "SELECT * FROM ingredients;";
 
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String _id = rs.getString("id");
-                Date _indate = rs.getDate("indate");
-                int _instock = rs.getInt("instock");
+                Date _indate = rs.getDate("date_in");
+                int _instock = rs.getInt("in_stock");
                 int _cost=rs.getInt("cost");
                 _list.add(new Ingredient(_id,"",_indate,123,123));
             }
