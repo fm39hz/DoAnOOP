@@ -14,6 +14,9 @@ public class InvoiceController {
     public InvoiceController(){
         conn = new DatabaseConnector();
     }
+    public InvoiceController(DatabaseConnector connector){
+        this.conn = connector;
+        }
 
     public void addInvoice(Customer customer, List<Dish> dishes) {
         // Tạo hóa đơn và thêm vào cơ sở dữ liệu
@@ -90,12 +93,12 @@ public class InvoiceController {
     
     public void addCustomer(Customer customer) {
         // Thêm khách hàng vào cơ sở dữ liệu
-        String sql = "INSERT INTO customers (id, name) VALUES (?, ?)";
+        String sql = "INSERT INTO customers (id,first_Name, last_Name) VALUES (?, ?, ?)";
     
         try (var statement = conn.getConnector().prepareStatement(sql)) {
             statement.setString(1, customer.getId());
-            statement.setString(2, customer.getName());
-    
+            statement.setString(2, customer.getFirstName());
+            statement.setString(3, customer.getLastName());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,7 +146,7 @@ public class InvoiceController {
         List<Invoice> sortedInvoices = new ArrayList<>();
     
         // Truy vấn cơ sở dữ liệu để lấy hóa đơn và sắp xếp theo ngày giờ
-        String sql = "SELECT invoices.id, invoices.created_day, invoices.created_time, customers.name " +
+        String sql = "SELECT invoices.id, invoices.created_day, invoices.created_time, customers.first_name, customers.last_name " +
                      "FROM invoices JOIN customers ON invoices.customer_id = customers.id " +
                      "ORDER BY invoices.created_day DESC, invoices.created_time DESC";
     
@@ -153,10 +156,12 @@ public class InvoiceController {
                 String invoiceId = resultSet.getString(1);
                 Date createdDay = resultSet.getDate(2);
                 Time createdTime = resultSet.getTime(3);
-                String customerName = resultSet.getString(4);
+                String customerFirstName = resultSet.getString(4);
+                String customerLastName = resultSet.getString(5);
     
                 Customer customer = new Customer();
-                customer.setName(customerName);
+                customer.setFirstName(customerFirstName);
+                customer.setLastName(customerLastName);
     
                 Invoice invoice = new Invoice(invoiceId, createdDay, createdTime, customer, null, null);
                 sortedInvoices.add(invoice);
