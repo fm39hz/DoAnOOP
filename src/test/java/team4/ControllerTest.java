@@ -43,6 +43,7 @@ public class ControllerTest{
     @Test
     public void InvoiceTest(){
         var _attendances = new AttendanceController(_testdb);
-        assertEquals(_attendances.CountAttendances(), 13);
+        var _testDay = Date.valueOf(LocalDate.of(2023, 06, 01));
+        assertEquals(_attendances.GetEmployeeOnDay(_testDay).size(), 2);
         }
     }
