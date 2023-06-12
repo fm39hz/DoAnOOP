@@ -1,6 +1,8 @@
 
 package team4.KitchenManager.Controller;
 import team4.KitchenManager.DAO.DatabaseConnector;
+import team4.KitchenManager.Model.Customer;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,9 @@ public List<Customer> getCustomers() {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");
         while (resultSet.next()) {
-            Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
-            customer.setUsedQuantity(resultSet.getInt("used_quantity"));
-            customers.add(customer);
+            // Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
+            // customer.setUsedQuantity(resultSet.getInt("used_quantity"));
+            // customers.add(customer);
         }
         resultSet.close();
         statement.close();
@@ -50,18 +52,18 @@ public List<String> getDishesUsingCustomer(int customerId) {
     return dishes;
 }
 
-public void addCustomer(Customer newCustomer) {
-    try {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO customer (id, name, phone) VALUES (?, ?, ?)");
-        statement.setInt(1, newCustomer.getID());
-        statement.setString(2, newCustomer.getName());
-        statement.setString(3, newCustomer.getPhone());
-        statement.executeUpdate();
-        statement.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
+// public void addCustomer(Customer newCustomer) {
+//     try {
+//         PreparedStatement statement = connection.prepareStatement("INSERT INTO customer (id, name, phone) VALUES (?, ?, ?)");
+//         statement.setInt(1, newCustomer.getID());
+//         statement.setString(2, newCustomer.getName());
+//         statement.setString(3, newCustomer.getPhone());
+//         statement.executeUpdate();
+//         statement.close();
+//     } catch (SQLException e) {
+//         e.printStackTrace();
+//     }
+// }
 
 public void editCustomerByID(int customerId, int quantity) {
     try {
@@ -139,9 +141,9 @@ public List<Customer> searchCustomerByName(String name) {
         statement.setString(1, "%" + name + "%");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
-            customer.setUsedQuantity(resultSet.getInt("used_quantity"));
-            searchResults.add(customer);
+            // Customer customer = new Customer(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"));
+            // customer.setUsedQuantity(resultSet.getInt("used_quantity"));
+            // searchResults.add(customer);
         }
         resultSet.close();
         statement.close();
@@ -149,50 +151,5 @@ public List<Customer> searchCustomerByName(String name) {
         e.printStackTrace();
     }
     return searchResults;
-}
-
-class Customer {
-    private int ID;
-    private String name;
-    private String phone;
-    private int usedQuantity;
-
-    public Customer(int ID, String name, String phone) {
-        this.ID = ID;
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public int getUsedQuantity() {
-        return usedQuantity;
-    }
-
-    public void setUsedQuantity(int usedQuantity) {
-        this.usedQuantity = usedQuantity;
-    }
 }
 }
