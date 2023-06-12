@@ -44,8 +44,8 @@ public class MainWindow extends javax.swing.JFrame {
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
                     jPanel3.add(_dishesView);
                 }
-        var _employeesView = new team4.KitchenManager.View.Employees(new Employee("01","Phạm","Danh Hiển","0849070703","Staff", 10000, ""));
-            jPanel4.add(_employeesView);
+        // var _employeesView = new team4.KitchenManager.View.Employees(new Employee("01","Phạm","Danh Hiển","0849070703","Staff", 10000, ""));
+        //     jPanel4.add(_employeesView);
         }
 
     /**

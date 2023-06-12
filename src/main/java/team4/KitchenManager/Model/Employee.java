@@ -1,7 +1,5 @@
 package team4.KitchenManager.Model;
 
-import java.util.List;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,11 +14,5 @@ public class Employee extends InformationSchema{
     @Override
     public String toString(){
         return "employees";
-        }
-    public Employee(String id, String firstName, String lastName, String phone, String position, int salary, String imagePath){
-        super(id, firstName, lastName, phone);
-        this.Position = position;
-        this.Salary = salary;
-        this.ImagePath = imagePath;
         }
     }
