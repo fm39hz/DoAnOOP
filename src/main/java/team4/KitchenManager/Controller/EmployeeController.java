@@ -17,21 +17,28 @@ public class EmployeeController {
     public EmployeeController(DatabaseConnector connector){
         this.Connector = connector;
         }
-
     public List<Employee> getAll() {
         List<Employee> _employees = new ArrayList<>();
         try {
-            Statement statement = Connector.getConnector().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM employee");
-            while (resultSet.next()) {
-                // Employee employee = new Employee(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"), resultSet.getString("position"), resultSet.getInt("salary"));
-                // employees.add(employee);
+            Statement _statement = Connector.getConnector().createStatement();
+            ResultSet _result = _statement.executeQuery("SELECT * FROM employees");
+            while (_result.next()) {
+                var _target = new Employee();
+                    _target.setId(_result.getString(1));
+                    _target.setFirstName(_result.getString(2));
+                    _target.setLastName(_result.getString(3));
+                    _target.setPhoneNumber(_result.getString(4));
+                    _target.setSalary(_result.getInt(5));
+                    _target.setPosition(_result.getString(6));
+                    _target.setImagePath(_result.getString(7));
+                    _employees.add(_target);
+                    
+                }
+            _result.close();
+            _statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return _employees;
         }
     public Employee GetEmployee(String id){
@@ -56,24 +63,27 @@ public class EmployeeController {
             }
         return _target;
         }
-    // public void addEmployee(Employee newEmployee) {
-    //     try {
-    //         PreparedStatement statement = Connector.getConnector().prepareStatement("INSERT INTO employee (id, name, phone, position, salary) VALUES (?, ?, ?, ?, ?)");
-    //         statement.setInt(1, newEmployee.getID());
-    //         statement.setString(2, newEmployee.getName());
-    //         statement.setString(3, newEmployee.getPhone());
-    //         statement.setString(4, newEmployee.getPosition());
-    //         statement.setInt(5, newEmployee.getSalary());
-    //         statement.executeUpdate();
-    //         statement.close();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
-    public void editEmployeeByID(int employeeId, int salary) {
+    public void addEmployee(Employee newEmployee) {
+        var _query = "INSERT INTO employees (Id, first_name, last_name, phone, salary, position, image_path) VALUES (?, ?, ?, ?, ?)";
         try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("UPDATE employee SET salary = ? WHERE id = ?");
+            PreparedStatement statement = Connector.getConnector().prepareStatement(_query);
+            statement.setString(1, newEmployee.getId());
+            statement.setString(2, newEmployee.getFirstName());
+            statement.setString(3, newEmployee.getLastName());
+            statement.setString(4, newEmployee.getPhoneNumber());
+            statement.setInt(5, newEmployee.getSalary());
+            statement.setString(6, newEmployee.getPosition());
+            statement.setString(7, newEmployee.getImagePath());
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editEmployee(int employeeId, int salary) {
+        try {
+            PreparedStatement statement = Connector.getConnector().prepareStatement("UPDATE employees SET salary = ? WHERE id = ?");
             statement.setInt(1, salary);
             statement.setInt(2, employeeId);
             statement.executeUpdate();
@@ -82,34 +92,10 @@ public class EmployeeController {
             e.printStackTrace();
         }
     }
-
-    public void editEmployeeByName(String employeeName, int salary) {
+    
+    public void deleteEmployee(int employeeId) {
         try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("UPDATE employee SET salary = ? WHERE name = ?");
-            statement.setInt(1, salary);
-            statement.setString(2, employeeName);
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void editEmployeeByPhone(String employeePhone, int salary) {
-        try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("UPDATE employee SET salary = ? WHERE phone = ?");
-            statement.setInt(1, salary);
-            statement.setString(2, employeePhone);
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteEmployeeByID(int employeeId) {
-        try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("DELETE FROM employee WHERE id = ?");
+            PreparedStatement statement = Connector.getConnector().prepareStatement("DELETE FROM employees WHERE id = ?");
             statement.setInt(1, employeeId);
             statement.executeUpdate();
             statement.close();
@@ -118,43 +104,21 @@ public class EmployeeController {
         }
     }
 
-    public void deleteEmployeeByName(String employeeName) {
-        try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("DELETE FROM employee WHERE name = ?");
-            statement.setString(1, employeeName);
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteEmployeeByPhone(String employeePhone) {
-        try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("DELETE FROM employee WHERE phone = ?");
-            statement.setString(1, employeePhone);
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Employee> searchEmployeeByName(String name) {
-        List<Employee> searchResults = new ArrayList<>();
-        try {
-            PreparedStatement statement = Connector.getConnector().prepareStatement("SELECT * FROM employee WHERE name LIKE ?");
-            statement.setString(1, "%" + name + "%");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                // Employee employee = new Employee(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"), resultSet.getString("position"), resultSet.getInt("salary"));
-                // searchResults.add(employee);
-            }
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return searchResults;
-        }
+    // public List<Employee> searchEmployeeByName(String name) {
+    //     List<Employee> searchResults = new ArrayList<>();
+    //     try {
+    //         PreparedStatement statement = Connector.getConnector().prepareStatement("SELECT * FROM employee WHERE name LIKE ?");
+    //         statement.setString(1, "%" + name + "%");
+    //         ResultSet resultSet = statement.executeQuery();
+    //         while (resultSet.next()) {
+    //             Employee employee = new Employee(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"), resultSet.getString("position"), resultSet.getInt("salary"));
+    //             searchResults.add(employee);
+    //         }
+    //         resultSet.close();
+    //         statement.close();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return searchResults;
+    //     }
     }
