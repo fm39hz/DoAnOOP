@@ -21,4 +21,4 @@ dist/
 nbdist/
 .nb-gradle/
 /.idea/
-/src/main/java/team4/KitchenManager/View/*.form
+#/src/main/java/team4/KitchenManager/View/*.form

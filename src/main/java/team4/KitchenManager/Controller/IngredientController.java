@@ -19,6 +19,9 @@ public class IngredientController {
     public List<Ingredient> getAll(){
         List<Ingredient> _list = new ArrayList<>();
         String sql = "ORDER BY `id` ASC";
+//     public IngredientController(DatabaseConnector con){
+//         this.conn = con;
+//         }
 
         try {
             var ps = conn.getConnector().prepareStatement(sql);
