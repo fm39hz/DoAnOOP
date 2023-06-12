@@ -11,23 +11,20 @@ public class DatabaseConnector {
     public static class Url{
         public static final String MariaDB = "jdbc:mariadb://localhost:3306/kitchen";
         public static final String MySql = "jdbc:mysql://localhost:3306/kitchen";
-        public static final String SQLServer = "jdbc:sqlserver://localhost:1433;databaseName=Kitchen;";
+        public static final String SQLServer = "jdbc:sqlserver://localhost:3306;databaseName=kitchen;";
         }
     private Boolean ConnectionState;
     private Connection Connector;
-
     public DatabaseConnector(){
         this.Connect(Url.MariaDB, "root", "");
         }
     public DatabaseConnector(String url, String userName, String password){
         this.Connect(url, userName, password);
         }
-        
-    public void Connect(String url, String userName, String password){
+    private void Connect(String url, String userName, String password){
         try{
             this.ConnectionState = false;
             this.setConnector(DriverManager.getConnection(url, userName, password));
-            System.out.println("Connecting to Database through: " + url);
             }
         catch (SQLException CannotGetTable){
             System.out.println("Cannot connect to " + url + " at state " + CannotGetTable.getSQLState());
@@ -36,6 +33,6 @@ public class DatabaseConnector {
             return;
             }
         this.ConnectionState = true;
-        System.out.println("Connected to database: " + url);
+        System.out.println("Connected to Database: " + url);
         }
     }

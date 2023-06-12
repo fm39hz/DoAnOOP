@@ -17,7 +17,49 @@ public class InvoiceController {
     public InvoiceController(DatabaseConnector connector){
         this.conn = connector;
         }
-
+    public List<Invoice> getAll(){
+        var _query = "SELECT * FROM invoices";
+        List<Invoice> _invoices = new ArrayList<>();
+        try {
+            var _statement = conn.getConnector().prepareStatement(_query);
+            var _result = _statement.executeQuery();
+                while (_result.next()){
+                    var _target = new Invoice();
+                    _target.setID(_result.getString(1));
+                    _target.setCreatedDay(_result.getDate(2));
+                    _target.setCreatedTime(_result.getTime(3));
+                    _target.setCustomer(new CustomerController(this.conn).getCustomer(_result.getString(4)));
+                    _target.setCustomerFeedback(_result.getString(5));
+                    _invoices.add(_target);
+                    }
+            } 
+        catch (SQLException e) {
+            e.printStackTrace();
+            }
+        return _invoices;
+        }
+    public List<Invoice> getAll(Customer customer){
+        var _query = "SELECT * FROM invoices WHERE customer_id = ?";
+        List<Invoice> _invoices = new ArrayList<>();
+        try {
+            var _statement = conn.getConnector().prepareStatement(_query);
+                _statement.setString(1, customer.getId());
+            var _result = _statement.executeQuery();
+                while (_result.next()){
+                    var _target = new Invoice();
+                    _target.setID(_result.getString(1));
+                    _target.setCreatedDay(_result.getDate(2));
+                    _target.setCreatedTime(_result.getTime(3));
+                    _target.setCustomer(customer);
+                    _target.setCustomerFeedback(_result.getString(5));
+                    _invoices.add(_target);
+                    }
+            } 
+        catch (SQLException e) {
+            e.printStackTrace();
+            }
+        return _invoices;
+        }
     public void addInvoice(Customer customer, List<Dish> dishes) {
         // Tạo hóa đơn và thêm vào cơ sở dữ liệu
         String sql = "INSERT INTO invoices (customer_id, created_day, created_time) VALUES (?, ?, ?)";

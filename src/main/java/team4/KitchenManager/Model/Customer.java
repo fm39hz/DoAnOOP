@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class Customer extends InformationSchema{
-    private String Phone;
     private List<Invoice> OrderHistory;
     @Override
     public String toString(){
