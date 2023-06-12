@@ -59,7 +59,7 @@ public class IngredientController {
 
     public boolean removeIngredient(int id) {
         boolean _ok = false;
-        String sql = "DELETE FROM ingredient WHERE `id`=?";
+        String sql = "DELETE FROM ingredients WHERE `id`=?";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ps.setInt(1, id);
@@ -73,30 +73,40 @@ public class IngredientController {
         return _ok;
     }
 
-    public int updateIngredient(Ingredient d) {
-        int _ingredient_count = 0;
-        String sql = "UPDATE dishes SET `name`=?,`date`=?, `instock` =?, `cost` =?  WHERE `id`=?;";
+    public boolean updateIngredient(Ingredient d) {
+        boolean _ok = false;
+        String sql = "UPDATE `ingredients` SET `name`=?,`date_in`=?, `in_stock` =?, `cost` =?  WHERE `Id`=?;";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ps.setString(1, d.getName());
             ps.setDate(2, d.getInDate());
-            ps.setString(3, d.getID());
-            ps.setInt(4, d.getInStock());
-            ps.setInt(5, d.getCost());
-            _ingredient_count = ps.executeUpdate();
+            ps.setInt(3, d.getInStock());
+            ps.setInt(4, d.getCost());
+            ps.setInt(5,Integer.valueOf(d.getID()));
+            int _count = ps.executeUpdate();
+            if (_count > 0) {
+                _ok = true;
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        return _ingredient_count;
+        return _ok;
     }
     public List<Ingredient> sortBy(String by, boolean desc) {
         // tao danh sach
         List<Ingredient> _list = new ArrayList<>();
-        String sql = "this.sql_join_query"; //lenh sql
+        String sql = "SELECT * FROM ingredients"; //lenh sql
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
+            while (rs.next()) {
+                var _id = rs.getString("Id");
+                var _name = rs.getString("name");
+                var _date_in = rs.getDate("date_in");
+                var _in_stock = rs.getInt("in_stock");
+                var _cost = rs.getInt("cost");
+                _list.add(new Ingredient(_id,_name,_date_in,_in_stock,_cost));
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -106,10 +116,12 @@ public class IngredientController {
             @Override
             public int compare(Ingredient o1, Ingredient o2) {
                 switch (by) {
-                    case "price":
+                    case "cost":
                         return Integer.valueOf(o1.getCost()).compareTo(Integer.valueOf(o2.getCost()));
-                    case "name":
+                    case "date_in":
                         return o1.getInDate().compareTo(o2.getInDate());
+                    case "usage":
+                        return 0; //TODO
                     default:
                         throw new RuntimeException("what do you want to sort?");
                 }
@@ -118,6 +130,26 @@ public class IngredientController {
         Collections.sort(_list, _sortedList);
         if (desc) {
             Collections.reverse(_list);
+        }
+        return _list;
+    }
+
+    public List<Ingredient> findByName(String name) {
+        List<Ingredient> _list = new ArrayList<>();
+        String _sql = "SELECT * FROM ingredients WHERE `name` LIKE '%"+name+"%'";
+        try {
+            var ps = conn.getConnector().prepareStatement(_sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                var _id = rs.getString("Id");
+                var _name = rs.getString("name");
+                var _date_in = rs.getDate("date_in");
+                var _in_stock = rs.getInt("in_stock");
+                var _cost = rs.getInt("cost");
+                _list.add(new Ingredient(_id,_name,_date_in,_in_stock,_cost));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
         }
         return _list;
     }

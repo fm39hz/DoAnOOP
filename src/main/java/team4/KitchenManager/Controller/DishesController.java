@@ -20,7 +20,7 @@ public class DishesController {
     }
     public DishesController(DatabaseConnector con){
         this.conn = con;
-        }
+    }
 
     private String sql_join_query = "SELECT dishes.id,\n" +
             "dishes.name,\n" +
@@ -73,22 +73,6 @@ public class DishesController {
             _previous_id = Integer.parseInt(_id);
         }
     }
-//    public class ReturnData {
-//        private String id;
-//        private String name;
-//        private int price;
-//        private int estimated_remaining;
-//        private int sold;
-//        private int cost;
-//        public ReturnData(String id, String name, int price, int estimated_remaining, int sold, int cost) {
-//            this.id = id;
-//            this.name = name;
-//            this.price = price;
-//            this.estimated_remaining = estimated_remaining;
-//            this.sold = sold;
-//            this.cost = cost;
-//        }
-//    }
     public List<Dish> getAll() {
         List<Dish> _list = new ArrayList<>();
         List<IngredientQuantity> _list_quantity = new ArrayList<>();
@@ -139,8 +123,8 @@ public class DishesController {
         return _ok;
     }
 
-    public int updateDishes(Dish d) {
-        int _dishes_count = 0;
+    public boolean updateDishes(Dish d) {
+        boolean _ok = false;
         String sql = "UPDATE dishes SET `name`=?,`price`=?, `image_path`=?, `desciption`=? WHERE `id`=?;";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
@@ -149,11 +133,14 @@ public class DishesController {
             ps.setString(3,d.getImagePath());
             ps.setString(4, d.getDescription());
             ps.setString(5,d.getID());
-            _dishes_count = ps.executeUpdate();
+            int _dishes_count = ps.executeUpdate();
+            if (_dishes_count > 0) {
+                _ok = true;
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        return _dishes_count;
+        return _ok;
     }
     public List<Dish> findByName(String query) {
         List<Dish> _list = new ArrayList<>();
@@ -241,8 +228,6 @@ public class DishesController {
                     _remaining = _compare;
                 }
             }
-
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
