@@ -16,24 +16,21 @@ public class AttendanceController {
     public AttendanceController(DatabaseConnector connector) {
         this.Connector = connector;
         }
-    public void AddAttendance(Employee employee, Date day, Time checkIn){
-        var _attendance = new Attendance(null, employee, day, checkIn);
-        var _query = "INSERT INTO attendances (Id, emp_id, day, checkin_at) VALUES (?, ?, ?, ?)";
+    public List<Attendance> GetAll(Employee employee){
+        var _query = "SELECT * from attendances WHERE emp_id = ?";
+        List<Attendance> _target = new ArrayList<>();
         try {
             var _statement = Connector.getConnector().prepareStatement(_query);
-                _statement.setString(1, _attendance.getID());
-                _statement.setString(2, _attendance.getEmployee().getId());
-                _statement.setDate(3, _attendance.getDay());
-                _statement.setTime(4, _attendance.getCheckIn());
-                _statement.executeQuery();
-                _statement.close();
-            } 
-        catch (SQLException e) {
-            e.printStackTrace();;
+                _statement.setString(1, employee.getId());
+            var _result = _statement.executeQuery();
+                while(_result.next()){
+                    var _employeeController = new EmployeeController(this.Connector);
+                    _target.add(new Attendance(_result.getString(1), _employeeController.GetEmployee(_result.getString(2)), _result.getDate(3), _result.getTime(4)));
+                    }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }
-    public void AddAttendance(Employee employee){
-        AddAttendance(employee, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()));
+        return _target;
         }
     public List<Attendance> GetAll(){
         var _query = "SELECT * FROM attendances";
@@ -49,6 +46,25 @@ public class AttendanceController {
                 e.printStackTrace();
             }
         return _target;
+        }
+    public void AddAttendance(Employee employee, Date day, Time checkIn){
+        var _attendance = new Attendance(null, employee, day, checkIn);
+        var _query = "INSERT INTO attendances (Id, emp_id, day, checkin_at) VALUES (?, ?, ?, ?)";
+        try {
+            var _statement = Connector.getConnector().prepareStatement(_query);
+                _statement.setString(1, _attendance.getID());
+                _statement.setString(2, _attendance.getEmployee().getId());
+                _statement.setDate(3, _attendance.getDay());
+                _statement.setTime(4, _attendance.getCheckIn());
+                _statement.executeUpdate();
+                _statement.close();
+            } 
+        catch (SQLException e) {
+            e.printStackTrace();;
+            }
+        }
+    public void AddAttendance(Employee employee){
+        AddAttendance(employee, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()));
         }
     public int CountAttendances(Date day){
         var _query = "SELECT COUNT(Id) as counter FROM attendances WHERE = ?;";
