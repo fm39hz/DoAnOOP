@@ -9,14 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ingredient{
+public class Ingredient {
     private String ID;
     private String Name;
     private Date InDate;
     private int InStock;
     private int Cost;
-    @Override
-    public String toString(){
-        return "ingredients";
-        }
-    }
+}
