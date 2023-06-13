@@ -15,4 +15,8 @@ public class Ingredient {
     private Date InDate;
     private int InStock;
     private int Cost;
+    @Override
+    public String toString(){
+        return "ingredients";
+        }
 }
