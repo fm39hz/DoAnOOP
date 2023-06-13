@@ -31,8 +31,8 @@ public class EmployeeController {
                     _target.setSalary(_result.getInt(5));
                     _target.setPosition(_result.getString(6));
                     _target.setImagePath(_result.getString(7));
+                    _target.setAttendanceHistory(new AttendanceController(Connector).GetAll(_target));
                     _employees.add(_target);
-                    
                 }
             _result.close();
             _statement.close();
