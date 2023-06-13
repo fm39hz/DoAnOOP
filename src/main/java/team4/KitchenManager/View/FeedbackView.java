@@ -2,6 +2,9 @@ package team4.KitchenManager.View;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import team4.KitchenManager.Controller.InvoiceController;
+
 import java.awt.*;
 
 public class FeedbackView extends JPanel {
@@ -15,10 +18,10 @@ public class FeedbackView extends JPanel {
         }
     
     public void ReloadData(){
-        var a = 100;
-        for (int i = 0; i < a; i++){
-            //TODO: lấy dữ liệu từ InvoiceController
-            var feedback = new Feedback("Khách hàng thân quen " , "Bữa đi ăn thứ " + (i + 1) + "\nLần này tốt hơn lần trước");
+        var _controller = new InvoiceController();
+        var _invoices = _controller.getAll();
+        for (var invoice : _invoices){
+            var feedback = new Feedback(invoice.getCustomer().getFirstName() + " " + invoice.getCustomer().getLastName(), invoice.getCustomerFeedback());
             feedback.setPreferredSize(new Dimension(1278, 60));
             jPanel1.add(feedback);
             }

@@ -24,8 +24,7 @@ public class AttendanceController {
                 _statement.setString(1, employee.getId());
             var _result = _statement.executeQuery();
                 while(_result.next()){
-                    var _employeeController = new EmployeeController(this.Connector);
-                    _target.add(new Attendance(_result.getString(1), _employeeController.GetEmployee(_result.getString(2)), _result.getDate(3), _result.getTime(4)));
+                    _target.add(new Attendance(_result.getString(1), employee, _result.getDate(3), _result.getTime(4)));
                     }
             } catch (SQLException e) {
                 e.printStackTrace();

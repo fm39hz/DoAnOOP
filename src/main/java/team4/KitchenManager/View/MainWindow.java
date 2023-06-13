@@ -4,23 +4,14 @@
  */
 package team4.KitchenManager.View;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import team4.KitchenManager.Controller.DishesController;
+import team4.KitchenManager.Controller.EmployeeController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import team4.KitchenManager.DAO.DatabaseConnector.Url;
-import team4.KitchenManager.Model.Attendance;
-import team4.KitchenManager.Model.Employee;
-
 /**
  *
  * @author fm39hz
@@ -44,8 +35,9 @@ public class MainWindow extends javax.swing.JFrame {
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
                     jPanel3.add(_dishesView);
                 }
-        // var _employeesView = new team4.KitchenManager.View.Employees(new Employee("01","Phạm","Danh Hiển","0849070703","Staff", 10000, ""));
-        //     jPanel4.add(_employeesView);
+        var _controller = new EmployeeController(new DatabaseConnector());
+        var _employeesView = new team4.KitchenManager.View.Employees(_controller.GetEmployee("401"));
+            jPanel4.add(_employeesView);
         }
 
     /**

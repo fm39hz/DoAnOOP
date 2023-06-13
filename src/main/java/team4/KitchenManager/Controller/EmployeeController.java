@@ -50,12 +50,13 @@ public class EmployeeController {
             var _result = _statement.executeQuery();
                 while(_result.next()){
                     _target.setId(_result.getString(1));
-                    _target.setLastName(_result.getString(2));
-                    _target.setPhoneNumber(_result.getString(3));
-                    _target.setPosition(_result.getString(4));
+                    _target.setFirstName(_result.getString(2));
+                    _target.setLastName(_result.getString(3));
+                    _target.setPhoneNumber(_result.getString(4));
                     _target.setSalary(_result.getInt(5));
-                    _target.setFirstName(_result.getString(6));
+                    _target.setPosition(_result.getString(6));
                     _target.setImagePath(_result.getString(7));
+                    _target.setAttendanceHistory(new AttendanceController(Connector).GetAll(_target));
                     }
             }
         catch (SQLException e) {

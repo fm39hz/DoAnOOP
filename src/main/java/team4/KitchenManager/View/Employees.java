@@ -6,16 +6,11 @@ package team4.KitchenManager.View;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
-import java.util.Map;
 
-import team4.KitchenManager.Controller.AttendanceController;
-import team4.KitchenManager.DAO.DatabaseConnector;
-import team4.KitchenManager.DAO.DatabaseConnector.Url;
 import team4.KitchenManager.Model.Employee;
 
 /**
@@ -32,52 +27,52 @@ public class Employees extends javax.swing.JPanel {
     }
     public Employees(Employee employee){
         this.initComponents();
-        // this.SetEmployee(employee);
+        this.SetEmployee(employee);
         }
-    // private void SetEmployee(Employee employee){
-    //     this.EmployeeName.setText(employee.getFirstName() + " " + employee.getLastName());
-    //     this.Image.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + employee.getImagePath()));
-    //     System.out.println(employee.getInformation());
-    //     this.jTextPane2.setText(employee.getInformation());
-    //         var _attendances = new AttendanceController(new DatabaseConnector(Url.MariaDB, "fm39hz", "D@ylahien2k3")).GetAll(employee);
-    //         for (var _attendance : _attendances){
-    //             var _view = new javax.swing.JLabel(_attendance.getDay() + " " + _attendance.getCheckIn());
-    //             var _fontNormal = _view.getFont();
-    //             Map<TextAttribute, Object> _attributes = new HashMap<>(_fontNormal.getAttributes());
-    //                 _attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-    //             var _fontUnderline = _fontNormal.deriveFont(_attributes);
-    //                 _view.addMouseListener(new MouseListener() {
-    //                     @Override
-    //                     public void mouseClicked(MouseEvent arg0) {
-    //                         // // TODO Auto-generated method stub
-    //                         // throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
-    //                     }
-    //                     @Override
-    //                     public void mouseEntered(MouseEvent arg0) {
-    //                         _view.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    //                         _view.setFont(_fontUnderline);
-    //                         _view.setForeground(Color.CYAN);
-    //                         }
-    //                     @Override
-    //                     public void mouseExited(MouseEvent arg0) {
-    //                         _view.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    //                         _view.setFont(_fontNormal);
-    //                         _view.setForeground(getForeground());
-    //                         }
-    //                     @Override
-    //                     public void mousePressed(MouseEvent arg0) {
-    //                         // // TODO Auto-generated method stub
-    //                         // throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
-    //                     }
-    //                     @Override
-    //                     public void mouseReleased(MouseEvent arg0) {
-    //                         // // TODO Auto-generated method stub
-    //                         // throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
-    //                     }
-    //                 });
-    //             this.jPanel3.add(_view);
-    //             }
-    //     }
+    private void SetEmployee(Employee employee){
+        this.EmployeeName.setText(employee.getFirstName() + " " + employee.getLastName());
+        this.Image.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + employee.getImagePath()));
+        System.out.println(employee.getInformation());
+        this.jTextPane2.setText(employee.getInformation());
+            var _attendances = employee.getAttendanceHistory();
+            for (var _attendance : _attendances){
+                var _view = new javax.swing.JLabel(_attendance.getDay() + " " + _attendance.getCheckIn());
+                var _fontNormal = _view.getFont();
+                var _attributes = new HashMap<TextAttribute, Object>(_fontNormal.getAttributes());
+                    _attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                var _fontUnderline = _fontNormal.deriveFont(_attributes);
+                    _view.addMouseListener(new MouseListener() {
+                        @Override
+                        public void mouseClicked(MouseEvent arg0) {
+                            // TODO Auto-generated method stub
+                            throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+                        }
+                        @Override
+                        public void mouseEntered(MouseEvent arg0) {
+                            _view.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                            _view.setFont(_fontUnderline);
+                            _view.setForeground(Color.CYAN);
+                            }
+                        @Override
+                        public void mouseExited(MouseEvent arg0) {
+                            _view.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                            _view.setFont(_fontNormal);
+                            _view.setForeground(getForeground());
+                            }
+                        @Override
+                        public void mousePressed(MouseEvent arg0) {
+                            // TODO Auto-generated method stub
+                            throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+                        }
+                        @Override
+                        public void mouseReleased(MouseEvent arg0) {
+                            // TODO Auto-generated method stub
+                            throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+                        }
+                    });
+                this.jPanel3.add(_view);
+                }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
