@@ -22,70 +22,104 @@ public class DishesController {
         this.conn = con;
     }
 
-    private String sql_join_query = "SELECT dishes.id,\n" +
-            "dishes.name,\n" +
-            "dishes.price,\n" +
-            "dishes.image_path,\n" +
-            "dishes.description,\n" +
-            "quantities.ingredient_id,\n" +
-            "quantities.quantity AS ingre_quantity,\n" +
-            "ingredients.date_in AS ingre_date_in,\n" +
-            "ingredients.in_stock AS ingre_in_stock,\n" +
-            "ingredients.cost AS ingre_cost,\n" +
-            "ingredients.name AS ingre_name\n" +
-            "FROM dishes\n" +
-            "LEFT JOIN quantities ON dishes.id = quantities.dish_id\n" +
-            "LEFT JOIN ingredients ON ingredients.id = quantities.ingredient_id\n";
-
-    private void SqlProcessor(List<Dish> _list, List<IngredientQuantity> _list_quantity, ResultSet rs) throws SQLException {
-        int _previous_id = 0;
-        int _ingredient_quantity_id = 1;
-        while (rs.next()) {
-            Ingredient _ingredient = new Ingredient();
-
-            String _id = rs.getString("id");
-            String _name = rs.getString("name");
-            int _price = rs.getInt("price");
-            String _imgage_path = rs.getString("image_path");
-            String _description = rs.getString("description");
-            String _ingredient_id = rs.getString("ingredient_id");
-            String _ingre_name = rs.getString("ingre_name");
-            Date _ingre_in_date = rs.getDate("ingre_date_in");
-            int _ingre_in_stock = rs.getInt("ingre_in_stock");
-            int _ingre_cost = rs.getInt("ingre_cost");
-            int _ingre_quantity = rs.getInt("ingre_quantity");
-
-            _ingredient.setID(_ingredient_id);
-            _ingredient.setName(_ingre_name);
-            _ingredient.setInDate(_ingre_in_date);
-            _ingredient.setInStock(_ingre_in_stock);
-            _ingredient.setCost(_ingre_cost);
-
-            if (_previous_id == Integer.parseInt(_id)) {
-                _ingredient_quantity_id ++;
-                _list_quantity.add(new IngredientQuantity(String.valueOf(_ingredient_quantity_id),_ingredient,_ingre_quantity));
-                continue;
-            } else {
-                _list_quantity = new ArrayList<>();
-                _ingredient_quantity_id = 1;
-                _list_quantity.add(new IngredientQuantity(String.valueOf(_ingredient_quantity_id),_ingredient,_ingre_quantity));
-            }
-            _list.add(new Dish(_id,_name,_price,_imgage_path,_description,_list_quantity));
-            _previous_id = Integer.parseInt(_id);
-        }
-    }
+//    private String sql_join_query = "SELECT dishes.id,\n" +
+//            "dishes.name,\n" +
+//            "dishes.price,\n" +
+//            "dishes.image_path,\n" +
+//            "dishes.description,\n" +
+//            "quantities.ingredient_id,\n" +
+//            "quantities.quantity AS ingre_quantity,\n" +
+//            "ingredients.date_in AS ingre_date_in,\n" +
+//            "ingredients.in_stock AS ingre_in_stock,\n" +
+//            "ingredients.cost AS ingre_cost,\n" +
+//            "ingredients.name AS ingre_name\n" +
+//            "FROM dishes\n" +
+//            "LEFT JOIN quantities ON dishes.id = quantities.dish_id\n" +
+//            "LEFT JOIN ingredients ON ingredients.id = quantities.ingredient_id\n";
+//
+//    private void SqlProcessor(List<Dish> _list, List<IngredientQuantity> _list_quantity, ResultSet rs) throws SQLException {
+//        int _previous_id = 0;
+//        int _ingredient_quantity_id = 1;
+//        while (rs.next()) {
+//            Ingredient _ingredient = new Ingredient();
+//
+//            String _id = rs.getString("id");
+//            String _name = rs.getString("name");
+//            int _price = rs.getInt("price");
+//            String _imgage_path = rs.getString("image_path");
+//            String _description = rs.getString("description");
+//            String _ingredient_id = rs.getString("ingredient_id");
+//            String _ingre_name = rs.getString("ingre_name");
+//            Date _ingre_in_date = rs.getDate("ingre_date_in");
+//            int _ingre_in_stock = rs.getInt("ingre_in_stock");
+//            int _ingre_cost = rs.getInt("ingre_cost");
+//            int _ingre_quantity = rs.getInt("ingre_quantity");
+//
+//            _ingredient.setID(_ingredient_id);
+//            _ingredient.setName(_ingre_name);
+//            _ingredient.setInDate(_ingre_in_date);
+//            _ingredient.setInStock(_ingre_in_stock);
+//            _ingredient.setCost(_ingre_cost);
+//
+//            if (_previous_id == Integer.parseInt(_id)) {
+//                _ingredient_quantity_id ++;
+//                _list_quantity.add(new IngredientQuantity(String.valueOf(_ingredient_quantity_id),_ingredient,_ingre_quantity));
+//                continue;
+//            } else {
+//                _list_quantity = new ArrayList<>();
+//                _ingredient_quantity_id = 1;
+//                _list_quantity.add(new IngredientQuantity(String.valueOf(_ingredient_quantity_id),_ingredient,_ingre_quantity));
+//            }
+//            _list.add(new Dish(_id,_name,_price,_imgage_path,_description,_list_quantity));
+//            _previous_id = Integer.parseInt(_id);
+//        }
+//    }
     public List<Dish> getAll() {
         List<Dish> _list = new ArrayList<>();
-        List<IngredientQuantity> _list_quantity = new ArrayList<>();
-        String sql = this.sql_join_query + "ORDER BY `id` ASC";
+//        String sql = this.sql_join_query + "ORDER BY `id` ASC";
+        String sql = "SELECT * FROM `dishes`";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            SqlProcessor(_list, _list_quantity, rs);
+            while (rs.next()) {
+                var _dish = new Dish();
+
+                List<IngredientQuantity> _recipe = new ArrayList<>();
+
+                _dish.setID(rs.getString("id"));
+                _dish.setName(rs.getString("name"));
+                _dish.setPrice(rs.getInt("price"));
+                _dish.setDescription(rs.getString("description"));
+                _dish.setImagePath(rs.getString("image_path"));
+
+                String sql2 = "SELECT * FROM quantities WHERE `dish_id` = "+rs.getString("id");
+                var rs2 = conn.getConnector().prepareStatement(sql2).executeQuery();
+
+                while (rs2.next()) {
+                    var _ingredientQuantity = new IngredientQuantity();
+                    var _get = new IngredientController().getAll(rs2.getString("ingredient_id"));
+                    _ingredientQuantity.setID(String.valueOf(rs2.getRow()));
+                    _ingredientQuantity.setIngredient(_get);
+                    _ingredientQuantity.setQuantity(rs2.getInt("quantity"));
+                    _recipe.add(_ingredientQuantity);
+                }
+
+                _dish.setRecipe(_recipe);
+                _list.add(_dish);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
         return _list;
+    }
+    public Dish getAll(String id) {
+        var _dishes = getAll();
+        for (Dish _dish: _dishes) {
+            if (_dish.getID().equals(id)) {
+                return _dish;
+            }
+        }
+        return null;
     }
     public boolean addDishes(Dish d) {
         boolean _ok = false;
@@ -143,13 +177,36 @@ public class DishesController {
     }
     public List<Dish> findByName(String query) {
         List<Dish> _list = new ArrayList<>();
-        List<IngredientQuantity> _list_quantity = new ArrayList<>();
-        String sql = this.sql_join_query +  "WHERE dishes.name LIKE ? ORDER BY id ASC";
+        String sql = "SELECT * FROM `dishes` WHERE dishes.name LIKE '%"+query+"%' ORDER BY id ASC";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
-            ps.setString(1,"%'"+query+"'%");
             ResultSet rs = ps.executeQuery();
-            SqlProcessor(_list, _list_quantity, rs);
+            while (rs.next()) {
+                var _dish = new Dish();
+
+                List<IngredientQuantity> _recipe = new ArrayList<>();
+
+                _dish.setID(rs.getString("id"));
+                _dish.setName(rs.getString("name"));
+                _dish.setPrice(rs.getInt("price"));
+                _dish.setDescription(rs.getString("description"));
+                _dish.setImagePath(rs.getString("image_path"));
+
+                String sql2 = "SELECT * FROM quantities WHERE `dish_id` = "+rs.getString("id");
+                var rs2 = conn.getConnector().prepareStatement(sql2).executeQuery();
+
+                while (rs2.next()) {
+                    var _ingredientQuantity = new IngredientQuantity();
+                    var _get = new IngredientController().getAll(rs2.getString("ingredient_id"));
+                    _ingredientQuantity.setID(String.valueOf(rs2.getRow()));
+                    _ingredientQuantity.setIngredient(_get);
+                    _ingredientQuantity.setQuantity(rs2.getInt("quantity"));
+                    _recipe.add(_ingredientQuantity);
+                }
+
+                _dish.setRecipe(_recipe);
+                _list.add(_dish);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -158,12 +215,36 @@ public class DishesController {
 
     public List<Dish> sortBy(String by, boolean desc) {
         List<Dish> _list = new ArrayList<>();
-        List<IngredientQuantity> _list_quantity = new ArrayList<>();
-        String sql = this.sql_join_query;
+        String sql = "SELECT * FROM `dishes`;";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            SqlProcessor(_list, _list_quantity, rs);
+            while (rs.next()) {
+                var _dish = new Dish();
+
+                List<IngredientQuantity> _recipe = new ArrayList<>();
+
+                _dish.setID(rs.getString("id"));
+                _dish.setName(rs.getString("name"));
+                _dish.setPrice(rs.getInt("price"));
+                _dish.setDescription(rs.getString("description"));
+                _dish.setImagePath(rs.getString("image_path"));
+
+                String sql2 = "SELECT * FROM quantities WHERE `dish_id` = "+rs.getString("id");
+                var rs2 = conn.getConnector().prepareStatement(sql2).executeQuery();
+
+                while (rs2.next()) {
+                    var _ingredientQuantity = new IngredientQuantity();
+                    var _get = new IngredientController().getAll(rs2.getString("ingredient_id"));
+                    _ingredientQuantity.setID(String.valueOf(rs2.getRow()));
+                    _ingredientQuantity.setIngredient(_get);
+                    _ingredientQuantity.setQuantity(rs2.getInt("quantity"));
+                    _recipe.add(_ingredientQuantity);
+                }
+
+                _dish.setRecipe(_recipe);
+                _list.add(_dish);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
