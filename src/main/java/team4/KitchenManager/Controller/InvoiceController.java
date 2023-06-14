@@ -224,7 +224,7 @@ public class InvoiceController {
         Date currentDate = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         String datePart = dateFormat.format(currentDate);
-        String sql = "SELECT `id` FROM `invoices` ORDER BY `id` DESC LIMIT 1;";
+        String sql = "SELECT `id` FROM `invoices` WHERE `id` LIKE '%"+datePart+"%' ORDER BY `id` DESC LIMIT 1;";
         String id = "";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
