@@ -66,7 +66,7 @@ public class AttendanceController {
         AddAttendance(employee, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()));
         }
     public int CountAttendances(Date day){
-        var _query = "SELECT COUNT(Id) as counter FROM attendances WHERE = ?;";
+        var _query = "SELECT COUNT(Id) as counter FROM attendances WHERE `day` = ?;";
             try {
                 var _statement = Connector.getConnector().prepareStatement(_query);
                     _statement.setDate(1, day);

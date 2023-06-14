@@ -65,16 +65,15 @@ public class EmployeeController {
         return _target;
         }
     public void addEmployee(Employee newEmployee) {
-        var _query = "INSERT INTO employees (Id, first_name, last_name, phone, salary, position, image_path) VALUES (?, ?, ?, ?, ?)";
+        var _query = "INSERT INTO employees (first_name, last_name, phone, salary, position, image_path) VALUES (?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement statement = Connector.getConnector().prepareStatement(_query);
-            statement.setString(1, newEmployee.getId());
-            statement.setString(2, newEmployee.getFirstName());
-            statement.setString(3, newEmployee.getLastName());
-            statement.setString(4, newEmployee.getPhoneNumber());
-            statement.setInt(5, newEmployee.getSalary());
-            statement.setString(6, newEmployee.getPosition());
-            statement.setString(7, newEmployee.getImagePath());
+            statement.setString(1, newEmployee.getFirstName());
+            statement.setString(2, newEmployee.getLastName());
+            statement.setString(3, newEmployee.getPhoneNumber());
+            statement.setInt(4, newEmployee.getSalary());
+            statement.setString(5, newEmployee.getPosition());
+            statement.setString(6, newEmployee.getImagePath());
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {

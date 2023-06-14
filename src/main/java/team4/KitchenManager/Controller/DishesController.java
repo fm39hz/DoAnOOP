@@ -34,11 +34,12 @@ public class DishesController {
             "ingredients.cost AS ingre_cost,\n" +
             "ingredients.name AS ingre_name\n" +
             "FROM dishes\n" +
-            "INNER JOIN quantities ON dishes.id = quantities.dish_id\n" +
-            "INNER JOIN ingredients ON ingredients.id = quantities.ingredient_id\n";
+            "LEFT JOIN quantities ON dishes.id = quantities.dish_id\n" +
+            "LEFT JOIN ingredients ON ingredients.id = quantities.ingredient_id\n";
 
-    private void SqlProcessor(List<Dish> _list, List<IngredientQuantity> _list_quantity, int _ingredient_quantity_id, ResultSet rs) throws SQLException {
+    private void SqlProcessor(List<Dish> _list, List<IngredientQuantity> _list_quantity, ResultSet rs) throws SQLException {
         int _previous_id = 0;
+        int _ingredient_quantity_id = 1;
         while (rs.next()) {
             Ingredient _ingredient = new Ingredient();
 
@@ -77,12 +78,10 @@ public class DishesController {
         List<Dish> _list = new ArrayList<>();
         List<IngredientQuantity> _list_quantity = new ArrayList<>();
         String sql = this.sql_join_query + "ORDER BY `id` ASC";
-        int _ingredient_quantity_id = 1;
-
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            SqlProcessor(_list, _list_quantity, _ingredient_quantity_id, rs);
+            SqlProcessor(_list, _list_quantity, rs);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -125,7 +124,7 @@ public class DishesController {
 
     public boolean updateDishes(Dish d) {
         boolean _ok = false;
-        String sql = "UPDATE dishes SET `name`=?,`price`=?, `image_path`=?, `desciption`=? WHERE `id`=?;";
+        String sql = "UPDATE dishes SET `name`=?,`price`=?, `image_path`=?, `description`=? WHERE `id`=?;";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
             ps.setString(1, d.getName());
@@ -145,13 +144,12 @@ public class DishesController {
     public List<Dish> findByName(String query) {
         List<Dish> _list = new ArrayList<>();
         List<IngredientQuantity> _list_quantity = new ArrayList<>();
-        String sql = this.sql_join_query +  "WHERE dishes.name LIKE '%"+query+"%' ORDER BY id ASC";
-        int _ingredient_quantity_id = 1;
+        String sql = this.sql_join_query +  "WHERE dishes.name LIKE ? ORDER BY id ASC";
         try {
             var ps = conn.getConnector().prepareStatement(sql);
-//            ps.setString(1,query);
+            ps.setString(1,"%'"+query+"'%");
             ResultSet rs = ps.executeQuery();
-            SqlProcessor(_list, _list_quantity, _ingredient_quantity_id, rs);
+            SqlProcessor(_list, _list_quantity, rs);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -161,14 +159,11 @@ public class DishesController {
     public List<Dish> sortBy(String by, boolean desc) {
         List<Dish> _list = new ArrayList<>();
         List<IngredientQuantity> _list_quantity = new ArrayList<>();
-        int _ingredient_quantity_id = 1;
         String sql = this.sql_join_query;
         try {
             var ps = conn.getConnector().prepareStatement(sql);
-//            ps.setString(1,"by");
-//            ps.setString(2, _sort);
             ResultSet rs = ps.executeQuery();
-            SqlProcessor(_list, _list_quantity, _ingredient_quantity_id, rs);
+            SqlProcessor(_list, _list_quantity, rs);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -182,9 +177,8 @@ public class DishesController {
                     case "name":
                         return o1.getName().compareTo(o2.getName());
                     default:
-                        throw new RuntimeException("what do you want to sort?");
+                        throw new RuntimeException("only support sort by name or price.");
                 }
-
             }
         };
         Collections.sort(_list, _sortedList);
@@ -212,9 +206,8 @@ public class DishesController {
             ps.setInt(1, Integer.parseInt(id));
             ResultSet rs = ps.executeQuery();
 
-            int size = 0;
             rs.last();    // moves cursor to the last row
-            size = rs.getRow(); // get row id
+            int size = rs.getRow(); // get row id
             if (size == 0) {
                 throw new Exception("dish not found");
             }
