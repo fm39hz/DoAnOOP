@@ -20,7 +20,10 @@ CREATE DATABASE IF NOT EXISTS `kitchen` /*!40100 DEFAULT CHARACTER SET utf8mb4 C
 USE `kitchen`;
 
 -- Dumping structure for table kitchen.attendances
-CREATE TABLE IF NOT EXISTS `attendances` (
+DROP TABLE IF EXISTS `attendances`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `attendances` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `emp_id` int(11) NOT NULL,
   `day` date NOT NULL,
@@ -50,7 +53,10 @@ INSERT INTO `attendances` (`Id`, `emp_id`, `day`, `checkin_at`) VALUES
 	(118, 400, '2023-06-14', '02:23:50');
 
 -- Dumping structure for table kitchen.customers
-CREATE TABLE IF NOT EXISTS `customers` (
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` text DEFAULT NULL,
   `last_name` text DEFAULT 'NULL',
@@ -76,7 +82,10 @@ INSERT INTO `customers` (`id`, `first_name`, `last_name`, `phones`) VALUES
 	(313, 'Nguyễn Văn', 'Huy', '12341234');
 
 -- Dumping structure for table kitchen.dishes
-CREATE TABLE IF NOT EXISTS `dishes` (
+DROP TABLE IF EXISTS `dishes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dishes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `price` int(11) NOT NULL,
@@ -100,7 +109,10 @@ INSERT INTO `dishes` (`id`, `name`, `price`, `image_path`, `description`) VALUES
 	(210, 'com ', 100000, '/path/to/image/', 'test description');
 
 -- Dumping structure for table kitchen.employees
-CREATE TABLE IF NOT EXISTS `employees` (
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employees` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` text NOT NULL,
   `last_name` text NOT NULL,
@@ -127,7 +139,10 @@ INSERT INTO `employees` (`Id`, `first_name`, `last_name`, `phone`, `salary`, `po
 	(411, 'Nguyễn Văn', 'Kinh', '12352345', 5000, 'Staff', '');
 
 -- Dumping structure for table kitchen.ingredients
-CREATE TABLE IF NOT EXISTS `ingredients` (
+DROP TABLE IF EXISTS `ingredients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ingredients` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `date_in` date NOT NULL,
@@ -151,7 +166,10 @@ INSERT INTO `ingredients` (`Id`, `name`, `date_in`, `in_stock`, `cost`) VALUES
 	(610, 'test ingredient', '2023-06-01', 123123, 111);
 
 -- Dumping structure for table kitchen.invoices
-CREATE TABLE IF NOT EXISTS `invoices` (
+DROP TABLE IF EXISTS `invoices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoices` (
   `id` varchar(12) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `customer_feedback` text DEFAULT NULL,
@@ -180,7 +198,10 @@ INSERT INTO `invoices` (`id`, `customer_id`, `customer_feedback`, `created_day`,
 	('202306150013', 300, NULL, '2023-06-15', '01:43:46', 335000);
 
 -- Dumping structure for table kitchen.invoice_detail
-CREATE TABLE IF NOT EXISTS `invoice_detail` (
+DROP TABLE IF EXISTS `invoice_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoice_detail` (
   `invoice_id` varchar(12) DEFAULT NULL,
   `dishes_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -206,7 +227,10 @@ INSERT INTO `invoice_detail` (`invoice_id`, `dishes_id`, `quantity`, `price`) VA
 	('202306150013', 200, 3, 135000);
 
 -- Dumping structure for table kitchen.quantities
-CREATE TABLE IF NOT EXISTS `quantities` (
+DROP TABLE IF EXISTS `quantities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `quantities` (
   `dish_id` int(11) NOT NULL,
   `ingredient_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
