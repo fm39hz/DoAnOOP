@@ -217,46 +217,6 @@ INSERT INTO `ingredients` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `invoice_detail`
---
-
-DROP TABLE IF EXISTS `invoice_detail`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `invoice_detail` (
-  `invoice_id` varchar(12) DEFAULT NULL,
-  `dishes_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `price` int(10) unsigned DEFAULT NULL,
-  KEY `FK__dishes` (`dishes_id`),
-  KEY `FK__orders` (`invoice_id`) USING BTREE,
-  CONSTRAINT `FK_invoice_detail_dishes` FOREIGN KEY (`dishes_id`) REFERENCES `dishes` (`id`),
-  CONSTRAINT `FK_invoice_detail_invoices` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `invoice_detail`
---
-
-LOCK TABLES `invoice_detail` WRITE;
-/*!40000 ALTER TABLE `invoice_detail` DISABLE KEYS */;
-INSERT INTO `invoice_detail` VALUES
-('202206140001',201,1,NULL),
-('202206140001',203,2,NULL),
-('202206140001',206,2,NULL),
-('202206140001',200,3,135000),
-('202306150010',200,3,135000),
-('202306150011',201,10,200000),
-('202306150011',200,3,135000),
-('202306150012',201,10,200000),
-('202306150012',200,3,135000),
-('202306150013',201,10,200000),
-('202306150013',200,3,135000);
-/*!40000 ALTER TABLE `invoice_detail` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `invoices`
 --
 
@@ -300,6 +260,57 @@ INSERT INTO `invoices` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `invoices_detail`
+--
+
+DROP TABLE IF EXISTS `invoices_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoices_detail` (
+  `invoice_id` varchar(12) DEFAULT NULL,
+  `dishes_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` int(10) unsigned DEFAULT NULL,
+  KEY `FK__dishes` (`dishes_id`),
+  KEY `FK__orders` (`invoice_id`) USING BTREE,
+  CONSTRAINT `FK_invoice_detail_dishes` FOREIGN KEY (`dishes_id`) REFERENCES `dishes` (`id`),
+  CONSTRAINT `FK_invoice_detail_invoices` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invoices_detail`
+--
+
+LOCK TABLES `invoices_detail` WRITE;
+/*!40000 ALTER TABLE `invoices_detail` DISABLE KEYS */;
+INSERT INTO `invoices_detail` VALUES
+('202206140001',201,1,NULL),
+('202206140001',203,2,NULL),
+('202206140001',206,2,NULL),
+('202206140001',200,3,135000),
+('202306150010',200,3,135000),
+('202306150011',201,10,200000),
+('202306150011',200,3,135000),
+('202306150012',201,10,200000),
+('202306150012',200,3,135000),
+('202306150013',201,10,200000),
+('202306150013',200,3,135000),
+('202206140001',201,1,NULL),
+('202206140001',203,2,NULL),
+('202206140001',206,2,NULL),
+('202206140001',200,3,135000),
+('202306150010',200,3,135000),
+('202306150011',201,10,200000),
+('202306150011',200,3,135000),
+('202306150012',201,10,200000),
+('202306150012',200,3,135000),
+('202306150013',201,10,200000),
+('202306150013',200,3,135000);
+/*!40000 ALTER TABLE `invoices_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `quantities`
 --
 
@@ -340,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-15 11:34:27
+-- Dump completed on 2023-06-15 11:39:49
