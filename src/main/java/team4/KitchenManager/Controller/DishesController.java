@@ -2,7 +2,6 @@ package team4.KitchenManager.Controller;
 
 import team4.KitchenManager.Model.Dish;
 import team4.KitchenManager.Model.IngredientQuantity;
-import team4.KitchenManager.Model.Ingredient;
 import team4.KitchenManager.DAO.DatabaseConnector;
 import javax.swing.*;
 import java.sql.*;
