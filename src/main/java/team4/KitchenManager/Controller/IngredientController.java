@@ -1,6 +1,8 @@
 package team4.KitchenManager.Controller;
 import team4.KitchenManager.Model.Ingredient;
 import team4.KitchenManager.DAO.DatabaseConnector;
+import team4.KitchenManager.Model.IngredientQuantity;
+
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,6 +39,25 @@ public class IngredientController {
             JOptionPane.showMessageDialog(null, ex);
         }
         return _list;
+    }
+    public Ingredient getAll(String id) {
+        String sql = "SELECT * FROM ingredients WHERE `Id` = ?";
+        var _ingredient = new Ingredient();
+        try {
+            var ps = conn.getConnector().prepareStatement(sql);
+            ps.setString(1,id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                _ingredient.setID(rs.getString("Id"));
+                _ingredient.setName(rs.getString("name"));
+                _ingredient.setInDate(rs.getDate("date_in"));
+                _ingredient.setInStock(rs.getInt("in_stock"));
+                _ingredient.setCost(rs.getInt("cost"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return _ingredient;
     }
     public boolean addIngredient(Ingredient d) {
         boolean _ok = false;

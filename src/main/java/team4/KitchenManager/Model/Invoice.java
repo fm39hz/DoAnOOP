@@ -17,6 +17,7 @@ public class Invoice{
     private Time CreatedTime;
     private Customer Customer;
     private List<Dish> ListDishes;
+    private int TotalPrice;
     private String CustomerFeedback;
     @Override
     public String toString(){
