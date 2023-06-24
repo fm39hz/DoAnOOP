@@ -39,11 +39,9 @@ public class Dishes2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            // TO DO
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Tên món ăn", "Nguyên Liệu", "Gia vị", "Công thức"
