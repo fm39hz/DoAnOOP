@@ -88,7 +88,7 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
+              <Table columnCount="4" rowCount="0">
                 <Column editable="true" title="T&#xea;n m&#xf3;n &#x103;n" type="java.lang.Object"/>
                 <Column editable="true" title="Nguy&#xea;n Li&#x1ec7;u" type="java.lang.Object"/>
                 <Column editable="true" title="Gia v&#x1ecb;" type="java.lang.Object"/>

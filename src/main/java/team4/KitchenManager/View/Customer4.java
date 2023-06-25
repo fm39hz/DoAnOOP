@@ -48,11 +48,9 @@ public class Customer4 extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            // TO DO
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID người mua", "Name người mua", "Phone người mua", "Ngày giao hàng", "Tình trạng", "Ghi chú"
