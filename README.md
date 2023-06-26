@@ -16,10 +16,11 @@
     - [JDK20](https://www.oracle.com/java/technologies/java-se-glance.html)
   - Thêm Maven vào PATH
 
-### Linux
-  - Chạy trong terminal
-    - ```yay -S java-openjdk```
-    - ```yay -S maven```
+### Linux (Arch based)
+  - Cài bằng terminal
+    - ```sudo pacman -S java-openjdk```
+    - ```sudo pacman -S maven```
+
 ## Thiết lập project
-  - Sau khi clone từ git về, mở terminal lên và chạy: 
+  - Sau khi clone từ git về, import database kitchen.sql vào hệ db, sau đó chạy lệnh sau bằng terminal: 
     - ```mvn clean install```
