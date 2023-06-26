@@ -34,42 +34,35 @@ public class Employees extends javax.swing.JPanel {
         this.Image.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + employee.getImagePath()));
         System.out.println(employee.getInformation());
         this.jTextPane2.setText(employee.getInformation());
+            var _attendancesView = new AttendancesView(employee);
+                jTextPane1.setFocusable(false);
+                jTextPane1.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent arg0) {
+                        _attendancesView.setVisible(true);
+                    }
+                    @Override
+                    public void mouseEntered(MouseEvent arg0) {
+                        if (!_attendancesView.isVisible()){
+                            jTextPane1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                            jTextPane1.setForeground(Color.CYAN);
+                            }
+                        }
+                    @Override
+                    public void mouseExited(MouseEvent arg0) {
+                            jTextPane1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        jTextPane1.setForeground(getForeground());
+                        }
+                    @Override
+                    public void mousePressed(MouseEvent arg0) {
+                    }
+                    @Override
+                    public void mouseReleased(MouseEvent arg0) {
+                    }
+                });
             var _attendances = employee.getAttendanceHistory();
             for (var _attendance : _attendances){
                 var _view = new javax.swing.JLabel(_attendance.getDay() + " " + _attendance.getCheckIn());
-                var _fontNormal = _view.getFont();
-                var _attributes = new HashMap<TextAttribute, Object>(_fontNormal.getAttributes());
-                    _attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-                var _fontUnderline = _fontNormal.deriveFont(_attributes);
-                    _view.addMouseListener(new MouseListener() {
-                        @Override
-                        public void mouseClicked(MouseEvent arg0) {
-                            // TODO Auto-generated method stub
-                            throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
-                        }
-                        @Override
-                        public void mouseEntered(MouseEvent arg0) {
-                            _view.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            _view.setFont(_fontUnderline);
-                            _view.setForeground(Color.CYAN);
-                            }
-                        @Override
-                        public void mouseExited(MouseEvent arg0) {
-                            _view.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                            _view.setFont(_fontNormal);
-                            _view.setForeground(getForeground());
-                            }
-                        @Override
-                        public void mousePressed(MouseEvent arg0) {
-                            // TODO Auto-generated method stub
-                            throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
-                        }
-                        @Override
-                        public void mouseReleased(MouseEvent arg0) {
-                            // TODO Auto-generated method stub
-                            throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
-                        }
-                    });
                 this.jPanel3.add(_view);
                 }
         }
