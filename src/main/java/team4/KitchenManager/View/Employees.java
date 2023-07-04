@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.font.TextAttribute;
-import java.util.HashMap;
 
 import team4.KitchenManager.Model.Employee;
 
