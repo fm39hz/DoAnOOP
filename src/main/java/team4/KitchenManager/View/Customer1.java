@@ -180,7 +180,7 @@ this.dispose(); // giải phóng tài nguyên và đóng cửa sổ hiện tại
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Customer1().setVisible(true);
+                new Customer1().setVisible(false);
             }
         });
     }
