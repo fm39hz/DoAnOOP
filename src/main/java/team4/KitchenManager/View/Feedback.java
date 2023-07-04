@@ -3,7 +3,10 @@ package team4.KitchenManager.View;
 import javax.swing.*;
 import javax.swing.border.*;
 
+
 import java.awt.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 public class Feedback extends JPanel {
     private JTextPane CustomerName;
@@ -29,6 +32,33 @@ public class Feedback extends JPanel {
 
         this.CustomerName.setEditable(false);
         this.CustomerName.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+            // //TODO: add invoices view
+            // var _attendancesView = new AttendancesView(employee);
+            //     CustomerName.setFocusable(false);
+            //     CustomerName.addMouseListener(new MouseListener() {
+            //         @Override
+            //         public void mouseClicked(MouseEvent arg0) {
+            //             _attendancesView.setVisible(true);
+            //         }
+            //         @Override
+            //         public void mouseEntered(MouseEvent arg0) {
+            //             if (!_attendancesView.isVisible()){
+            //                 CustomerName.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            //                 CustomerName.setForeground(Color.CYAN);
+            //                 }
+            //             }
+            //         @Override
+            //         public void mouseExited(MouseEvent arg0) {
+            //                 CustomerName.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            //             CustomerName.setForeground(getForeground());
+            //             }
+            //         @Override
+            //         public void mousePressed(MouseEvent arg0) {
+            //         }
+            //         @Override
+            //         public void mouseReleased(MouseEvent arg0) {
+            //         }
+            //     });
             gridBagConstraints = new GridBagConstraints();
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy = 0;
