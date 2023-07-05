@@ -29,6 +29,7 @@ public class CustomerController {
                         _target.setFirstName(_result.getString(2));
                         _target.setLastName(_result.getString(3));
                         _target.setPhoneNumber(_result.getString(4));
+                        _target.setOrderHistory((new InvoiceController(conn).getAll(_target)));
                         customers.add(_target);
                         }
             _result.close();
@@ -51,6 +52,7 @@ public class CustomerController {
                     _target.setFirstName(_result.getString(2));
                     _target.setLastName(_result.getString(3));
                     _target.setPhoneNumber(_result.getString(4));
+                    _target.setOrderHistory((new InvoiceController(conn).getAll(_target)));
                     }
             _result.close();
             _statement.close();
