@@ -70,4 +70,8 @@ public class ControllerTest{
                 }
         assertEquals(14, _getAll.size());
         }
+    @Test
+    public void QuantitiesTest(){
+        
+        }
     }

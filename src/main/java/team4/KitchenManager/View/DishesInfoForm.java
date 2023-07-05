@@ -4,6 +4,11 @@
  */
 package team4.KitchenManager.View;
 
+import javax.swing.ImageIcon;
+
+import team4.KitchenManager.Controller.QuantityController;
+import team4.KitchenManager.Model.Dish;
+
 /**
  *
  * @author Admin
@@ -16,7 +21,18 @@ public class DishesInfoForm extends javax.swing.JFrame {
     public DishesInfoForm() {
         initComponents();
     }
-
+    public DishesInfoForm(Dish dish){
+        initComponents();
+        SetDish(dish);
+        }
+    private void SetDish(Dish dish){
+        var _quantities = new QuantityController();
+        this.name.setText(dish.getName());
+        this.price.setText(Integer.toString(dish.getPrice()));
+        this.jLabel7.setIcon(new ImageIcon(dish.getImagePath()));
+        this.remaining.setText(Integer.toString(_quantities.CalculateRemaining(dish)));
+        this.description.setText(dish.getDescription());
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

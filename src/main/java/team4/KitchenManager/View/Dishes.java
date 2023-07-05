@@ -2,6 +2,8 @@ package team4.KitchenManager.View;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.MouseInputAdapter;
+
 import team4.KitchenManager.Model.Dish;
 
 public class Dishes extends JPanel {
@@ -9,6 +11,7 @@ public class Dishes extends JPanel {
     private JPanel DishInformation;
     private JLabel DishName;
     private JLabel Image;
+    private DishesInfoForm InfoForm;
     private JScrollPane ScrollableView;
 
     public Dishes() {
@@ -19,9 +22,15 @@ public class Dishes extends JPanel {
         this.setDish(dish);
         }
     private void setDish(Dish dish){
+        this.InfoForm = new DishesInfoForm(dish);
         this.DishDescription.setText(dish.getDescription());
         this.DishName.setText(dish.getName());
-        this.Image.setIcon(new ImageIcon(System.getProperty("user.dir") + dish.getImagePath()));
+        this.Image.setIcon(new ImageIcon(dish.getImagePath()));
+        this.DishName.addMouseListener(new MouseInputAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                InfoForm.setVisible(true);
+                }
+            });
         }
     private void InitComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -31,6 +40,7 @@ public class Dishes extends JPanel {
         ScrollableView = new JScrollPane();
         DishDescription = new JTextPane();
         DishName = new JLabel();
+        InfoForm = null;
     
         this.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
         this.setMaximumSize(new java.awt.Dimension(32767, 167));
