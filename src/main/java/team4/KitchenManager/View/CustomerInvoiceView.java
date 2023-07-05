@@ -4,6 +4,15 @@
  */
 package team4.KitchenManager.View;
 
+import javax.swing.table.DefaultTableModel;
+import team4.KitchenManager.Controller.CustomerController;
+import team4.KitchenManager.Controller.InvoiceController;
+import team4.KitchenManager.Model.Customer;
+import team4.KitchenManager.Model.Invoice;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Long
@@ -13,8 +22,31 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
     /**
      * Creates new form CustomerInvoiceView
      */
+    public Customer c = new Customer();
+    public Invoice i = new Invoice();
+    public CustomerController controller = new CustomerController();
+    public InvoiceController iController = new InvoiceController();
+    
     public CustomerInvoiceView() {
+        this.setLocationRelativeTo(null);
         initComponents();
+    }
+    
+    public CustomerInvoiceView(String id) {
+        this.setLocationRelativeTo(null);
+        initComponents();
+        c = controller.getCustomer(id);
+        textFirstName.setText(c.getFirstName());
+        textLastName.setText(c.getLastName());
+        textPhone.setText(c.getPhoneNumber());
+        List<Invoice> list = iController.getAll(c);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (Invoice invoice : list) {
+            Object[] newRowData = {invoice.getID(),
+                    invoice.getCustomerFeedback(),invoice.getCreatedDay().toString(),
+                    invoice.getCreatedTime().toString(),invoice.getTotalPrice()};
+            model.addRow(newRowData);
+        }
     }
 
     /**
@@ -30,17 +62,18 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        buttonOK = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        textFirstName = new javax.swing.JTextField();
+        textPhone = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        textLastName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lịch sử mua hàng");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -56,11 +89,11 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Mặt hàng", "Phản hồi của KH", "Ngày", "Giờ", "Thành tiền"
+                "#", "Phản hồi của KH", "Ngày", "Giờ", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -82,11 +115,16 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(178, 178, 178))
         );
 
-        jButton2.setText("OK");
+        buttonOK.setText("OK");
+        buttonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOKActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"));
 
@@ -94,13 +132,13 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
 
         jLabel3.setText("Số điện thoại");
 
-        jTextField1.setText("jTextField1");
+        textFirstName.setFocusable(false);
 
-        jTextField2.setText("jTextField2");
+        textPhone.setFocusable(false);
 
         jLabel6.setText("Tên");
 
-        jTextField3.setText("jTextField3");
+        textLastName.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,13 +151,13 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2)
+                    .addComponent(textPhone)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)))
+                        .addComponent(textLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -127,13 +165,13 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(textPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,8 +186,7 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(8, 8, 8)))
+                        .addComponent(buttonOK)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,14 +196,19 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonOK)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_buttonOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +246,7 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonOK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -213,8 +255,8 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField textFirstName;
+    private javax.swing.JTextField textLastName;
+    private javax.swing.JTextField textPhone;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,10 +4,14 @@
  */
 package team4.KitchenManager.View;
 
+import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import team4.KitchenManager.Controller.DishesController;
 
 import team4.KitchenManager.Controller.QuantityController;
 import team4.KitchenManager.Model.Dish;
+import team4.KitchenManager.View.QuantityForm;
 
 /**
  *
@@ -18,20 +22,27 @@ public class DishesInfoForm extends javax.swing.JFrame {
     /**
      * Creates new form Dishes2
      */
+    
+    public Dish d = new Dish();
+    public DishesController c = new DishesController();
+    public QuantityForm l;
+    public boolean isEdit = false;
+    
     public DishesInfoForm() {
         initComponents();
     }
     public DishesInfoForm(Dish dish){
+        isEdit = true;
         initComponents();
         SetDish(dish);
         }
     private void SetDish(Dish dish){
         var _quantities = new QuantityController();
-        this.name.setText(dish.getName());
-        this.price.setText(Integer.toString(dish.getPrice()));
-        this.jLabel7.setIcon(new ImageIcon(dish.getImagePath()));
-        this.remaining.setText(Integer.toString(_quantities.CalculateRemaining(dish)));
-        this.description.setText(dish.getDescription());
+        this.textName.setText(dish.getName());
+        this.textPrice.setText(Integer.toString(dish.getPrice()));
+        this.imgIcon.setIcon(new ImageIcon(dish.getImagePath()));
+        this.textRemaining.setText(Integer.toString(_quantities.CalculateRemaining(dish)));
+        this.textDescription.setText(dish.getDescription());
         }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,26 +56,27 @@ public class DishesInfoForm extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
+        textName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        price = new javax.swing.JTextField();
+        textPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         image_path = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        remaining = new javax.swing.JTextField();
+        textRemaining = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonInput = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        description = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        textDescription = new javax.swing.JTextArea();
+        imgIcon = new javax.swing.JLabel();
+        buttonOK = new javax.swing.JButton();
+        buttonExit = new javax.swing.JButton();
+        buttonQuantity = new javax.swing.JButton();
 
         jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Thông tin món ăn");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -75,19 +87,19 @@ public class DishesInfoForm extends javax.swing.JFrame {
 
         jLabel2.setText("Tên món ăn");
 
-        name.setText("Tên");
-        name.addActionListener(new java.awt.event.ActionListener() {
+        textName.setText("Tên");
+        textName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
+                textNameActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Giá bán");
 
-        price.setText("Giá");
-        price.addActionListener(new java.awt.event.ActionListener() {
+        textPrice.setText("Giá");
+        textPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                priceActionPerformed(evt);
+                textPriceActionPerformed(evt);
             }
         });
 
@@ -98,44 +110,44 @@ public class DishesInfoForm extends javax.swing.JFrame {
 
         jLabel5.setText("Số lượng còn lại (ước tính)");
 
-        remaining.setFocusable(false);
+        textRemaining.setFocusable(false);
 
         jLabel6.setText("Mô tả món ăn");
         jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel6.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jButton1.setText("Nhập");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonInput.setText("Nhập");
+        buttonInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonInputActionPerformed(evt);
             }
         });
 
-        description.setColumns(20);
-        description.setRows(5);
-        jScrollPane1.setViewportView(description);
+        textDescription.setColumns(20);
+        textDescription.setRows(5);
+        jScrollPane1.setViewportView(textDescription);
 
-        jLabel7.setText("Icon");
-        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        imgIcon.setText("Icon");
+        imgIcon.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jButton2.setText("OK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonOK.setText("OK");
+        buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonOKActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Thoát");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonExit.setText("Thoát");
+        buttonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buttonExitActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Công thức");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        buttonQuantity.setText("Công thức");
+        buttonQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                buttonQuantityActionPerformed(evt);
             }
         });
 
@@ -163,21 +175,21 @@ public class DishesInfoForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(image_path, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                                    .addComponent(price)
-                                    .addComponent(name)
-                                    .addComponent(remaining))
+                                        .addComponent(buttonInput, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                                    .addComponent(textPrice)
+                                    .addComponent(textName)
+                                    .addComponent(textRemaining))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(imgIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(115, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton5)
+                                .addComponent(buttonQuantity)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2)
+                                .addComponent(buttonOK)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3))
+                                .addComponent(buttonExit))
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
@@ -191,21 +203,21 @@ public class DishesInfoForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(image_path, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(buttonInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(remaining, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textRemaining, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(imgIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -214,38 +226,62 @@ public class DishesInfoForm extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton5))
+                    .addComponent(buttonExit)
+                    .addComponent(buttonOK)
+                    .addComponent(buttonQuantity))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        if (f != null) {
+            image_path.setText(f.getAbsolutePath());
+        }
+    }//GEN-LAST:event_buttonInputActionPerformed
 
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+    private void textNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
+    }//GEN-LAST:event_textNameActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        d.setName(textName.getText());
+        d.setPrice(Integer.parseInt(textPrice.getText()));
+        d.setImagePath(image_path.getText());
+        d.setDescription(textDescription.getText());
+        if(QuantityForm.list == null){
+            d.setRecipe(d.getRecipe());
+        } else {
+            d.setRecipe(QuantityForm.list);
+        }
+        if (isEdit){
+            c.updateDishes(d);
+        } else {
+            c.addDishes(d);
+        }
+       
+    }//GEN-LAST:event_buttonOKActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_buttonExitActionPerformed
 
-    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
+    private void textPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPriceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_priceActionPerformed
+    }//GEN-LAST:event_textPriceActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void buttonQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonQuantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        l = new QuantityForm(d.getID());
+        l.setVisible(true);   
+    }//GEN-LAST:event_buttonQuantityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,23 +326,23 @@ public class DishesInfoForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea description;
+    private javax.swing.JButton buttonExit;
+    private javax.swing.JButton buttonInput;
+    private javax.swing.JButton buttonOK;
+    private javax.swing.JButton buttonQuantity;
     private javax.swing.JTextField image_path;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel imgIcon;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField name;
-    private javax.swing.JTextField price;
-    private javax.swing.JTextField remaining;
+    private javax.swing.JTextArea textDescription;
+    private javax.swing.JTextField textName;
+    private javax.swing.JTextField textPrice;
+    private javax.swing.JTextField textRemaining;
     // End of variables declaration//GEN-END:variables
 }
