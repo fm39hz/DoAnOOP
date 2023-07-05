@@ -7,15 +7,17 @@ package team4.KitchenManager.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Action;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author fm39hz
  */
 public class SearchBar extends javax.swing.JPanel {
-    protected JPanel Target;
     protected List<JPanel> SearchResult;
+    public Action Searched;
 
     /**
      * Creates new form SearchBar
@@ -23,26 +25,11 @@ public class SearchBar extends javax.swing.JPanel {
     public SearchBar() {
         initComponents();
         SearchResult = new ArrayList<>();
-        Target = new JPanel();
     }
-    public SearchBar(JPanel target){
-        initComponents();
-        SearchResult = new ArrayList<>();
-        this.Target = target;
+    public List<JPanel> Display(){
+        return SearchResult;
         }
-    protected void reload(){
-        this.Target.revalidate();
-        this.Target.repaint();
-        }
-    public JPanel Display(){
-        this.Target.removeAll();
-        for (var _targetPanel : SearchResult){
-            this.Target.add(_targetPanel);
-            }
-        return this.Target;
-        }
-    protected void search(String searchPrompt){
-        System.out.println(searchPrompt);
+    public void search(String searchPrompt){
         }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,19 +86,22 @@ public class SearchBar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        this.search(this.jTextField1.getText());
+        var main = (MainWindow)SwingUtilities.getWindowAncestor(this);
+            main.Reload();
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            this.search(this.jTextField1.getText());
+            var main = (MainWindow)SwingUtilities.getWindowAncestor(this);
+                main.Reload();
             }
     }//GEN-LAST:event_jTextField1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    protected javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    protected javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -32,7 +32,7 @@ public class Feedback extends JPanel {
 
         this.CustomerName.setEditable(false);
         this.CustomerName.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-            // //TODO: add invoices view
+            // //TODO: add attendances view
             // var _attendancesView = new AttendancesView(employee);
             //     CustomerName.setFocusable(false);
             //     CustomerName.addMouseListener(new MouseListener() {

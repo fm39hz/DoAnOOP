@@ -13,6 +13,6 @@ public class InformationSchema {
     private String LastName;
     private String PhoneNumber;
     public String getInformation(){
-        return "\tID: " + this.Id + "\n\tHọ và tên: " + this.FirstName + " " + this.LastName + "\n\tSố điện thoại: " + this.PhoneNumber;
+        return "ID: " + this.Id + "\nHọ và tên: " + this.FirstName + " " + this.LastName + "\nSố điện thoại: " + this.PhoneNumber;
         }
     }

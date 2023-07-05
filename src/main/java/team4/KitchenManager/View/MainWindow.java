@@ -5,8 +5,8 @@
 package team4.KitchenManager.View;
 
 import javax.swing.ImageIcon;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
@@ -28,7 +28,22 @@ public class MainWindow extends javax.swing.JFrame {
         
     }
     public void Reload(){
-        this.jPanel9.revalidate();
+        String prompt = "";
+        for (var _child : searchBar1.getComponents()){
+            if (_child instanceof JPanel){
+                for (var _prompt : ((JPanel)_child).getComponents()){
+                    prompt = ((JTextField)_prompt).getText();
+                    }
+                }
+            }
+        searchBar1.search(prompt);
+        System.out.println(jPanel9.getComponentCount());
+        jPanel9.removeAll();
+        for (var _targetPanel : this.searchBar1.Display()){
+            jPanel9.add(_targetPanel);
+            }
+        System.out.println(jPanel9.getComponentCount());
+        this.jPanel9.validate();
         this.jPanel9.repaint();
         }
     public void Test(){
@@ -74,8 +89,8 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
+        searchBar1 = new team4.KitchenManager.View.DishesSearch();
         jPanel9 = new javax.swing.JPanel();
-        searchBar1 = new DishesSearch(jPanel9);
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -146,7 +161,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Phản hồi của khách hàng", jScrollPane1);
 
-        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
+        jPanel9.setLayout(new java.awt.GridLayout(0, 1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
