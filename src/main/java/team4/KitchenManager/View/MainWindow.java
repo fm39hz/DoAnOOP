@@ -5,6 +5,8 @@
 package team4.KitchenManager.View;
 
 import javax.swing.ImageIcon;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
@@ -17,7 +19,6 @@ import team4.KitchenManager.DAO.DatabaseConnector;
  * @author fm39hz
  */
 public class MainWindow extends javax.swing.JFrame {
-
     /**
      * Creates new form MainWindow
      */
@@ -26,9 +27,12 @@ public class MainWindow extends javax.swing.JFrame {
         Test();
         
     }
-
+    public void Reload(){
+        this.jPanel9.revalidate();
+        this.jPanel9.repaint();
+        }
     public void Test(){
-        setIconImage(new ImageIcon(System.getProperty("user.dir") + "/resource/icon.png").getImage());
+        setIconImage(new ImageIcon("./resource/icon.png").getImage());
         var _connector = new DatabaseConnector();
         var _invoicesController = new InvoiceController();
             for (var invoice : _invoicesController.getAll()){
@@ -36,10 +40,11 @@ public class MainWindow extends javax.swing.JFrame {
                 var _feedbackView = new Feedback(_customer.getFirstName() + " " + _customer.getLastName(), invoice.getCustomerFeedback());
                     jPanel8.add(_feedbackView);
                 }
+        // this.searchBar1 = new DishesSearch(jPanel9);
         var _dishesController = new DishesController(_connector);
             for (var _dish : _dishesController.getAll()){
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
-                    jPanel3.add(_dishesView);
+                    jPanel9.add(_dishesView);
                 }
         var _employeesController = new EmployeeController(new DatabaseConnector());
             for (var _dish : _employeesController.getAll()){
@@ -69,6 +74,8 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        searchBar1 = new DishesSearch(jPanel9);
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -139,7 +146,25 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Phản hồi của khách hàng", jScrollPane1);
 
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
+        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1278, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(searchBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(searchBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jScrollPane2.setViewportView(jPanel3);
 
         jTabbedPane1.addTab("Món ăn", jScrollPane2);
@@ -237,11 +262,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
+    private team4.KitchenManager.View.SearchBar searchBar1;
     // End of variables declaration//GEN-END:variables
 }
