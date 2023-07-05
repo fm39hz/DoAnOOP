@@ -117,6 +117,10 @@ public class MainWindow extends javax.swing.JFrame {
                 var _ingredientView = new team4.KitchenManager.View.Ingredients(_ingredient);
                     jPanel12.add(_ingredientView);
                 }
+        var _invoiceController = new InvoiceController(_connector);
+            var _invoice = _invoiceController.getAll("202206140001");
+                var _invoiceView = new team4.KitchenManager.View.Invoices(_invoice);
+                    jPanel14.add(_invoiceView);
         }
 
     /**
