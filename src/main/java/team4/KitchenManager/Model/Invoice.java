@@ -2,8 +2,6 @@ package team4.KitchenManager.Model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +14,6 @@ public class Invoice{
     private Date CreatedDay;
     private Time CreatedTime;
     private Customer Customer;
-    private List<Dish> ListDishes;
     private int TotalPrice;
     private String CustomerFeedback;
     @Override

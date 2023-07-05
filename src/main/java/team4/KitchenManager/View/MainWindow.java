@@ -97,7 +97,8 @@ public class MainWindow extends javax.swing.JFrame {
         var _invoicesController = new InvoiceController();
             for (var invoice : _invoicesController.getAll()){
                 var _customer = invoice.getCustomer();
-                var _feedbackView = new Feedback(_customer.getFirstName() + " " + _customer.getLastName(), invoice.getCustomerFeedback());
+                var _feedbackView = new Feedback(_customer.getFirstName() + " " + _customer.getLastName(),
+                                                 invoice.getCustomerFeedback());
                     jPanel8.add(_feedbackView);
                 }
         // this.searchBar1 = new DishesSearch(jPanel9);
@@ -139,16 +140,20 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
-        searchBar1 = new team4.KitchenManager.View.DishesSearch();
+        searchBar1 = new team4.KitchenManager.View.SearchBar();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        searchBar2 = new team4.KitchenManager.View.EmployeesSearch();
+        searchBar2 = new team4.KitchenManager.View.SearchBar();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel11 = new javax.swing.JPanel();
-        searchBar3 = new team4.KitchenManager.View.IngredientsSearch();
+        searchBar3 = new team4.KitchenManager.View.SearchBar();
         jPanel12 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanel13 = new javax.swing.JPanel();
+        searchBar4 = new team4.KitchenManager.View.SearchBar();
+        jPanel14 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -214,7 +219,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        jTabbedPane1.addTab("Toongr quan", jScrollPane1);
+        jTabbedPane1.addTab("Tong quan", jScrollPane1);
 
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
 
@@ -284,7 +289,30 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(jPanel11);
 
-        jTabbedPane1.addTab("Nguyeen lieeju", jScrollPane4);
+        jTabbedPane1.addTab("Nguyen Lieu", jScrollPane4);
+
+        jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(searchBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 1250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 28, Short.MAX_VALUE))
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(searchBar4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane6.setViewportView(jPanel13);
+
+        jTabbedPane1.addTab("Hoa Don", jScrollPane6);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -370,6 +398,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -383,10 +413,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private team4.KitchenManager.View.SearchBar searchBar1;
     private team4.KitchenManager.View.SearchBar searchBar2;
     private team4.KitchenManager.View.SearchBar searchBar3;
+    private team4.KitchenManager.View.SearchBar searchBar4;
     // End of variables declaration//GEN-END:variables
 }
