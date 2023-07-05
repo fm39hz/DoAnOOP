@@ -148,7 +148,7 @@ public class CustomerInfoForm extends javax.swing.JFrame {
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         dispose();
-// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed

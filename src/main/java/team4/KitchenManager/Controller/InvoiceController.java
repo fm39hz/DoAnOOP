@@ -7,6 +7,7 @@ import java.sql.Date;
 
 import team4.KitchenManager.Model.Customer;
 import team4.KitchenManager.Model.Dish;
+import team4.KitchenManager.Model.IngredientQuantity;
 import team4.KitchenManager.Model.Invoice;
 import team4.KitchenManager.DAO.DatabaseConnector;
 
@@ -49,11 +50,21 @@ public class InvoiceController {
             var _result = _statement.executeQuery();
                 while (_result.next()){
                     var _target = new Invoice();
+                    var _dish = new Dish();
+                    var _dishController = new DishesController();
                     _target.setID(_result.getString("id"));
                     _target.setCreatedDay(_result.getDate("created_day"));
                     _target.setCreatedTime(_result.getTime("created_time"));
                     _target.setCustomer(customer);
                     _target.setCustomerFeedback(_result.getString("customer_feedback"));
+                    List<Dish> _dishes = new ArrayList<>();
+                    String sql2 = "SELECT * FROM invoices_detail WHERE `invoice_id` = "+_result.getString("id");
+                    var rs2 = conn.getConnector().prepareStatement(sql2).executeQuery();
+                    while (rs2.next()) {
+                        _dish = _dishController.getAll(rs2.getString("dishes_id"));
+                        _dishes.add(_dish);
+                    }
+                    _target.setListDishes(_dishes);
                     _target.setTotalPrice(_result.getInt("total_price"));
                     _invoices.add(_target);
                     }

@@ -11,6 +11,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Th&#xf4;ng tin m&#xf3;n &#x103;n"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -53,14 +54,14 @@
                                   <Group type="102" attributes="0">
                                       <Component id="image_path" pref="213" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton1" pref="92" max="32767" attributes="0"/>
+                                      <Component id="buttonInput" pref="92" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="price" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="name" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="remaining" max="32767" attributes="0"/>
+                                  <Component id="textPrice" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textName" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textRemaining" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace pref="109" max="32767" attributes="0"/>
-                              <Component id="jLabel7" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="imgIcon" min="-2" pref="132" max="-2" attributes="0"/>
                               <EmptySpace pref="115" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -68,11 +69,11 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonQuantity" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonOK" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonExit" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel1" max="32767" attributes="0"/>
                       </Group>
@@ -92,26 +93,26 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="price" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="image_path" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" max="32767" attributes="0"/>
+                          <Component id="buttonInput" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="remaining" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textRemaining" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jLabel7" max="32767" attributes="0"/>
+                  <Component id="imgIcon" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -123,9 +124,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonExit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonOK" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonQuantity" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -152,12 +153,12 @@
         <Property name="text" type="java.lang.String" value="T&#xea;n m&#xf3;n &#x103;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="name">
+    <Component class="javax.swing.JTextField" name="textName">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xea;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textNameActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -165,12 +166,12 @@
         <Property name="text" type="java.lang.String" value="Gi&#xe1; b&#xe1;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="price">
+    <Component class="javax.swing.JTextField" name="textPrice">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gi&#xe1;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="priceActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textPriceActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -189,7 +190,7 @@
         <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng c&#xf2;n l&#x1ea1;i (&#x1b0;&#x1edb;c t&#xed;nh)"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="remaining">
+    <Component class="javax.swing.JTextField" name="textRemaining">
       <Properties>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
@@ -201,12 +202,12 @@
         <Property name="verticalTextPosition" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="buttonInput">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nh&#x1ead;p"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonInputActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -216,7 +217,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="description">
+        <Component class="javax.swing.JTextArea" name="textDescription">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -224,34 +225,34 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel7">
+    <Component class="javax.swing.JLabel" name="imgIcon">
       <Properties>
         <Property name="text" type="java.lang.String" value="Icon"/>
         <Property name="verticalAlignment" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="buttonOK">
       <Properties>
         <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOKActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="buttonExit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tho&#xe1;t"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="buttonQuantity">
       <Properties>
         <Property name="text" type="java.lang.String" value="C&#xf4;ng th&#x1ee9;c"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonQuantityActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
