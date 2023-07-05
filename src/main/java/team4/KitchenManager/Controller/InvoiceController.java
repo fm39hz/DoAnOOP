@@ -63,6 +63,27 @@ public class InvoiceController {
             }
         return _invoices;
         }
+    public Invoice getAll(String id){
+        var _query = "SELECT * FROM invoices WHERE id = ?";
+        var _target = new Invoice();
+        try {
+            var _statement = conn.getConnector().prepareStatement(_query);
+                _statement.setString(1, id);
+            var _result = _statement.executeQuery();
+                while (_result.next()){
+                    _target.setID(id);
+                    _target.setCreatedDay(_result.getDate("created_day"));
+                    _target.setCreatedTime(_result.getTime("created_time"));
+                    _target.setCustomer(new CustomerController(this.conn).getCustomer(_result.getString("customer_id")));
+                    _target.setCustomerFeedback(_result.getString("customer_feedback"));
+                    _target.setTotalPrice(_result.getInt("total_price"));
+                    }
+            } 
+        catch (SQLException e) {
+            e.printStackTrace();
+            }
+        return _target;
+        }
     public void addInvoice(Customer customer, HashMap<Dish,Integer> list) {
         // Tạo hóa đơn và thêm vào cơ sở dữ liệu
         String sql = "INSERT INTO invoices (id, customer_id, created_day, created_time) VALUES (?, ?, ?, ?)";

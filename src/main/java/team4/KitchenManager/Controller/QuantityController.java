@@ -12,7 +12,6 @@ public class QuantityController {
     private DatabaseConnector Connector;
 
     public QuantityController() {
-        // không cần truyền tham số, mặc định sẽ dùng mariadb
         Connector = new DatabaseConnector(); 
         }
     public QuantityController(DatabaseConnector connector){

@@ -6,12 +6,16 @@ public class DishesSearch extends SearchBar{
     private DishesController Controller = new DishesController();
     @Override
     public void search(String searchPrompt){
+        this.ClearSearchResult();
         var dishes = Controller.findByName(searchPrompt);
         if ((searchPrompt.equals("") && this.SearchResult.isEmpty()) || !searchPrompt.equals("")){
             for (var dish : dishes){
-                System.out.println("Found: " + dish.getName());
                 this.SearchResult.add(new Dishes(dish));
                 }
             }
+        }
+    @Override
+    public String GetIdName(){
+        return "Dish";
         }
     }

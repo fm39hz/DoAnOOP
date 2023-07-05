@@ -8,10 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.checkerframework.checker.units.qual.t;
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import team4.KitchenManager.Controller.DishesController;
 import team4.KitchenManager.Controller.EmployeeController;
+import team4.KitchenManager.Controller.IngredientController;
 import team4.KitchenManager.Controller.InvoiceController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 /**
@@ -27,32 +30,75 @@ public class MainWindow extends javax.swing.JFrame {
         Test();
         
     }
-    public void Reload(){
+    public void LoadSearchResult(String tab){
         String prompt = "";
-        for (var _child : searchBar1.getComponents()){
-            if (_child instanceof JPanel){
-                for (var _prompt : ((JPanel)_child).getComponents()){
-                    prompt = ((JTextField)_prompt).getText();
+            if (tab.equals(searchBar1.GetIdName())){
+                for (var _child : searchBar1.getComponents()){
+                    if (_child instanceof JPanel){
+                        for (var _prompt : ((JPanel)_child).getComponents()){
+                            prompt = ((JTextField)_prompt).getText();
+                            }
+                        }
                     }
+                jPanel9.removeAll();
+                searchBar1.search(prompt);
+                for (var _targetPanel : this.searchBar1.Display()){
+                    System.out.print(jPanel9.getComponentCount());
+                    jPanel9.add(_targetPanel);
+                    }
+                if (this.searchBar1.Display().isEmpty()){
+                    jPanel9.removeAll();
+                    }
+                jPanel9.revalidate();
                 }
-            }
-        searchBar1.search(prompt);
-        jPanel9.removeAll();
-        System.out.println(jPanel9.getComponentCount());
-        for (var _targetPanel : this.searchBar1.Display()){
-            jPanel9.add(_targetPanel);
-            }
-        System.out.println(jPanel9.getComponentCount());
-        this.jPanel9.validate();
-        this.jPanel9.repaint();
+            else if (tab.equals(searchBar2.GetIdName())){
+                for (var _child : searchBar2.getComponents()){
+                    if (_child instanceof JPanel){
+                        for (var _prompt : ((JPanel)_child).getComponents()){
+                            prompt = ((JTextField)_prompt).getText();
+                            }
+                        }
+                    }
+                jPanel10.removeAll();
+                searchBar2.search(prompt);
+                for (var _targetPanel : this.searchBar2.Display()){
+                    System.out.print(jPanel10.getComponentCount());
+                    jPanel10.add(_targetPanel);
+                    }
+                if (this.searchBar2.Display().isEmpty()){
+                    jPanel10.removeAll();
+                    }
+                jPanel10.revalidate();
+                }
+            else if (tab.equals(searchBar3.GetIdName())){
+                for (var _child : searchBar3.getComponents()){
+                    if (_child instanceof JPanel){
+                        for (var _prompt : ((JPanel)_child).getComponents()){
+                            prompt = ((JTextField)_prompt).getText();
+                            }
+                        }
+                    }
+                jPanel12.removeAll();
+                searchBar3.search(prompt);
+                for (var _targetPanel : this.searchBar3.Display()){
+                    System.out.print(jPanel12.getComponentCount());
+                    jPanel12.add(_targetPanel);
+                    }
+                if (this.searchBar3.Display().isEmpty()){
+                    jPanel12.removeAll();
+                    }
+                jPanel12.revalidate();
+                }
         }
     public void Test(){
         setIconImage(new ImageIcon("./resource/icon.png").getImage());
+        jTextArea1.setText("Phản hồi của khách hàng");
         var _connector = new DatabaseConnector();
         var _invoicesController = new InvoiceController();
             for (var invoice : _invoicesController.getAll()){
                 var _customer = invoice.getCustomer();
-                var _feedbackView = new Feedback(_customer.getFirstName() + " " + _customer.getLastName(), invoice.getCustomerFeedback());
+                var _feedbackView = new Feedback(_customer.getFirstName() + " " + _customer.getLastName(),
+                                                 invoice.getCustomerFeedback());
                     jPanel8.add(_feedbackView);
                 }
         // this.searchBar1 = new DishesSearch(jPanel9);
@@ -61,10 +107,15 @@ public class MainWindow extends javax.swing.JFrame {
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
                     jPanel9.add(_dishesView);
                 }
-        var _employeesController = new EmployeeController(new DatabaseConnector());
+        var _employeesController = new EmployeeController(_connector);
             for (var _dish : _employeesController.getAll()){
                 var _employeesView = new team4.KitchenManager.View.Employees(_dish);
-                    jPanel4.add(_employeesView);
+                    jPanel10.add(_employeesView);
+                }
+        var _ingredientsController = new IngredientController(_connector);
+            for (var _ingredient : _ingredientsController.getAll()){
+                var _ingredientView = new team4.KitchenManager.View.Ingredients(_ingredient);
+                    jPanel12.add(_ingredientView);
                 }
         }
 
@@ -89,10 +140,20 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
-        searchBar1 = new team4.KitchenManager.View.DishesSearch();
+        searchBar1 = new team4.KitchenManager.View.SearchBar();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
+        searchBar2 = new team4.KitchenManager.View.SearchBar();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel11 = new javax.swing.JPanel();
+        searchBar3 = new team4.KitchenManager.View.SearchBar();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanel13 = new javax.swing.JPanel();
+        searchBar4 = new team4.KitchenManager.View.SearchBar();
+        jPanel14 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -103,7 +164,6 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chương trình quản lý nhà hàng");
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
@@ -159,9 +219,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        jTabbedPane1.addTab("Phản hồi của khách hàng", jScrollPane1);
+        jTabbedPane1.addTab("Tong quan", jScrollPane1);
 
-        jPanel9.setLayout(new java.awt.GridLayout(0, 1));
+        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -169,8 +229,8 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1278, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(searchBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+                .addComponent(searchBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 1250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,10 +244,75 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Món ăn", jScrollPane2);
 
-        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
+        jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(searchBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(searchBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         jScrollPane3.setViewportView(jPanel4);
 
         jTabbedPane1.addTab("Nhân viên", jScrollPane3);
+
+        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(searchBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(searchBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane4.setViewportView(jPanel11);
+
+        jTabbedPane1.addTab("Nguyen Lieu", jScrollPane4);
+
+        jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(searchBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 1250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 28, Short.MAX_VALUE))
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(searchBar4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane6.setViewportView(jPanel13);
+
+        jTabbedPane1.addTab("Hoa Don", jScrollPane6);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,7 +322,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -270,6 +395,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -281,9 +411,14 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private team4.KitchenManager.View.SearchBar searchBar1;
+    private team4.KitchenManager.View.SearchBar searchBar2;
+    private team4.KitchenManager.View.SearchBar searchBar3;
+    private team4.KitchenManager.View.SearchBar searchBar4;
     // End of variables declaration//GEN-END:variables
 }
