@@ -14,6 +14,7 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import team4.KitchenManager.Controller.DishesController;
 import team4.KitchenManager.Controller.EmployeeController;
+import team4.KitchenManager.Controller.IngredientController;
 import team4.KitchenManager.Controller.InvoiceController;
 import team4.KitchenManager.DAO.DatabaseConnector;
 /**
@@ -69,6 +70,25 @@ public class MainWindow extends javax.swing.JFrame {
                     }
                 jPanel10.revalidate();
                 }
+            else if (tab.equals(searchBar3.GetIdName())){
+                for (var _child : searchBar3.getComponents()){
+                    if (_child instanceof JPanel){
+                        for (var _prompt : ((JPanel)_child).getComponents()){
+                            prompt = ((JTextField)_prompt).getText();
+                            }
+                        }
+                    }
+                jPanel12.removeAll();
+                searchBar3.search(prompt);
+                for (var _targetPanel : this.searchBar3.Display()){
+                    System.out.print(jPanel12.getComponentCount());
+                    jPanel12.add(_targetPanel);
+                    }
+                if (this.searchBar3.Display().isEmpty()){
+                    jPanel12.removeAll();
+                    }
+                jPanel12.revalidate();
+                }
         }
     public void Test(){
         setIconImage(new ImageIcon("./resource/icon.png").getImage());
@@ -86,10 +106,15 @@ public class MainWindow extends javax.swing.JFrame {
                 var _dishesView = new team4.KitchenManager.View.Dishes(_dish);
                     jPanel9.add(_dishesView);
                 }
-        var _employeesController = new EmployeeController(new DatabaseConnector());
+        var _employeesController = new EmployeeController(_connector);
             for (var _dish : _employeesController.getAll()){
                 var _employeesView = new team4.KitchenManager.View.Employees(_dish);
                     jPanel10.add(_employeesView);
+                }
+        var _ingredientsController = new IngredientController(_connector);
+            for (var _ingredient : _ingredientsController.getAll()){
+                var _ingredientView = new team4.KitchenManager.View.Ingredients(_ingredient);
+                    jPanel12.add(_ingredientView);
                 }
         }
 
@@ -120,6 +145,10 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         searchBar2 = new team4.KitchenManager.View.EmployeesSearch();
         jPanel10 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel11 = new javax.swing.JPanel();
+        searchBar3 = new team4.KitchenManager.View.IngredientsSearch();
+        jPanel12 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -130,7 +159,6 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chương trình quản lý nhà hàng");
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
@@ -186,7 +214,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        jTabbedPane1.addTab("Tổng quan", jScrollPane1);
+        jTabbedPane1.addTab("Toongr quan", jScrollPane1);
 
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
 
@@ -235,6 +263,29 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Nhân viên", jScrollPane3);
 
+        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(searchBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(searchBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane4.setViewportView(jPanel11);
+
+        jTabbedPane1.addTab("Nguyeen lieeju", jScrollPane4);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -243,7 +294,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -317,6 +368,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -328,10 +381,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private team4.KitchenManager.View.SearchBar searchBar1;
     private team4.KitchenManager.View.SearchBar searchBar2;
+    private team4.KitchenManager.View.SearchBar searchBar3;
     // End of variables declaration//GEN-END:variables
 }
