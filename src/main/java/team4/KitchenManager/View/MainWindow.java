@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.checkerframework.checker.units.qual.t;
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import team4.KitchenManager.Controller.DishesController;
@@ -27,25 +29,50 @@ public class MainWindow extends javax.swing.JFrame {
         Test();
         
     }
-    public void LoadSearchResult(){
+    public void LoadSearchResult(String tab){
         String prompt = "";
-        for (var _child : searchBar1.getComponents()){
-            if (_child instanceof JPanel){
-                for (var _prompt : ((JPanel)_child).getComponents()){
-                    prompt = ((JTextField)_prompt).getText();
+            if (tab.equals(searchBar1.GetIdName())){
+                for (var _child : searchBar1.getComponents()){
+                    if (_child instanceof JPanel){
+                        for (var _prompt : ((JPanel)_child).getComponents()){
+                            prompt = ((JTextField)_prompt).getText();
+                            }
+                        }
                     }
+                jPanel9.removeAll();
+                searchBar1.search(prompt);
+                for (var _targetPanel : this.searchBar1.Display()){
+                    System.out.print(jPanel9.getComponentCount());
+                    jPanel9.add(_targetPanel);
+                    }
+                if (this.searchBar1.Display().isEmpty()){
+                    jPanel9.removeAll();
+                    }
+                jPanel9.revalidate();
                 }
-            }
-        searchBar1.search(prompt);
-        jPanel9.removeAll();
-        for (var _targetPanel : this.searchBar1.Display()){
-            System.out.print(jPanel9.getComponentCount());
-            jPanel9.add(_targetPanel);
-            }
-        jPanel9.revalidate();
+            else if (tab.equals(searchBar2.GetIdName())){
+                for (var _child : searchBar2.getComponents()){
+                    if (_child instanceof JPanel){
+                        for (var _prompt : ((JPanel)_child).getComponents()){
+                            prompt = ((JTextField)_prompt).getText();
+                            }
+                        }
+                    }
+                jPanel10.removeAll();
+                searchBar2.search(prompt);
+                for (var _targetPanel : this.searchBar2.Display()){
+                    System.out.print(jPanel10.getComponentCount());
+                    jPanel10.add(_targetPanel);
+                    }
+                if (this.searchBar2.Display().isEmpty()){
+                    jPanel10.removeAll();
+                    }
+                jPanel10.revalidate();
+                }
         }
     public void Test(){
         setIconImage(new ImageIcon("./resource/icon.png").getImage());
+        jTextArea1.setText("Phản hồi của khách hàng");
         var _connector = new DatabaseConnector();
         var _invoicesController = new InvoiceController();
             for (var invoice : _invoicesController.getAll()){
@@ -62,7 +89,7 @@ public class MainWindow extends javax.swing.JFrame {
         var _employeesController = new EmployeeController(new DatabaseConnector());
             for (var _dish : _employeesController.getAll()){
                 var _employeesView = new team4.KitchenManager.View.Employees(_dish);
-                    jPanel4.add(_employeesView);
+                    jPanel10.add(_employeesView);
                 }
         }
 
@@ -91,7 +118,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        searchBar2 = new team4.KitchenManager.View.SearchBar();
+        searchBar2 = new team4.KitchenManager.View.EmployeesSearch();
         jPanel10 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -159,7 +186,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        jTabbedPane1.addTab("Phản hồi của khách hàng", jScrollPane1);
+        jTabbedPane1.addTab("Tổng quan", jScrollPane1);
 
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.Y_AXIS));
 

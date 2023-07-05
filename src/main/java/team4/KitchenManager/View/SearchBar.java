@@ -26,6 +26,9 @@ public class SearchBar extends javax.swing.JPanel {
         initComponents();
         SearchResult = new ArrayList<>();
     }
+    public String GetIdName(){
+        return "SearchBar";
+        }
     public void ClearSearchResult(){
         this.SearchResult.clear();
         }
@@ -90,14 +93,14 @@ public class SearchBar extends javax.swing.JPanel {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         var main = (MainWindow)SwingUtilities.getWindowAncestor(this);
-            main.LoadSearchResult();
+            main.LoadSearchResult(this.GetIdName());
 
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
             var main = (MainWindow)SwingUtilities.getWindowAncestor(this);
-                main.LoadSearchResult();
+                main.LoadSearchResult(this.GetIdName());
             }
         else{
             return;

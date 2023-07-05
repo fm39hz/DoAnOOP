@@ -104,21 +104,29 @@ public class EmployeeController {
         }
     }
 
-    // public List<Employee> searchEmployeeByName(String name) {
-    //     List<Employee> searchResults = new ArrayList<>();
-    //     try {
-    //         PreparedStatement statement = Connector.getConnector().prepareStatement("SELECT * FROM employee WHERE name LIKE ?");
-    //         statement.setString(1, "%" + name + "%");
-    //         ResultSet resultSet = statement.executeQuery();
-    //         while (resultSet.next()) {
-    //             Employee employee = new Employee(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"), resultSet.getString("position"), resultSet.getInt("salary"));
-    //             searchResults.add(employee);
-    //         }
-    //         resultSet.close();
-    //         statement.close();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    //     return searchResults;
-    //     }
+    public List<Employee> searchEmployeeByName(String name) {
+        List<Employee> searchResults = new ArrayList<>();
+        var _query = "SELECT * FROM employees WHERE employees.last_name LIKE '%" + name + "%' ORDER BY id ASC";
+        try {
+            var statement = Connector.getConnector().prepareStatement(_query);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                var employee = new Employee();
+                employee.setId(resultSet.getString("id"));
+                employee.setFirstName(resultSet.getString("first_name"));
+                employee.setLastName(resultSet.getString("last_name"));
+                employee.setPhoneNumber(resultSet.getString("phone"));
+                employee.setSalary(resultSet.getInt("salary"));
+                employee.setPosition(resultSet.getString("position"));
+                employee.setImagePath(resultSet.getString("image_path"));
+                employee.setAttendanceHistory(new AttendanceController(Connector).GetAll(employee));
+                searchResults.add(employee);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return searchResults;
+        }
     }

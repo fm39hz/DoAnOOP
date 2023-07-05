@@ -29,8 +29,7 @@ public class Employees extends javax.swing.JPanel {
         }
     private void SetEmployee(Employee employee){
         this.EmployeeName.setText(employee.getFirstName() + " " + employee.getLastName());
-        this.Image.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + employee.getImagePath()));
-        System.out.println("Loaded:\n" + employee.getInformation());
+        this.Image.setIcon(new javax.swing.ImageIcon(employee.getImagePath()));
         this.jTextPane2.setText(employee.getInformation());
             var _attendancesView = new AttendancesView(employee);
                 jTextPane1.setFocusable(false);
