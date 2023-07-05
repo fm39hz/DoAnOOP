@@ -37,8 +37,8 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             }
         searchBar1.search(prompt);
-        System.out.println(jPanel9.getComponentCount());
         jPanel9.removeAll();
+        System.out.println(jPanel9.getComponentCount());
         for (var _targetPanel : this.searchBar1.Display()){
             jPanel9.add(_targetPanel);
             }

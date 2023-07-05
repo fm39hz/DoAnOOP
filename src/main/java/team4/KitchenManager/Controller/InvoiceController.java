@@ -52,7 +52,7 @@ public class InvoiceController {
                     _target.setID(_result.getString("id"));
                     _target.setCreatedDay(_result.getDate("created_day"));
                     _target.setCreatedTime(_result.getTime("created_time"));
-                    _target.setCustomer(new CustomerController(this.conn).getCustomer(_result.getString("customer_id")));
+                    _target.setCustomer(customer);
                     _target.setCustomerFeedback(_result.getString("customer_feedback"));
                     _target.setTotalPrice(_result.getInt("total_price"));
                     _invoices.add(_target);
