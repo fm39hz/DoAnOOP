@@ -5,6 +5,8 @@
 package team4.KitchenManager.View;
 
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import team4.KitchenManager.Controller.DishesController;
 import team4.KitchenManager.Controller.IngredientController;
@@ -21,7 +23,7 @@ public class QuantityForm extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public ArrayList<IngredientQuantity> list;
+    static ArrayList<IngredientQuantity> list;
     public DishesController dc = new DishesController();
     public Ingredient i = new Ingredient();
     public IngredientController ic = new IngredientController();
@@ -29,34 +31,36 @@ public class QuantityForm extends javax.swing.JFrame {
     DefaultTableModel model;
     
     
-//    public QuantityForm() {
-//        initComponents();
-//    }
     public QuantityForm() {
+        initComponents();
+    }
+    public QuantityForm(String id) {
         var d = new Dish();
-        d = dc.getAll("200");
+        d = dc.getAll(id);
         initComponents();
         model = (DefaultTableModel) jTable1.getModel();
         var recipe = d.getRecipe();
         var allIngredient = ic.getAll();
-        var currentIngredient = ic.getAll(d.getID());
+//        var currentIngredient = ic.getAll(d.getID());
         for (Ingredient in: allIngredient) {
-            jComboBox1.addItem(in.getName());
+            jComboBox1.addItem(in.getID()+" "+in.getName());
         }
         for (IngredientQuantity iq1: recipe) {
             model.addRow(new Object[]{
-                iq1.getIngredient().getName(),iq1.getQuantity()
+                iq1.getIngredient().getID(),iq1.getIngredient().getName(),iq1.getQuantity()
             });
         }
-        
-        
-        
+ 
     }
     public void showResult() {
-        IngredientQuantity iq2;
+//        IngredientQuantity iq;
         model.addRow(new Object[]{
-            "ok","ok"
+            i.getID(),i.getName(),iq.getQuantity()
         });
+    }
+    
+    public IngredientQuantity getIngredientQuantity(){
+        return this.iq;
     }
 
     /**
@@ -79,10 +83,10 @@ public class QuantityForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         textAmount = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thêm nguyên liệu");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -136,20 +140,12 @@ public class QuantityForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nguyên liệu", "Số lượng"
+                "ID nguyên liệu", "Nguyên liệu", "Số lượng"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
         }
 
         jLabel2.setText("Nguyên liệu");
@@ -162,10 +158,10 @@ public class QuantityForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Xoá");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonDelete.setText("Xoá");
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonDeleteActionPerformed(evt);
             }
         });
 
@@ -180,7 +176,7 @@ public class QuantityForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(buttonDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
@@ -215,7 +211,7 @@ public class QuantityForm extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonAdd)
-                        .addComponent(jButton1)))
+                        .addComponent(buttonDelete)))
                 .addContainerGap())
         );
 
@@ -224,6 +220,33 @@ public class QuantityForm extends javax.swing.JFrame {
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         // TODO add your handling code here:
+        int rowCount = model.getRowCount();
+        int columnCount = model.getColumnCount();
+        i = new Ingredient();
+        iq = new IngredientQuantity();
+        list = new ArrayList<>();
+
+        // Tạo một Vector chứa toàn bộ dữ liệu từ JTable
+        Vector<Vector<Object>> data = new Vector<>();
+
+        // Lặp qua từng hàng trong JTable và lấy dữ liệu
+        for (int i = 0; i < rowCount; i++) {
+            Vector<Object> row = new Vector<>();
+            for (int j = 0; j < columnCount; j++) {
+                row.add(model.getValueAt(i, j));
+            }
+            data.add(row);
+        }
+        
+        for (Vector<Object> row : data) {
+            i.setID(row.get(0).toString());
+            i.setName(row.get(1).toString());
+            iq.setQuantity((int)row.get(2));
+            iq.setIngredient(i);
+            list.add(iq);
+        }
+        dispose();
+        
     }//GEN-LAST:event_buttonOKActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
@@ -233,14 +256,29 @@ public class QuantityForm extends javax.swing.JFrame {
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         // TODO add your handling code here:
-        list = new ArrayList<>();
         iq = new IngredientQuantity();
+        i = new Ingredient();
+        var selected = jComboBox1.getSelectedItem().toString();
+        i.setID(selected.substring(0,3));
+        i.setName(selected.substring(4));
+        try {
+            iq.setQuantity(Integer.parseInt(textAmount.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Số lượng không hợp lệ");
+            return;
+        }
+        showResult();
+        
         
     }//GEN-LAST:event_buttonAddActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if(jTable1.getSelectedRow() != -1) {
+            // remove selected row from the model
+            model.removeRow(jTable1.getSelectedRow());
+        }
+    }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void textAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textAmountActionPerformed
         // TODO add your handling code here:
@@ -287,8 +325,8 @@ public class QuantityForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonOK;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

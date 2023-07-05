@@ -42,11 +42,7 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
         List<Invoice> list = iController.getAll(c);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (Invoice invoice : list) {
-            String extra = "";
-            if (invoice.getListDishes().size() > 1) {
-                extra = " + "+invoice.getListDishes().size()+" mục";
-            }
-            Object[] newRowData = {invoice.getID(),invoice.getListDishes().get(0).getName()+extra,
+            Object[] newRowData = {invoice.getID(),
                     invoice.getCustomerFeedback(),invoice.getCreatedDay().toString(),
                     invoice.getCreatedTime().toString(),invoice.getTotalPrice()};
             model.addRow(newRowData);
@@ -93,11 +89,11 @@ public class CustomerInvoiceView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Mặt hàng", "Phản hồi của KH", "Ngày", "Giờ", "Thành tiền"
+                "#", "Phản hồi của KH", "Ngày", "Giờ", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -11,6 +11,7 @@ import team4.KitchenManager.Controller.DishesController;
 
 import team4.KitchenManager.Controller.QuantityController;
 import team4.KitchenManager.Model.Dish;
+import team4.KitchenManager.View.QuantityForm;
 
 /**
  *
@@ -24,11 +25,14 @@ public class DishesInfoForm extends javax.swing.JFrame {
     
     public Dish d = new Dish();
     public DishesController c = new DishesController();
+    public QuantityForm l;
+    public boolean isEdit = false;
     
     public DishesInfoForm() {
         initComponents();
     }
     public DishesInfoForm(Dish dish){
+        isEdit = true;
         initComponents();
         SetDish(dish);
         }
@@ -251,6 +255,17 @@ public class DishesInfoForm extends javax.swing.JFrame {
         d.setPrice(Integer.parseInt(textPrice.getText()));
         d.setImagePath(image_path.getText());
         d.setDescription(textDescription.getText());
+        if(QuantityForm.list == null){
+            d.setRecipe(d.getRecipe());
+        } else {
+            d.setRecipe(QuantityForm.list);
+        }
+        if (isEdit){
+            c.updateDishes(d);
+        } else {
+            c.addDishes(d);
+        }
+       
     }//GEN-LAST:event_buttonOKActionPerformed
 
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
@@ -264,7 +279,8 @@ public class DishesInfoForm extends javax.swing.JFrame {
 
     private void buttonQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonQuantityActionPerformed
         // TODO add your handling code here:
-        new QuantityForm().setVisible(true);
+        l = new QuantityForm(d.getID());
+        l.setVisible(true);   
     }//GEN-LAST:event_buttonQuantityActionPerformed
 
     /**

@@ -64,7 +64,7 @@ public class InvoiceController {
                         _dish = _dishController.getAll(rs2.getString("dishes_id"));
                         _dishes.add(_dish);
                     }
-                    _target.setListDishes(_dishes);
+//                    _target.setListDishes(_dishes);
                     _target.setTotalPrice(_result.getInt("total_price"));
                     _invoices.add(_target);
                     }

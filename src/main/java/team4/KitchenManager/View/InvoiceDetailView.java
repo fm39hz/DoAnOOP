@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package team4.KitchenManager.View;
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import team4.KitchenManager.Controller.InvoiceController;
+import team4.KitchenManager.Controller.InvoiceDetailController;
+import team4.KitchenManager.Model.Invoice;
+import team4.KitchenManager.Model.InvoiceDetail;
 /**
  *
  * @author Long
@@ -13,7 +19,24 @@ public class InvoiceDetailView extends javax.swing.JFrame {
     /**
      * Creates new form InvoiceDetailView
      */
+    public InvoiceDetailController idc = new InvoiceDetailController();
+    public InvoiceController ic = new InvoiceController();
     public InvoiceDetailView() {
+        initComponents();
+        var i = ic.getAll("202206140001");
+        invoice_id.setText(i.getID());
+        name.setText(i.getCustomer().getFirstName()+" "+i.getCustomer().getLastName());
+        phone.setText(i.getCustomer().getPhoneNumber());
+        date.setText(i.getCreatedDay().toString()+" "+i.getCreatedTime().toString());
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ArrayList<InvoiceDetail> list = new ArrayList<>();
+        
+    }
+    public InvoiceDetailView(Invoice i) {
+        invoice_id.setText(i.getID());
+        name.setText(i.getCustomer().getFirstName()+" "+i.getCustomer().getLastName());
+        phone.setText(i.getCustomer().getPhoneNumber());
+        date.setText(i.getCreatedDay().toString()+" "+i.getCreatedTime().toString());
         initComponents();
     }
 
@@ -28,13 +51,13 @@ public class InvoiceDetailView extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        invoice_id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        phone = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        date = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -54,20 +77,20 @@ public class InvoiceDetailView extends javax.swing.JFrame {
 
         jLabel2.setText("Mã đơn hàng:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("jLabel3");
+        invoice_id.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        invoice_id.setText("jLabel3");
 
         jLabel4.setText("Khách hàng:");
 
-        jLabel5.setText("jLabel5");
+        name.setText("jLabel5");
 
         jLabel6.setText("Số điện thoại:");
 
-        jLabel7.setText("jLabel7");
+        phone.setText("jLabel7");
 
         jLabel8.setText("Ngày mua:");
 
-        jLabel9.setText("jLabel9");
+        date.setText("jLabel9");
 
         jLabel10.setText("Chi tiết đơn hàng:");
 
@@ -118,10 +141,10 @@ public class InvoiceDetailView extends javax.swing.JFrame {
                                             .addComponent(jLabel8))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(invoice_id, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                            .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addComponent(jLabel10))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
@@ -145,19 +168,19 @@ public class InvoiceDetailView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(invoice_id))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(name))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(phone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(date))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,6 +199,7 @@ public class InvoiceDetailView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -214,20 +238,20 @@ public class InvoiceDetailView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel date;
+    private javax.swing.JLabel invoice_id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel phone;
     // End of variables declaration//GEN-END:variables
 }
