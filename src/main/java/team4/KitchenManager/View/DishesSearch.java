@@ -6,6 +6,7 @@ public class DishesSearch extends SearchBar{
     private DishesController Controller = new DishesController();
     @Override
     public void search(String searchPrompt){
+        this.ClearSearchResult();
         var dishes = Controller.findByName(searchPrompt);
         if ((searchPrompt.equals("") && this.SearchResult.isEmpty()) || !searchPrompt.equals("")){
             for (var dish : dishes){
