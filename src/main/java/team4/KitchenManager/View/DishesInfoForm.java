@@ -34,6 +34,7 @@ public class DishesInfoForm extends javax.swing.JFrame {
     public DishesInfoForm(Dish dish){
         isEdit = true;
         initComponents();
+        d = dish;
         SetDish(dish);
         }
     private void SetDish(Dish dish){
@@ -74,7 +75,7 @@ public class DishesInfoForm extends javax.swing.JFrame {
 
         jButton4.setText("jButton4");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thông tin món ăn");
         setResizable(false);
 

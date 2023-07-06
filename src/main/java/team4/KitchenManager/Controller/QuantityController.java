@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 public class QuantityController {
     private DatabaseConnector Connector;
 
@@ -32,6 +34,17 @@ public class QuantityController {
                 e.printStackTrace();
             }
         return _quantities;
+        }
+    public void Add(IngredientQuantity quantity){
+        String sql = "INSERT INTO quantities (dish_id, ingredient_id, quantity) VALUES (?, ?, ?);";
+        try {
+            var ps = Connector.getConnector().prepareStatement(sql);
+            ps.setString(1,quantity.getTargetDish().getID());
+            ps.setString(2, quantity.getTargetIngredient().getID());
+            ps.setInt(3, quantity.getQuantity());
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
         }
     public int CalculateRemaining(Dish dish){
         var _remaining = 100000000;

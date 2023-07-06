@@ -118,7 +118,7 @@ public class MainWindow extends javax.swing.JFrame {
                     jPanel12.add(_ingredientView);
                 }
         var _invoiceController = new InvoiceController(_connector);
-            var _invoice = _invoiceController.getAll("202206140001");
+            var _invoice = _invoiceController.getAll("202306150010");
                 var _invoiceView = new team4.KitchenManager.View.Invoices(_invoice);
                     jPanel14.add(_invoiceView);
         }
@@ -144,19 +144,19 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
-        searchBar1 = new team4.KitchenManager.View.SearchBar();
+        searchBar1 = new team4.KitchenManager.View.DishesSearch();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        searchBar2 = new team4.KitchenManager.View.SearchBar();
+        searchBar2 = new team4.KitchenManager.View.EmployeesSearch();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel11 = new javax.swing.JPanel();
-        searchBar3 = new team4.KitchenManager.View.SearchBar();
+        searchBar3 = new team4.KitchenManager.View.IngredientsSearch();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jPanel13 = new javax.swing.JPanel();
-        searchBar4 = new team4.KitchenManager.View.SearchBar();
+        searchBar4 = new team4.KitchenManager.View.InvoicesSearch();
         jPanel14 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -165,7 +165,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chương trình quản lý nhà hàng");
         setMinimumSize(new java.awt.Dimension(1280, 720));
 

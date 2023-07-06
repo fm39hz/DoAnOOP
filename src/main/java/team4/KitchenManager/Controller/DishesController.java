@@ -43,8 +43,8 @@ public class DishesController {
                 while (rs2.next()) {
                     var _ingredientQuantity = new IngredientQuantity();
                     var _get = new IngredientController().getAll(rs2.getString("ingredient_id"));
-                    _ingredientQuantity.setID(String.valueOf(rs2.getRow()));
-                    _ingredientQuantity.setIngredient(_get);
+                    _ingredientQuantity.setTargetDish(_dish);
+                    _ingredientQuantity.setTargetIngredient(_get);
                     _ingredientQuantity.setQuantity(rs2.getInt("quantity"));
                     _recipe.add(_ingredientQuantity);
                 }
@@ -143,8 +143,8 @@ public class DishesController {
                 while (rs2.next()) {
                     var _ingredientQuantity = new IngredientQuantity();
                     var _get = new IngredientController().getAll(rs2.getString("ingredient_id"));
-                    _ingredientQuantity.setID(String.valueOf(rs2.getRow()));
-                    _ingredientQuantity.setIngredient(_get);
+                    _ingredientQuantity.setTargetDish(_dish);
+                    _ingredientQuantity.setTargetIngredient(_get);
                     _ingredientQuantity.setQuantity(rs2.getInt("quantity"));
                     _recipe.add(_ingredientQuantity);
                 }
@@ -181,8 +181,8 @@ public class DishesController {
                 while (rs2.next()) {
                     var _ingredientQuantity = new IngredientQuantity();
                     var _get = new IngredientController().getAll(rs2.getString("ingredient_id"));
-                    _ingredientQuantity.setID(String.valueOf(rs2.getRow()));
-                    _ingredientQuantity.setIngredient(_get);
+                    _ingredientQuantity.setTargetDish(_dish);
+                    _ingredientQuantity.setTargetIngredient(_get);
                     _ingredientQuantity.setQuantity(rs2.getInt("quantity"));
                     _recipe.add(_ingredientQuantity);
                 }

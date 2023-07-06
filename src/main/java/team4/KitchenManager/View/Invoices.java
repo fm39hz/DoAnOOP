@@ -4,6 +4,9 @@
  */
 package team4.KitchenManager.View;
 
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+
 import javax.swing.table.TableColumn;
 
 import team4.KitchenManager.Controller.InvoiceDetailController;
@@ -36,35 +39,12 @@ public class Invoices extends javax.swing.JPanel {
         jTextField1.setText(invoice.getCreatedDay().toString());
         jTextField3.setText(Integer.toString(invoice.getTotalPrice()));
         jTextField4.setText(invoice.getCreatedTime().toString());
-        var model = new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Tên sản phẩm", "Số lượng", "Giá tiền"
+        var _form = new InvoiceDetailView(invoice);
+        jLabel1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                _form.setVisible(true);
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        };
-        var _detailController = new InvoiceDetailController();
-            for (var _row : _detailController.GetAll(invoice)){
-                String[] Data = {_row.getTargetDish().getName(), Integer.toString(_row.getTargetQuantity()), Integer.toString(_row.getTargetQuantity() * _row.getTargetDish().getPrice())};
-                model.addRow(Data);
-                }
-        // jTable1.setModel(model);
+            });
         }
     /**
      * This method is called from within the constructor to initialize the form.

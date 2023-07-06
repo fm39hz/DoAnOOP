@@ -28,16 +28,24 @@ public class InvoiceDetailView extends javax.swing.JFrame {
         name.setText(i.getCustomer().getFirstName()+" "+i.getCustomer().getLastName());
         phone.setText(i.getCustomer().getPhoneNumber());
         date.setText(i.getCreatedDay().toString()+" "+i.getCreatedTime().toString());
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        ArrayList<InvoiceDetail> list = new ArrayList<>();
         
     }
     public InvoiceDetailView(Invoice i) {
+        initComponents();
         invoice_id.setText(i.getID());
         name.setText(i.getCustomer().getFirstName()+" "+i.getCustomer().getLastName());
         phone.setText(i.getCustomer().getPhoneNumber());
         date.setText(i.getCreatedDay().toString()+" "+i.getCreatedTime().toString());
-        initComponents();
+        var model = (DefaultTableModel) jTable1.getModel();
+        var _detailController = new InvoiceDetailController();
+        var _totalPrice = 0;
+            for (var _row : _detailController.GetAll(i)){
+                _totalPrice += _row.getTargetQuantity() * _row.getTargetDish().getPrice();
+                String[] Data = {_row.getTargetDish().getName(), Integer.toString(_row.getTargetDish().getPrice()), Integer.toString(_row.getTargetQuantity()), Integer.toString(_row.getTargetQuantity() * _row.getTargetDish().getPrice())};
+                model.addRow(Data);
+                }
+        jTable1.getColumnModel();
+        jLabel12.setText(Integer.toString(_totalPrice));
     }
 
     /**
@@ -96,10 +104,6 @@ public class InvoiceDetailView extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
             },
             new String [] {
                 "Mặt hàng", "Giá", "Số lượng", "Tổng"

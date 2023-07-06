@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import team4.KitchenManager.Controller.DishesController;
 import team4.KitchenManager.Controller.IngredientController;
+import team4.KitchenManager.Controller.QuantityController;
 import team4.KitchenManager.Model.Ingredient;
 import team4.KitchenManager.Model.Dish;
 import team4.KitchenManager.Model.IngredientQuantity;
@@ -27,6 +28,7 @@ public class QuantityForm extends javax.swing.JFrame {
     public DishesController dc = new DishesController();
     public Ingredient i = new Ingredient();
     public IngredientController ic = new IngredientController();
+    private Dish dish = new Dish();
     IngredientQuantity iq = new IngredientQuantity();
     DefaultTableModel model;
     
@@ -35,11 +37,10 @@ public class QuantityForm extends javax.swing.JFrame {
         initComponents();
     }
     public QuantityForm(String id) {
-        var d = new Dish();
-        d = dc.getAll(id);
+        dish = dc.getAll(id);
         initComponents();
         model = (DefaultTableModel) jTable1.getModel();
-        var recipe = d.getRecipe();
+        var recipe = dish.getRecipe();
         var allIngredient = ic.getAll();
 //        var currentIngredient = ic.getAll(d.getID());
         for (Ingredient in: allIngredient) {
@@ -47,7 +48,7 @@ public class QuantityForm extends javax.swing.JFrame {
         }
         for (IngredientQuantity iq1: recipe) {
             model.addRow(new Object[]{
-                iq1.getIngredient().getID(),iq1.getIngredient().getName(),iq1.getQuantity()
+                iq1.getTargetIngredient().getID(),iq1.getTargetIngredient().getName(),iq1.getQuantity()
             });
         }
  
@@ -223,7 +224,6 @@ public class QuantityForm extends javax.swing.JFrame {
         int rowCount = model.getRowCount();
         int columnCount = model.getColumnCount();
         i = new Ingredient();
-        iq = new IngredientQuantity();
         list = new ArrayList<>();
 
         // Tạo một Vector chứa toàn bộ dữ liệu từ JTable
@@ -242,7 +242,8 @@ public class QuantityForm extends javax.swing.JFrame {
             i.setID(row.get(0).toString());
             i.setName(row.get(1).toString());
             iq.setQuantity((int)row.get(2));
-            iq.setIngredient(i);
+            iq.setTargetIngredient(i);
+            iq.setTargetDish(dish);
             list.add(iq);
         }
         dispose();
@@ -250,17 +251,20 @@ public class QuantityForm extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonOKActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         // TODO add your handling code here:
-        iq = new IngredientQuantity();
+        var _iq = new IngredientQuantity();
         i = new Ingredient();
         var selected = jComboBox1.getSelectedItem().toString();
         i.setID(selected.substring(0,3));
         i.setName(selected.substring(4));
+        _iq.setTargetIngredient(i);
+        _iq.setTargetDish(dish);
+        _iq.setQuantity(this.iq.getQuantity());
+        new QuantityController().Add(_iq);
         try {
             iq.setQuantity(Integer.parseInt(textAmount.getText()));
         } catch (Exception e) {

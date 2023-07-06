@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IngredientQuantity{
-    private String ID;
-    private Ingredient Ingredient;
+    private Dish TargetDish;
+    private Ingredient TargetIngredient;
     private int Quantity;
     @Override
     public String toString(){
