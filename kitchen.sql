@@ -33,8 +33,7 @@ CREATE TABLE IF NOT EXISTS `attendances` (
 ) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table kitchen.attendances: ~16 rows (approximately)
-DELETE FROM `attendances`;
-INSERT INTO `attendances` (`Id`, `emp_id`, `day`, `checkin_at`) VALUES
+REPLACE INTO `attendances` (`Id`, `emp_id`, `day`, `checkin_at`) VALUES
 	(100, 401, '2023-06-15', '15:07:05'),
 	(101, 402, '2023-06-15', '15:10:55'),
 	(102, 403, '2023-06-28', '15:10:55'),
@@ -63,8 +62,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table kitchen.customers: ~21 rows (approximately)
-DELETE FROM `customers`;
-INSERT INTO `customers` (`id`, `first_name`, `last_name`, `phones`) VALUES
+REPLACE INTO `customers` (`id`, `first_name`, `last_name`, `phones`) VALUES
 	(300, 'Nguyễn Văn', 'Hiếu', '12314234'),
 	(301, 'Nguyễn Văn', 'Long', '12412443'),
 	(302, 'Nguyễn Văn', 'Nhật', '124124'),
@@ -99,19 +97,18 @@ CREATE TABLE IF NOT EXISTS `dishes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table kitchen.dishes: ~11 rows (approximately)
-DELETE FROM `dishes`;
-INSERT INTO `dishes` (`id`, `name`, `price`, `image_path`, `description`) VALUES
-	(200, 'Cơm rang dưa bò', 45000, '/resource/beef_fried_rice.png', 'Món cơm rang dưa bò của nhà hàng chúng tôi là số 1'),
-	(201, 'Bánh mì nướng muối ớt', 20000, '/resource/dishes/download.png', 'Đây là best seller của quán'),
-	(202, 'Cơm rang thập cẩm', 35000, '/resource/dishes/images.png', 'Món cơm thuyển thống của quán'),
-	(203, 'Sting', 15000, '/resource/dishes/download (19).png', 'Nước giải khát số 1 của quán'),
-	(204, 'Phở bò', 40000, '/resource/dishes/download-_2_.png', 'Phở bò obama'),
-	(205, 'Nem chua rán', 35000, '/resource/dishes/download (3).png', 'Món tráng miệng best seller'),
-	(206, 'Kem', 12000, '/resource/dishes/download (4).png', 'Kem mixue'),
-	(207, 'Cơm gà chiên', 40000, '/resource/dishes/download-_5_.png', ''),
-	(208, 'Cơm sườn sốt', 45000, '/resource/dishes/download-_6_.png', ''),
-	(209, 'Cơm rang gà chiên', 45000, '/resource/dishes/images-_1_.png', ''),
-	(210, 'com ', 100000, '/resource/dishes/images-_2_.png', '');
+REPLACE INTO `dishes` (`id`, `name`, `price`, `image_path`, `description`) VALUES
+	(200, 'Cơm rang dưa bò', 45000, '/media/fm39hz/Disk/Hienpham/Learning_resource/DoAnOOP/resource/dishes/beef_fried_rice.png', 'Món cơm rang dưa bò của nhà hàng chúng tôi là số 1'),
+	(201, 'Bánh mì nướng muối ớt', 20000, './resource/dishes/download.png', 'Đây là best seller của quán'),
+	(202, 'Cơm rang thập cẩm', 35000, './resource/dishes/images.png', 'Món cơm thuyển thống của quán'),
+	(203, 'Sting', 15000, './resource/dishes/download (19).png', 'Nước giải khát số 1 của quán'),
+	(204, 'Phở bò', 40000, './resource/dishes/download-_2_.png', 'Phở bò obama'),
+	(205, 'Nem chua rán', 35000, './resource/dishes/download (3).png', 'Món tráng miệng best seller'),
+	(206, 'Kem', 12000, './resource/dishes/download (4).png', 'Kem mixue'),
+	(207, 'Cơm gà chiên', 40000, './resource/dishes/download-_5_.png', ''),
+	(208, 'Cơm sườn sốt', 45000, './resource/dishes/download-_6_.png', ''),
+	(209, 'Cơm rang gà chiên', 45000, './resource/dishes/images-_1_.png', ''),
+	(210, 'com ', 100000, './resource/dishes/images-_2_.png', '');
 
 -- Dumping structure for table kitchen.employees
 DROP TABLE IF EXISTS `employees`;
@@ -127,20 +124,19 @@ CREATE TABLE IF NOT EXISTS `employees` (
 ) ENGINE=InnoDB AUTO_INCREMENT=414 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table kitchen.employees: ~12 rows (approximately)
-DELETE FROM `employees`;
-INSERT INTO `employees` (`Id`, `first_name`, `last_name`, `phone`, `salary`, `position`, `image_path`) VALUES
-	(400, 'Nguyễn Thạc', 'Hiếu', '123414', 4000, 'Staff', '/resource/employee/download (7).png'),
-	(401, 'Nguyễn Bá', 'Sơn', '152345', 5000, 'Staff', '/resource/employee/download (9).png'),
-	(402, 'Nguyễn Phi', 'Hùng', '145123', 4000, 'Staff', '/resource/employee/download (10).png'),
-	(403, 'Ngô Tiến', 'Long', '124123', 4000, 'Staff', '/resource/employee/download (17).png'),
-	(404, 'Phạm Danh', 'Hiển', '123515', 6000, 'Staff', '/resource/employee/download (16).png'),
-	(405, 'Nguyễn Khắc', 'Nhật', '145153', 5000, 'Staff', '/resource/employee/images (3).png'),
-	(406, 'Nông Quang', 'Tùng', '834756', 4000, 'Staff', '/resource/employee/images (6).png'),
-	(407, 'Nguyễn Anh', 'Minh', '123526', 5000, 'Staff', '/resource/employee/download (14).png'),
-	(408, 'Nguyễn Văn', 'Ninh', '152345', 7000, 'Staff', '/resource/employee/images (5).png'),
-	(409, 'Nguyễn Văn', 'Nam', '345666', 4000, 'Staff', '/resource/employee/images (7).png'),
-	(410, 'Nguyễn Văn', 'Cam', '151243124', 4000, 'Staff', '/resource/employee/download (11).png'),
-	(411, 'Nguyễn Văn', 'Kinh', '12352345', 5000, 'Staff', '/resource/employee/download (12).png');
+REPLACE INTO `employees` (`Id`, `first_name`, `last_name`, `phone`, `salary`, `position`, `image_path`) VALUES
+	(400, 'Nguyễn Thạc', 'Hiếu', '123414', 4000, 'Staff', './resource/employee/download (7).png'),
+	(401, 'Nguyễn Bá', 'Sơn', '152345', 5000, 'Staff', './resource/employee/download (9).png'),
+	(402, 'Nguyễn Phi', 'Hùng', '145123', 4000, 'Staff', './resource/employee/download (10).png'),
+	(403, 'Ngô Tiến', 'Long', '124123', 4000, 'Staff', './resource/employee/download (17).png'),
+	(404, 'Phạm Danh', 'Hiển', '123515', 6000, 'Staff', './resource/employee/download (16).png'),
+	(405, 'Nguyễn Khắc', 'Nhật', '145153', 5000, 'Staff', './resource/employee/images (3).png'),
+	(406, 'Nông Quang', 'Tùng', '834756', 4000, 'Staff', './resource/employee/images (6).png'),
+	(407, 'Nguyễn Anh', 'Minh', '123526', 5000, 'Staff', './resource/employee/download (14).png'),
+	(408, 'Nguyễn Văn', 'Ninh', '152345', 7000, 'Staff', './resource/employee/images (5).png'),
+	(409, 'Nguyễn Văn', 'Nam', '345666', 4000, 'Staff', './resource/employee/images (7).png'),
+	(410, 'Nguyễn Văn', 'Cam', '151243124', 4000, 'Staff', './resource/employee/download (11).png'),
+	(411, 'Nguyễn Văn', 'Kinh', '12352345', 5000, 'Staff', './resource/employee/download (12).png');
 
 -- Dumping structure for table kitchen.ingredients
 DROP TABLE IF EXISTS `ingredients`;
@@ -154,8 +150,7 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
 ) ENGINE=InnoDB AUTO_INCREMENT=613 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table kitchen.ingredients: ~11 rows (approximately)
-DELETE FROM `ingredients`;
-INSERT INTO `ingredients` (`Id`, `name`, `date_in`, `in_stock`, `cost`) VALUES
+REPLACE INTO `ingredients` (`Id`, `name`, `date_in`, `in_stock`, `cost`) VALUES
 	(600, 'thịt bò', '2023-06-14', 30000, 150000),
 	(601, 'trứng', '2023-06-14', 1000, 2300),
 	(602, 'dưa chua', '2023-06-22', 1000, 2000),
@@ -182,9 +177,8 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   CONSTRAINT `invoices_relation_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table kitchen.invoices: ~15 rows (approximately)
-DELETE FROM `invoices`;
-INSERT INTO `invoices` (`id`, `customer_id`, `customer_feedback`, `created_day`, `created_time`, `total_price`) VALUES
+-- Dumping data for table kitchen.invoices: ~13 rows (approximately)
+REPLACE INTO `invoices` (`id`, `customer_id`, `customer_feedback`, `created_day`, `created_time`, `total_price`) VALUES
 	('202206140001', 307, NULL, '2023-06-15', '00:01:51', NULL),
 	('202206140002', 307, NULL, '0000-00-00', '00:00:00', NULL),
 	('202206140003', 307, 'Lần đầu đi ăn rất ok', '2023-06-01', '12:22:03', NULL),
@@ -213,9 +207,8 @@ CREATE TABLE IF NOT EXISTS `invoices_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table kitchen.invoices_detail: ~32 rows (approximately)
-DELETE FROM `invoices_detail`;
-INSERT INTO `invoices_detail` (`invoice_id`, `dishes_id`, `quantity`, `price`) VALUES
-	('202206140001', 201, 1, NULL),
+REPLACE INTO `invoices_detail` (`invoice_id`, `dishes_id`, `quantity`, `price`) VALUES
+	('202206140001', 208, 1, NULL),
 	('202206140001', 203, 2, NULL),
 	('202206140001', 206, 2, NULL),
 	('202206140001', 200, 3, 135000),
@@ -224,7 +217,7 @@ INSERT INTO `invoices_detail` (`invoice_id`, `dishes_id`, `quantity`, `price`) V
 	('202306150011', 200, 3, 135000),
 	('202306150012', 201, 10, 200000),
 	('202306150012', 200, 3, 135000),
-	('202306150013', 201, 10, 200000),
+	('202306150013', 204, 10, 200000),
 	('202306150013', 200, 3, 135000),
 	('202206140001', 201, 1, NULL),
 	('202206140001', 203, 2, NULL),
@@ -261,8 +254,7 @@ CREATE TABLE IF NOT EXISTS `quantities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table kitchen.quantities: ~4 rows (approximately)
-DELETE FROM `quantities`;
-INSERT INTO `quantities` (`dish_id`, `ingredient_id`, `quantity`) VALUES
+REPLACE INTO `quantities` (`dish_id`, `ingredient_id`, `quantity`) VALUES
 	(200, 600, 1),
 	(200, 603, 3),
 	(210, 601, 2),
